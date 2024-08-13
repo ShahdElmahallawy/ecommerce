@@ -16,11 +16,7 @@ class WishlistItem(models.Model):
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["wishlist", "product"], name="unique_wishlist_product"
-            )
-        ]
+        unique_together = ["wishlist", "product"]
 
     def __str__(self):
         """Return string representation of the wishlist item"""
