@@ -1,8 +1,10 @@
 from django.db import models
-from api.models import Wishlist
+
+from .models import Wishlist
+from . import Audit
 
 
-class WishlistItem(models.Model):
+class WishlistItem(Audit):
     """Model representing an item in a wishlist
 
     Fields:
@@ -20,4 +22,4 @@ class WishlistItem(models.Model):
 
     def __str__(self):
         """Return string representation of the wishlist item"""
-        return f"{self.wishlist.name} - {self.product.name}"
+        return f"{self.wishlist} - {self.product.name}"

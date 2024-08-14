@@ -1,8 +1,8 @@
 from django.db import models
-from . import User
+from . import User, Audit
 
 
-class Wishlist(models.Model):
+class Wishlist(Audit):
     """Model representing a wishlist belonging to a user
 
     Fields:
@@ -13,4 +13,4 @@ class Wishlist(models.Model):
 
     def __str__(self):
         """Return string representation of the wishlist"""
-        return self.user.email
+        return f"{self.user.email}'s wishlist"

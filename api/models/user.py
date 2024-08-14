@@ -37,9 +37,10 @@ class User(AbstractUser, PermissionsMixin):
     """
 
     email = models.EmailField(max_length=255, unique=True)
+    username = None
     name = models.CharField(max_length=255)
-    otp_code = models.CharField(max_length=6, blank=True, null=True)
-    otp_created_at = models.DateTimeField(blank=True, null=True)
+    otp_code = models.CharField(max_length=6, null=True)
+    otp_created_at = models.DateTimeField(null=True)
 
     objects = UserManager()
 

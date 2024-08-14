@@ -1,8 +1,8 @@
 from django.db import models
-from . import User
+from . import User, Audit
 
 
-class Profile(models.Model):
+class Profile(Audit):
     """Profile model for users
 
     Fields:
@@ -18,10 +18,26 @@ class Profile(models.Model):
         ("seller", "Seller"),
         ("customer", "Customer"),
     )
-    type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
-    address = models.CharField(max_length=255, blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    preferred_currency = models.CharField(max_length=3, blank=True, null=True)
+    user_type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
+    address = models.CharField(max_length=255, null=True)
+    phone = models.CharField(max_length=15, null=True)
+    CURRENCY_CHOICES = (
+        ("EGP", "Egyptian Pound"),
+        ("MXN", "Mexican Peso"),
+        ("SAR", "Saudi Riyal"),
+        ("USD", "United States Dollar"),
+        ("EUR", "Euro"),
+        ("JPY", "Japanese Yen"),
+        ("GBP", "British Pound Sterling"),
+        ("CHF", "Swiss Franc"),
+        ("CAD", "Canadian Dollar"),
+        ("AUD", "Australian Dollar"),
+        ("INR", "Indian Rupee"),
+        ("RUB", "Russian Ruble"),
+        ("ZAR", "South African Rand"),
+        ("TRY", "Turkish Lira"),
+    )
+    preferred_currency = models.CharField(max_length=3, choices=USER_TYPES, null=True)
 
     def __str__(self):
         """Return string representation of the profile"""
