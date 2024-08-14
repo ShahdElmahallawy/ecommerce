@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from api.models.order import Order
 
-from serializers.order_item import OrderItemSerializer
+from api.serializers.order_item import OrderItemSerializer
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
