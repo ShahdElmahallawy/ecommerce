@@ -12,5 +12,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(Profile)
+
+
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ["user", "type","address", "phone", "preferred_currency"]
+    list_display = ["user", "type", "address", "phone", "preferred_currency"]
