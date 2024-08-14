@@ -7,7 +7,7 @@ class Profile(Audit):
 
     Fields:
         user: User associated with the profile
-        type: Type of the user (seller or customer)
+        user_type: Type of the user (seller or customer)
         address: Address of the user
         phone: Phone number of the user
         preferred_currency: Preferred currency of the user
@@ -20,7 +20,7 @@ class Profile(Audit):
     )
     user_type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
     address = models.CharField(max_length=255, null=True)
-    phone = models.CharField(max_length=15, null=True)
+    phone = models.CharField(max_length=11, null=True)
     CURRENCY_CHOICES = (
         ("EGP", "Egyptian Pound"),
         ("MXN", "Mexican Peso"),
@@ -37,7 +37,9 @@ class Profile(Audit):
         ("ZAR", "South African Rand"),
         ("TRY", "Turkish Lira"),
     )
-    preferred_currency = models.CharField(max_length=3, choices=USER_TYPES, null=True)
+    preferred_currency = models.CharField(
+        max_length=3, choices=CURRENCY_CHOICES, null=True
+    )
 
     def __str__(self):
         """Return string representation of the profile"""
