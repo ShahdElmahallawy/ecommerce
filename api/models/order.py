@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-class Order(models.Model):
+from api.models.audit import Audit
+
+class Order(Audit):
     PAYMENT_METHOD_CHOICES = [
         ('credit_card', 'Credit Card'),
-        ('debit_card', 'Debit Card'),]
+        ('debit_card', 'Debit Card'),
+        ('cash_on_delivery',"Cash on Delivery")]
 
     STATUS_CHOICES = [
         ('pending', 'Pending'),
-        ('processing', 'Processing'),
-        ('shipped', 'Shipped'),
         ('delivered', 'Delivered'),
         ('cancelled', 'Cancelled'),
     ]
