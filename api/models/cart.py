@@ -12,11 +12,8 @@ class Cart(models.Model):
 
     Fields:
     - user: user of cart (one to one relation)
-    - items: items of cart (one to many relation)
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    items = models.ForeignKey(CartItems, on_delete=models.CASCADE)
-
     def __str__(self):
         return "user: "+str(self.user) + ", items: " + str(self.items)
         

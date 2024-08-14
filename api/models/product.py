@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from api.models.category import Category
 class Product(models.Model):
     """Model of product.
 
@@ -13,12 +13,13 @@ class Product(models.Model):
     - category: category of product
     - currency: currency of product
     """
-    name = models.CharField(max_length=255)
+    #add viladation to name to be not null 
+    name = models.CharField(max_length=255, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     image = models.ImageField(upload_to='products')
     count = models.PositiveIntegerField()
-    category = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
 
     def __str__(self):
