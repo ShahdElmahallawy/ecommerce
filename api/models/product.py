@@ -6,6 +6,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 class Product(models.Model):
     """Model of product.
 
@@ -28,9 +32,8 @@ class Product(models.Model):
     count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
-    created_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="products"
-    )
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='products')
+
 
     def __str__(self):
         # from api.models.category import Category
