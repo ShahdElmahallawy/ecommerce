@@ -1,6 +1,4 @@
 from django.db import models
-from django.utils import timezone
-# from api.models.user import User
 from api.models.product import Product
 from api.models.cart import Cart
 from django.contrib.auth import get_user_model
