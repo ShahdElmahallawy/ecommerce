@@ -1,32 +1,24 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
 
+from api.services import create_user
 from api.serializers import RegisterSerializer
 
 
-class UserRegistrationView(APIView):
+class UserRegisterView(APIView):
     """
-    API view for user registration.
+    API view for user register.
     """
 
     def post(self, request, *args, **kwargs):
         """
-        Handle POST requests for user registration.
+        Handle POST requests for user register.
 
         Returns:
             Response object containing the JWT token pair or validation errors.
         """
         serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            refresh = RefreshToken.for_user(user)
-            return Response(
-                {
-                    "refresh": str(refresh),
-                    "access": str(refresh.access_token),
-                },
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        tokens = create_user(serializer.validated_data)
+        return Response(tokens, status=status.HTTP_201_CREATED)

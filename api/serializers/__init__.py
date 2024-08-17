@@ -1,2 +1,2 @@
 from .register import RegisterSerializer
-from .profile import ProfileSerializer
+from .profile import ProfileSerializer, UserProfileSerializer

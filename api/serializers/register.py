@@ -1,10 +1,11 @@
-from rest_framework import serializers
 from django.contrib.auth import get_user_model
+
+from rest_framework import serializers
 
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
-    Serializer for user registration.
+    Serializer for user register.
 
     Attributes:
         password: The user's password (write-only).

@@ -1,13 +1,15 @@
 import pytest
+
 from django.urls import reverse
-from rest_framework import status
 from django.contrib.auth import get_user_model
+
+from rest_framework import status
 
 from api.models import Profile
 
 
 @pytest.mark.django_db
-def test_user_registration(api_client):
+def test_user_register(api_client):
     url = reverse("user-register")
 
     user_data = {"email": "amr@example.com", "password": "test1234", "name": "Amr Test"}
@@ -28,7 +30,7 @@ def test_user_registration(api_client):
 
 
 @pytest.mark.django_db
-def test_user_registration_with_invalid_email(api_client):
+def test_user_register_with_invalid_email(api_client):
     url = reverse("user-register")
 
     user_data = {"email": "amr", "password": "testpassword123", "name": "Amr Test"}
@@ -40,7 +42,7 @@ def test_user_registration_with_invalid_email(api_client):
 
 
 @pytest.mark.django_db
-def test_user_registration_with_missing_field(api_client):
+def test_user_register_with_missing_field(api_client):
     url = reverse("user-register")
 
     user_data = [

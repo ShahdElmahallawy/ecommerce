@@ -5,13 +5,13 @@ from django.contrib.auth.models import AbstractUser, PermissionsMixin, BaseUserM
 class UserManager(BaseUserManager):
     """Manager for custom user model"""
 
-    def create_user(self, email, name, password=None):
+    def create_user(self, email, name, password=None, **extra_fields):
         """Create and return a new user"""
         if not email:
-            raise ValueError("Users must have an email address")
+            raise ValueError("User must have an email address")
 
         email = self.normalize_email(email)
-        user = self.model(email=email, name=name)
+        user = self.model(email=email, name=name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
 
@@ -39,6 +39,8 @@ class User(AbstractUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     username = None
     name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     otp_code = models.CharField(max_length=6, null=True)
     otp_created_at = models.DateTimeField(null=True)
 

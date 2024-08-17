@@ -1,2 +1,2 @@
-from .register import UserRegistrationView
+from .register import UserRegisterView
 from .profile import UserProfileView
