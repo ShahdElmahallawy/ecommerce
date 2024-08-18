@@ -12,13 +12,18 @@ from api.models import Profile
 def test_user_register(api_client):
     url = reverse("user-register")
 
-    user_data = {"email": "amr@example.com", "password": "test1234", "name": "Amr Test"}
+    user_data = {
+        "email": "amr@example.com",
+        "password": "test12345",
+        "name": "Amr Test",
+    }
 
     response = api_client.post(url, user_data, format="json")
 
     user_model = get_user_model()
     user = user_model.objects.get(email=user_data["email"])
     profile = Profile.objects.get(user=user)
+    print(response.data)
 
     assert response.status_code == status.HTTP_201_CREATED
     assert "refresh" in response.data

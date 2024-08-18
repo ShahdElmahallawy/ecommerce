@@ -10,7 +10,7 @@ from api.models import Profile
 
 @pytest.mark.django_db
 def test_retrieve_profile(api_client_auth, user):
-    url = reverse("user-profile")
+    url = reverse("profile-detail")
     response = api_client_auth.get(url)
 
     assert response.status_code == status.HTTP_200_OK
@@ -20,7 +20,7 @@ def test_retrieve_profile(api_client_auth, user):
 
 @pytest.mark.django_db
 def test_update_profile(api_client_auth, user):
-    url = reverse("user-profile")
+    url = reverse("profile-update")
     data = {
         "user": {"name": "Amr New"},
         "address": "Cairo",

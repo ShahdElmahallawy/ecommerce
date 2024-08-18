@@ -41,8 +41,8 @@ class User(AbstractUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    otp_code = models.CharField(max_length=6, null=True)
-    otp_created_at = models.DateTimeField(null=True)
+    reset_password_token = models.CharField(max_length=255, null=True, unique=True)
+    reset_password_token_expiry = models.DateTimeField(null=True)
 
     objects = UserManager()
 

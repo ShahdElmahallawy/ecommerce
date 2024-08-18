@@ -1,3 +1,9 @@
-from .register import UserRegisterView
-from .profile import UserProfileView
-from .payment import PaymentListView, PaymentDetailView
+from .user import UserRegisterView, PasswordResetRequestView, PasswordResetView
+from .profile import ProfileDetailView, ProfileUpdateView
+from .payment import (
+    PaymentListView,
+    PaymentDetailView,
+    PaymentCreateView,
+    PaymentUpdateView,
+    PaymentDeleteView,
+)
