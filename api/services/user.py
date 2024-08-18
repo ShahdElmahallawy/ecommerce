@@ -34,7 +34,7 @@ def generate_reset_password_token(user, request):
     user.save(update_fields=["reset_password_token", "reset_password_token_expiry"])
 
     reset_link = request.build_absolute_uri(
-        reverse("reset-password", kwargs={"token": reset_token})
+        reverse("password-reset-confirm", args=[reset_token])
     )
     send_password_reset_email(user, reset_link)
 

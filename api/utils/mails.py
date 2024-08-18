@@ -11,11 +11,9 @@ def send_password_reset_email(user, reset_link):
     message += "You requested a password reset. Click the link below to reset your password:\n\n"
     message += f"{reset_link}\n\n"
     message += "If you did not request this reset, please ignore this email."
-
     send_mail(
         subject,
         message,
-        settings.DEFAULT_FROM_EMAIL,
+        settings.EMAIL_HOST_USER,
         [user.email],
-        fail_silently=False,
     )

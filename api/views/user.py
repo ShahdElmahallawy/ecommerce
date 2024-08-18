@@ -35,6 +35,7 @@ class PasswordResetRequestView(APIView):
         serializer = PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = get_user_by_email(serializer.validated_data["email"])
+        generate_reset_password_token(user, request)
         return Response(
             {"detail": "Password reset link sent."}, status=status.HTTP_200_OK
         )
@@ -42,14 +43,14 @@ class PasswordResetRequestView(APIView):
 
 class PasswordResetView(APIView):
     def post(self, request, token, *args, **kwargs):
-        serializer = PasswordResetSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
         user = get_user_by_reset_token(token)
         if not user:
             return Response(
                 {"detail": "Invalid or expired token."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        serializer = PasswordResetSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         reset_user_password(user, serializer.validated_data["new_password"])
         return Response(
             {"detail": "Password has been reset successfully."},
