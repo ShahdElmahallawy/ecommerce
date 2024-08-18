@@ -1,61 +1,53 @@
 from api.serializers.cart_serializer import CartSerializer
-from api.models.cart import Cart
-from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from api.service.cart_service import add_product_to_cart, remove_product_from_cart, calculate_cart_total, checkout_cart
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
 
-class CartView(viewsets.ModelViewSet):
-    """ViewSet of cart.
-    
-    Fields:
-    - queryset: query set of cart
-    - serializer_class: serializer
-    - endpoints:  add product - delete product - list all products - total price - checkout - update payment 
+class CreateCartView(APIView):
     """
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+    Add a product to the cart.
+    """
     permission_classes = [IsAuthenticated]
-
-    def create(self, request, *args, **kwargs):
-        """
-        Add a product to the cart.
-        """
+    def post(self, request):
         cart = add_product_to_cart(request.user, request.data.get('product_id'), request.data.get('quantity'))
-        serializer = self.get_serializer(cart)
+        serializer = CartSerializer(cart)
         return Response(serializer.data)
-    
-    def destroy(self, request, *args, **kwargs):
-        """
-        Remove a product from the cart.
-        """
-        remove_product_from_cart(request.user, kwargs.get('pk'))
+
+class DeleteCartView(APIView):
+    """
+    Remove a product from the cart.
+    """
+    permission_classes = [IsAuthenticated]
+    def delete(self, request, pk):
+        remove_product_from_cart(request.user, pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    def list(self, request, *args, **kwargs):
-        """
-        List all products in the cart.
-        """
+
+class ListCartView(APIView):
+    """
+    List all products in the cart.
+    """
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
         cart = request.user.cart
-        serializer = self.get_serializer(cart)
+        serializer = CartSerializer(cart)
         return Response(serializer.data)
-    
-    def total_price(self, request, *args, **kwargs):
-        """
-        Calculate the total price of all items in the cart.
-        """
+
+class TotalPriceCartView(APIView):
+    """
+    Calculate the total price of all items in the cart.
+    """
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
         total = calculate_cart_total(request.user)
         return Response({'total': total})
-    
-    def checkout(self, request, *args, **kwargs):
-        """
-        Checkout the cart.
-        """
+
+class CheckoutCartView(APIView):
+    """
+    Checkout the cart.
+    """
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
         response = checkout_cart(request.user)
         return Response(response)
-    
-    
-    
-    
-

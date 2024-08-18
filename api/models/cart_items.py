@@ -1,9 +1,7 @@
 from django.db import models
 from api.models.product import Product
 from api.models.cart import Cart
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
 class CartItems(models.Model):
     """Model of cart.
 

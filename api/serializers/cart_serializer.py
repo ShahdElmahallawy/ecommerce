@@ -4,5 +4,6 @@ from rest_framework import serializers
 class CartItemsSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItems
-        fields = '__all__'
+        fields = ['product_id', 'quantity', 'cart']
+
         

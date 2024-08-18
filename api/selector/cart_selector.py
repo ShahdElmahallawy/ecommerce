@@ -1,4 +1,7 @@
 from api.models.cart import Cart, CartItems
+import logging
+
+logger = logging.getLogger(__name__)
 
 def get_cart_by_user(user):
     """
@@ -19,4 +22,5 @@ def get_cart_item(cart, product_id):
     try:
         return CartItems.objects.get(cart=cart, product_id=product_id)
     except CartItems.DoesNotExist:
+        logger.warning(f'Cart item with product ID {product_id} not found in cart {cart.id}')
         return None
