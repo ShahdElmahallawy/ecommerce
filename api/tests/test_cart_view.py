@@ -7,14 +7,16 @@ from api.models.product import Product
 from api.models.cart_items import CartItems
 from rest_framework import status
 from api.views.cart_view import CartView
-from api.serializers.cart_serializer import CartSerializer
+
+# from api.serializers.cart_serializer import CartSerializer
 from api.service.cart_service import (
     add_product_to_cart,
     remove_product_from_cart,
     calculate_cart_total,
     checkout_cart,
 )
-from unittest.mock import patch
+
+# from unittest.mock import patch
 
 
 @pytest.fixture

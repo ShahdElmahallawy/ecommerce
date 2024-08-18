@@ -1,4 +1,5 @@
-from api.models.cart import Cart, CartItems
+from api.models.cart import Cart
+from api.models.cart_items import CartItems
 import logging
 
 logger = logging.getLogger(__name__)
