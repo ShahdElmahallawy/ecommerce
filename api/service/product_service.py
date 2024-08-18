@@ -35,7 +35,8 @@ def delete_product(product_id, user):
     """
     product = get_product_by_id(product_id)
     if product and product.created_by == user:
-        product.delete()
+        product.is_deleted = True
+        product.save()
         return True
     else:
         logging.warning(f'Product with ID {product_id} not found or user is not the creator.')
