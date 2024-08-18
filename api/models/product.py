@@ -6,9 +6,11 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+# from api.models.category import Category
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
 
 class Product(models.Model):
     """Model of product.
@@ -25,17 +27,23 @@ class Product(models.Model):
     # category = models.ForeignKey('Category', on_delete=models.CASCADE)
     from api.models.category import Category
     # add viladation to name to be not null
+    category = models.ForeignKey('api.Category', on_delete=models.CASCADE)
+
+    # add viladation to name to be not null
     name = models.CharField(max_length=255, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     image = models.ImageField(upload_to="products")
+    image = models.ImageField(upload_to="products")
     count = models.PositiveIntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='products')
-
+    created_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="products"
+    )
 
     def __str__(self):
         # from api.models.category import Category
         return self.name
+
 
