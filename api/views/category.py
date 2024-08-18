@@ -8,7 +8,7 @@ from api.service.category import update_category, delete_category
 
 from api.serializers.category import CategorySerializer
 from api.serializers.category_detail import CategoryDetailSerializer
-from api.serializers import ProductSerializer
+from api.serializers.product_serializer import ProductSerializer
 
 class CategoryListView(APIView):
     permission_classes = [IsAuthenticated]  
