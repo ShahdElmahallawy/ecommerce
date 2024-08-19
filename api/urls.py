@@ -1,5 +1,11 @@
 from django.urls import path
-from .views.category import CategoryListView, CategoryDetailView, CategoryUpdateView, CategoryDeleteView, CategoryProductListView
+from .views.category import (
+    CategoryListView,
+    CategoryDetailView,
+    CategoryUpdateView,
+    CategoryDeleteView,
+    CategoryProductListView,
+)
 from .views.order import OrderCancelView, OrderTrackView, OrderListView
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from .views import UserRegistrationView, UserProfileView, UserProfileView
@@ -31,4 +37,3 @@ urlpatterns = [
     path("users/refresh-token/", TokenRefreshView.as_view(), name="token-refresh"),
     path("users/me/", UserProfileView.as_view(), name="user-profile"),
 ]
-
