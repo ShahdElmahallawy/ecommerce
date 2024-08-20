@@ -3,10 +3,18 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from api.services import create_user, generate_reset_password_token, reset_user_password
+from api.services import (
+    create_user,
+    generate_reset_password_token,
+    reset_user_password,
+    get_tokens_for_user,
+    get_refreshed_tokens,
+)
 from api.selectors import get_user_by_reset_token, get_user_by_email
 from api.serializers import (
     RegisterSerializer,
+    LoginSerializer,
+    RefreshTokenSerializer,
     PasswordResetRequestSerializer,
     PasswordResetSerializer,
 )
@@ -30,11 +38,52 @@ class UserRegisterView(APIView):
         return Response(tokens, status=status.HTTP_201_CREATED)
 
 
-class PasswordResetRequestView(APIView):
+class UserLoginView(APIView):
+    """
+    API view for user login.
+    """
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests for user login.
+
+        Returns:
+            Response object containing the JWT token pair or validation errors.
+        """
+        serializer = LoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tokens = get_tokens_for_user(serializer.validated_data["user"])
+        return Response(tokens, status=status.HTTP_200_OK)
+
+
+class RefreshTokenView(APIView):
+    """
+    API view for token refresh.
+    """
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests for token refresh.
+
+        Returns:
+            Response object containing the JWT token pair or validation errors.
+        """
+        serializer = RefreshTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        tokens = get_refreshed_tokens(serializer.validated_data["refresh"])
+        return Response(tokens, status=status.HTTP_200_OK)
+
+
+class ForgotPasswordView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = get_user_by_email(serializer.validated_data["email"])
+        if not user:
+            # For security
+            return Response(
+                {"detail": "Password reset link sent."}, status=status.HTTP_200_OK
+            )
         generate_reset_password_token(user, request)
         return Response(
             {"detail": "Password reset link sent."}, status=status.HTTP_200_OK

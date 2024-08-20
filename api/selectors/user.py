@@ -6,7 +6,11 @@ from django.contrib.auth import get_user_model
 
 def get_user_by_email(email):
     User = get_user_model()
-    return get_object_or_404(User, email=email)
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        return None
+    return user
 
 
 def get_user_by_reset_token(token):

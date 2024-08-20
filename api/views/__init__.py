@@ -1,4 +1,10 @@
-from .user import UserRegisterView, PasswordResetRequestView, PasswordResetView
+from .user import (
+    UserRegisterView,
+    UserLoginView,
+    RefreshTokenView,
+    ForgotPasswordView,
+    PasswordResetView,
+)
 from .profile import ProfileDetailView, ProfileUpdateView
 from .payment import (
     PaymentListView,
@@ -6,4 +12,10 @@ from .payment import (
     PaymentCreateView,
     PaymentUpdateView,
     PaymentDeleteView,
+)
+from .wishlist import (
+    WishlistListView,
+    WishlistItemCreateView,
+    WishlistItemDeleteView,
+    WishlistDeleteView,
 )

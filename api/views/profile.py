@@ -22,6 +22,10 @@ class ProfileDetailView(APIView):
             Response object containing the profile data.
         """
         profile = get_user_profile(request.user)
+        if not profile:
+            return Response(
+                {"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = ProfileSerializer(profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -41,6 +45,10 @@ class ProfileUpdateView(APIView):
             Response object containing the updated profile data.
         """
         profile = get_user_profile(request.user)
+        if not profile:
+            return Response(
+                {"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         updated_profile = update_profile(profile, request.data)
         serializer = ProfileSerializer(updated_profile)
         return Response(serializer.data, status=status.HTTP_200_OK)

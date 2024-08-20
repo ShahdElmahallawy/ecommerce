@@ -1,9 +1,10 @@
 from django.urls import path, include
-from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 from .views import (
     UserRegisterView,
-    PasswordResetRequestView,
+    UserLoginView,
+    RefreshTokenView,
+    ForgotPasswordView,
     PasswordResetView,
     ProfileDetailView,
     ProfileUpdateView,
@@ -12,19 +13,23 @@ from .views import (
     PaymentCreateView,
     PaymentUpdateView,
     PaymentDeleteView,
+    WishlistListView,
+    WishlistItemCreateView,
+    WishlistItemDeleteView,
+    WishlistDeleteView,
 )
 
 
 user_patterns = [
     path("register/", UserRegisterView.as_view(), name="user-register"),
-    path("password-reset/", PasswordResetRequestView.as_view(), name="password-reset"),
+    path("forgot-password/", ForgotPasswordView.as_view(), name="forgot-password"),
     path(
-        "password-reset/confirm/<str:token>/",
+        "password-reset/<str:token>/",
         PasswordResetView.as_view(),
-        name="password-reset-confirm",
+        name="password-reset",
     ),
-    path("login/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
-    path("refresh-token/", TokenRefreshView.as_view(), name="token-refresh"),
+    path("login/", UserLoginView.as_view(), name="user-login"),
+    path("refresh-token/", RefreshTokenView.as_view(), name="refresh-token"),
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
 ]
@@ -41,7 +46,21 @@ payment_patterns = [
     ),
 ]
 
+wishlist_patterns = [
+    path("", WishlistListView.as_view(), name="wishlist-list"),
+    path(
+        "items/create/", WishlistItemCreateView.as_view(), name="wishlist-item-create"
+    ),
+    path(
+        "items/delete/<int:product_id>",
+        WishlistItemDeleteView.as_view(),
+        name="wishlist-item-delete",
+    ),
+    path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
+]
+
 urlpatterns = [
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
+    path("wishlists/", include(wishlist_patterns)),
 ]

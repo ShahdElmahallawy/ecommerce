@@ -2,7 +2,6 @@ from api.models import Payment
 import pytest
 from django.urls import reverse
 from rest_framework import status
-from django.utils import timezone
 
 
 @pytest.mark.django_db

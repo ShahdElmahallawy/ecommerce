@@ -19,4 +19,8 @@ def get_payment(payment_id, user):
     Returns:
     The payment with the given ID.
     """
-    return get_object_or_404(Payment, id=payment_id, user=user)
+    try:
+        payment = Payment.objects.get(id=payment_id, user=user)
+    except Payment.DoesNotExist:
+        return None
+    return payment

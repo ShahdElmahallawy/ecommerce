@@ -57,6 +57,10 @@ class PaymentDetailView(APIView):
 
     def get(self, request, *args, **kwargs):
         payment = get_payment(kwargs.get("payment_id"), request.user)
+        if not payment:
+            return Response(
+                {"detail": "Payment not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = PaymentSerializer(payment)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -74,6 +78,10 @@ class PaymentUpdateView(APIView):
         Returns:
             Response object containing the updated payment data."""
         payment = get_payment(kwargs.get("payment_id"), request.user)
+        if not payment:
+            return Response(
+                {"detail": "Payment not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = PaymentSerializer(payment, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         payment = update_payment(serializer.validated_data, payment)
@@ -93,5 +101,9 @@ class PaymentDeleteView(APIView):
 
     def delete(self, request, *args, **kwargs):
         payment = get_payment(kwargs.get("payment_id"), request.user)
+        if not payment:
+            return Response(
+                {"detail": "Payment not found."}, status=status.HTTP_404_NOT_FOUND
+            )
         delete_payment(payment)
         return Response(status=status.HTTP_204_NO_CONTENT)

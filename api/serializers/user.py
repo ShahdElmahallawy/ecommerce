@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
-from api.selectors import get_user_by_reset_token
+from api.selectors import get_user_by_email
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -13,24 +13,49 @@ class RegisterSerializer(serializers.ModelSerializer):
     """
 
     password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "password", "name"]
+        fields = ["email", "password", "name", "confirm_password"]
+
+    def validate_name(self, value):
+        """
+        Validate the provided name.
+
+        Returns:
+            value: The validated name.
+        """
+        if len(value.strip()) < 4:
+            raise serializers.ValidationError("Name must be at least 4 characters.")
+
+        if not all(char.isalnum() or char.isspace() for char in value):
+            raise serializers.ValidationError("Name must be alphanumeric.")
+
+        return value
+
+    def validate_password(self, value):
+        """
+        Validate the provided password.
+
+        Returns:
+            value: The validated password.
+        """
+        if len(value) < 8:
+            raise serializers.ValidationError("Password must be at least 8 characters.")
+        return value
 
     def validate(self, data):
         """
-        Validates the provided data.
-
+        Validate the provided data.
 
         Returns:
             data: The validated data.
         """
-        if data.get("password"):
-            if len(data.get("password")) < 8:
-                raise serializers.ValidationError(
-                    "Password must be at least 8 characters long."
-                )
+        if data["password"] != data["confirm_password"]:
+            raise serializers.ValidationError("Passwords do not match.")
+
+        data.pop("confirm_password")
 
         return data
 
@@ -50,16 +75,55 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    class Meta:
+        fields = ["email", "password"]
+
+    def validate(self, data):
+        """
+        Validate the provided data.
+
+        Returns:
+            data: The validated data.
+        """
+        if not data.get("email") or not data.get("password"):
+            raise serializers.ValidationError("Email and password are required.")
+
+        user = get_user_by_email(data["email"])
+        if user and not user.check_password(data["password"]):
+            raise serializers.ValidationError("Invalid email or password.")
+
+        data["user"] = user
+        return data
+
+
+class RefreshTokenSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    class Meta:
+        fields = ["refresh"]
+
+    def validate(self, data):
+        """
+        Validate the provided data.
+
+        Returns:
+            data: The validated data.
+        """
+        if not data.get("refresh"):
+            raise serializers.ValidationError("Refresh token is required.")
+
+        return data
+
+
 class PasswordResetRequestSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
-    def validate_email(self, value):
-        """
-        Validate that the email exists in the database.
-        """
-        if not get_user_model().objects.filter(email=value).exists():
-            raise serializers.ValidationError("No user with this email found.")
-        return value
+    class Meta:
+        fields = ["email"]
 
 
 class PasswordResetSerializer(serializers.Serializer):

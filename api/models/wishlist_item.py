@@ -1,6 +1,6 @@
 from django.db import models
 
-from .models import Wishlist
+from . import Wishlist, Product
 from . import Audit
 
 
@@ -15,7 +15,7 @@ class WishlistItem(Audit):
     wishlist = models.ForeignKey(
         Wishlist, on_delete=models.CASCADE, related_name="items"
     )
-    product = models.ForeignKey("Product", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ["wishlist", "product"]

@@ -43,6 +43,7 @@ class User(AbstractUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     reset_password_token = models.CharField(max_length=255, null=True, unique=True)
     reset_password_token_expiry = models.DateTimeField(null=True)
+    password_changed_at = models.DateTimeField(null=True)
 
     objects = UserManager()
 
