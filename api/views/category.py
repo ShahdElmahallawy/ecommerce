@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser ,IsAuthenticated
 
 from api.selector.category import (
     get_all_categories,
@@ -16,26 +16,21 @@ from api.serializers.product_serializer import ProductSerializer
 
 
 class CategoryListView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
+    def get(self):
         categories = get_all_categories()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CategoryDetailView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, pk):
+    def get(self, pk):
         category = get_category_by_id(pk)
         serializer = CategoryDetailSerializer(category)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CategoryUpdateView(APIView):
-    permission_classes = [IsAuthenticated]
-
+    permission_classes = [IsAdminUser]  
     def put(self, request, pk):
         updated_category = update_category(pk, request.data)
         serializer = CategorySerializer(updated_category)
@@ -43,16 +38,15 @@ class CategoryUpdateView(APIView):
 
 
 class CategoryDeleteView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def delete(self, request, pk):
+    permission_classes = [IsAdminUser]
+    def delete(self, pk):
         delete_category(pk)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CategoryProductListView(APIView):
-    permission_classes = [IsAuthenticated]
-
+    permission_classes = [IsAuthenticated]  
+    
     def get(self, request, category_pk):
         category = get_category_by_id(category_pk)
         products = get_products_by_category(category)
