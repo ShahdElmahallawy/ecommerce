@@ -2,7 +2,7 @@ import pytest
 
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
-from api.models import Payment
+from api.models.payment import Payment
 
 
 @pytest.fixture
@@ -46,6 +46,7 @@ def api_admin_auth(admin):
     client.force_authenticate(user=admin)
     return client
 
+@pytest.fixture
 def payment(user):
     return Payment.objects.create(
         user=user,
