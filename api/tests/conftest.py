@@ -25,9 +25,21 @@ def user(db, user_data):
     user = User.objects.create_user(**user_data)
     return user
 
+@pytest.fixture
+def admin(db, user_data):
+    User = get_user_model()
+    user = User.objects.create_superuser(**user_data)
+    return user
+
 
 @pytest.fixture
 def api_client_auth(user):
     client = APIClient()
     client.force_authenticate(user=user)
+    return client
+
+@pytest.fixture
+def api_admin_auth(admin):
+    client = APIClient()
+    client.force_authenticate(user=admin)
     return client

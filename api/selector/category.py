@@ -18,4 +18,7 @@ def get_category_by_id(pk):
 
 
 def get_products_by_category(category):
-    return category.products.all()
+        featured_product = category.featured_product
+        
+        return [featured_product] if featured_product else []
+    # return category.products.all()

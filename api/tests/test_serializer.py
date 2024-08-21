@@ -12,12 +12,12 @@ from api.models.payment import Payment
 @pytest.mark.django_db
 def test_category_serializer():
     product = Product.objects.create(name="Test Product", price=10.00, count=10)
-    category = Category.objects.create(name="Test Category", featred_product=product)
+    category = Category.objects.create(name="Test Category", featured_product=product)
     serializer = CategorySerializer(category)
     data = serializer.data
 
     assert data["name"] == category.name
-    assert data["featred_product"] == product.id
+    assert data["featured_product"] == product.id
 
 
 @pytest.mark.django_db

@@ -10,15 +10,15 @@ from api.models.payment import Payment
 @pytest.mark.django_db
 def test_category_creation():
     product = Product.objects.create(name="Test Product", price=10.00, count=10)
-    category = Category.objects.create(name="Test Category", featred_product=product)
+    category = Category.objects.create(name="Test Category", featured_product=product)
     assert category.name == "Test Category"
-    assert category.featred_product == product
+    assert category.featured_product == product
 
 
 @pytest.mark.django_db
 def test_category_str():
     product = Product.objects.create(name="Test Product", price=10.00, count=10)
-    category = Category.objects.create(name="Test Category", featred_product=product)
+    category = Category.objects.create(name="Test Category", featured_product=product)
     assert str(category) == "Test Category"
 
 

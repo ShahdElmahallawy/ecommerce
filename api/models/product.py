@@ -11,7 +11,6 @@ class Product(models.Model):
     - description: description of product
     - image: image of product
     - count: count of product
-    - category: category of product
     - currency: currency of product
     """
 

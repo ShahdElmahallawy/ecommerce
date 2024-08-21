@@ -24,7 +24,7 @@ class Payment(Audit):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pan = models.CharField(max_length=16, unique=True)
     bank_name = models.CharField(max_length=255)
-    expiry_date = models.DateField()
+    expiry_date = models.DateField(null=True)
     cvv = models.CharField(max_length=3)
     card_type = models.CharField(max_length=10, choices=CARD_TYPES)
 
