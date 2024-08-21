@@ -10,7 +10,8 @@ from .views.category import (
 from .views.order import (
     OrderListView,
     OrderCancelView,
-    OrderTrackView,)
+    OrderTrackView,
+)
 
 from .views import (
     UserRegisterView,

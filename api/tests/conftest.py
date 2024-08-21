@@ -46,6 +46,7 @@ def api_admin_auth(admin):
     client.force_authenticate(user=admin)
     return client
 
+
 @pytest.fixture
 def payment(user):
     return Payment.objects.create(
