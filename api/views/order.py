@@ -10,7 +10,8 @@ from api.serializers.order import OrderSerializer
 
 
 class OrderCancelView(APIView):
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, pk):
         response_data, success = cancel_order(pk, request.user)
         if success:
@@ -19,10 +20,11 @@ class OrderCancelView(APIView):
 
 
 class OrderTrackView(APIView):
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, pk):
         order = get_order_by_id_and_user(pk, request.user)
-        serializer = OrderSerializer(order)  
+        serializer = OrderSerializer(order)
         if serializer.data["user"] == None:
             return Response(status=status.HTTP_404_NOT_FOUND)
         return Response(serializer.data, status=status.HTTP_200_OK)
