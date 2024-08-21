@@ -1,8 +1,8 @@
 import pytest
-from rest_framework.test import APIClient
-from django.contrib.auth import get_user_model
 
-from api.models import Profile
+from django.contrib.auth import get_user_model
+from rest_framework.test import APIClient
+from api.models import Payment
 
 
 @pytest.fixture
@@ -45,3 +45,13 @@ def api_admin_auth(admin):
     client = APIClient()
     client.force_authenticate(user=admin)
     return client
+
+def payment(user):
+    return Payment.objects.create(
+        user=user,
+        pan="1234567890123456",
+        bank_name="CIB",
+        expiry_date="2024-12-12",
+        cvv="123",
+        card_type="credit",
+    )

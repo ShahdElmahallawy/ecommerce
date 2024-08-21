@@ -9,7 +9,7 @@ class Wishlist(Audit):
         user: The owner of the wishlist
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
 
     def __str__(self):
         """Return string representation of the wishlist"""
