@@ -10,16 +10,21 @@ from django.db.models import ObjectDoesNotExist
 def add_product_to_cart(user, product_id, quantity):
     try:
         cart = Cart.objects.get(user=user)
+        logger.info(f'Cart found for user {user}')
     except Cart.DoesNotExist:
+        logger.info(f'Cart not found for user {user}')
         cart = Cart.objects.create(user=user)  # Create a cart if it does not exist
+        logger.info(f'Cart created for user {user}')
 
     product = Product.objects.get(pk=product_id)
     try:
         cart_item = CartItems.objects.get(cart=cart, product_id=product)
         cart_item.quantity += quantity
         cart_item.save()
+        logger.info(f'Product {product_id} already exists in cart. Quantity updated to {cart_item.quantity}')
     except CartItems.DoesNotExist:
         CartItems.objects.create(cart=cart, product_id=product, quantity=quantity)
+        logger.info(f'Product {product_id} added to cart with quantity {quantity}')
 
     return cart
 

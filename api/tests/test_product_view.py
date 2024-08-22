@@ -58,7 +58,7 @@ def test_update_product(authenticated_client, product):
     url = reverse('update-product', kwargs={'pk': product.pk})
     data = {'name': 'Updated Product'}
     response = authenticated_client.patch(url, data, format='json')
-    # assert response.status_code == 200
+    assert response.status_code == 200
     product.refresh_from_db()
     assert product.name == 'Updated Product'
 
@@ -67,5 +67,5 @@ def test_update_product(authenticated_client, product):
 def test_delete_product(authenticated_client, product):
     url = reverse('delete-product', kwargs={'pk': product.pk})
     response = authenticated_client.delete(url)
-    # assert response.status_code == 204
+    assert response.status_code == 204
     assert Product.objects.count() == 0
