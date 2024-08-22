@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
-from api.selector.order import get_order_by_id_and_user, get_orders_by_user
-from api.service.order import cancel_order
+from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
+from api.services.order import cancel_order
 
 from api.serializers.order import OrderSerializer
 

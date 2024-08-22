@@ -3,12 +3,12 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
-from api.selector.category import (
+from api.selectors.category import (
     get_all_categories,
     get_category_by_id,
     get_products_by_category,
 )
-from api.service.category import update_category, delete_category
+from api.services.category import update_category, delete_category
 
 from api.serializers.category import CategorySerializer
 from api.serializers.category_detail import CategoryDetailSerializer

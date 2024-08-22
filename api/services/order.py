@@ -1,5 +1,5 @@
 import logging
-from api.selector.order import get_order_by_id_and_user
+from api.selectors.order import get_order_by_id_and_user
 
 logger = logging.getLogger(__name__)
 

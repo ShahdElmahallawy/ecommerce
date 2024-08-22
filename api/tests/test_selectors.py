@@ -6,8 +6,8 @@ from api.models.user import User
 from api.models.order import Order
 from api.models.payment import Payment
 
-from api.selector.order import get_order_by_id_and_user, get_orders_by_user
-from api.selector.category import (
+from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
+from api.selectors.category import (
     get_all_categories,
     get_category_by_id,
     get_products_by_category,

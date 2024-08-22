@@ -13,7 +13,7 @@ from api.serializers.category_detail import CategoryDetailSerializer
 from api.serializers.product_serializer import ProductSerializer
 from api.serializers.order import OrderSerializer
 
-from api.service.order import cancel_order
+from api.services.order import cancel_order
 
 
 @pytest.mark.django_db

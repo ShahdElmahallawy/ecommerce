@@ -1,9 +1,9 @@
 import pytest
-from api.service.category import update_category, delete_category
+from api.services.category import update_category, delete_category
 from api.models.category import Category
 
 import pytest
-from api.service.order import cancel_order
+from api.services.order import cancel_order
 from api.models.order import Order
 from api.models.user import User
 from api.models.payment import Payment

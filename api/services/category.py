@@ -1,5 +1,5 @@
 import logging
-from api.selector.category import get_category_by_id
+from api.selectors.category import get_category_by_id
 
 logger = logging.getLogger(__name__)
 
