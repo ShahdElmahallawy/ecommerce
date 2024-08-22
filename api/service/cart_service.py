@@ -1,23 +1,26 @@
 from api.selector.cart_selector import get_cart_by_user, get_cart_item, get_cart_items
 import logging
-
+from api.models.cart_items import CartItems
+from api.models.product import Product
+from api.models.cart import Cart
 logger = logging.getLogger(__name__)
 
+from django.db.models import ObjectDoesNotExist
+
 def add_product_to_cart(user, product_id, quantity):
-    """
-    Service to add a product to a user's cart. Adjusts quantity if the product is already in the cart.
-    """
-    cart = get_cart_by_user(user)
-    cart_item = get_cart_item(cart, product_id)
-    if cart_item:
-        f'cart_item.quantity: {cart_item.quantity}'
+    try:
+        cart = Cart.objects.get(user=user)
+    except Cart.DoesNotExist:
+        cart = Cart.objects.create(user=user)  # Create a cart if it does not exist
+
+    product = Product.objects.get(pk=product_id)
+    try:
+        cart_item = CartItems.objects.get(cart=cart, product_id=product)
+        cart_item.quantity += quantity
         cart_item.save()
-        logger.info(f'Product {product_id} already in cart. Quantity adjusted to {quantity}')
-    else:
-        from api.models import CartItems, Product
-        product = Product.objects.get(pk=product_id)
+    except CartItems.DoesNotExist:
         CartItems.objects.create(cart=cart, product_id=product, quantity=quantity)
-        logger.info(f'Product {product_id} added to cart')
+
     return cart
 
 def remove_product_from_cart(user, product_id):

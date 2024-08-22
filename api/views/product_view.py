@@ -6,6 +6,19 @@ from django.shortcuts import get_object_or_404
 from api.service.product_service import list_products, retrieve_product, update_product, delete_product
 from rest_framework.views import APIView
 
+class CreateProductView(APIView):
+    """
+    View to create a new product.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 class ListProductsView(APIView):
     """
     List all products.
