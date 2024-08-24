@@ -1,3 +1,4 @@
+import logging
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,9 +16,10 @@ from api.services.wishlist import (
 )
 from api.serializers import (
     WishlistSerializer,
-    WishlistItemSerializer,
     WishlistItemCreateSerializer,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class WishlistListView(APIView):
@@ -30,6 +32,7 @@ class WishlistListView(APIView):
         Returns:
             Response object containing the wishlist data.
         """
+        logger.info(f"User {request.user} requested their wishlist")
         wishlist = get_wishlist_by_user(request.user)
         serializer = WishlistSerializer(wishlist)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -45,6 +48,7 @@ class WishlistDeleteView(APIView):
         Returns:
             Response object containing the cleared wishlist data.
         """
+        logger.info(f"User {request.user} requested to clear their wishlist")
         wishlist = get_wishlist_by_user(request.user)
         wishlist = clear_wishlist(wishlist)
         serializer = WishlistSerializer(wishlist)
@@ -64,6 +68,7 @@ class WishlistItemCreateView(APIView):
         Returns:
             Response object containing the created wishlist item data.
         """
+        logger.info(f"User {request.user} requested to add an item to their wishlist")
         wishlist = get_wishlist_by_user(request.user)
         serializer = WishlistItemCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -73,6 +78,7 @@ class WishlistItemCreateView(APIView):
         try:
             wishlist = add_item_to_wishlist(wishlist, product)
         except ValidationError as e:
+            logger.error(f"Failed to add item to wishlist: {e.detail}")
             return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = WishlistSerializer(wishlist)
@@ -89,11 +95,14 @@ class WishlistItemDeleteView(APIView):
         Returns:
             Response object containing the deleted wishlist item data.
         """
+        logger.info(
+            f"User {request.user} requested to delete an item from their wishlist"
+        )
         wishlist = get_wishlist_by_user(request.user)
         try:
             wishlist = delete_item_from_wishlist(wishlist, item_id)
-            print("afasf")
         except ValidationError as e:
+            logger.error(f"Failed to delete item from wishlist: {e.detail}")
             return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = WishlistSerializer(wishlist)
