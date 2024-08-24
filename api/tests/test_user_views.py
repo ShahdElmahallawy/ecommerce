@@ -11,6 +11,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 
 from api.models import Profile
+from api.services.user import get_tokens_for_user
 
 
 User = get_user_model()
@@ -89,6 +90,22 @@ def test_user_login(api_client, user):
 
 @pytest.mark.django_db
 def test_refresh_token(api_client, user):
+    tokens = get_tokens_for_user(user)
+    url = reverse("refresh-token")
+
+    data = {
+        "refresh": tokens["refresh"],
+    }
+
+    response = api_client.post(url, data, format="json")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert "access" in response.data
+    assert "refresh" in response.data
+
+
+@pytest.mark.django_db
+def test_refresh_token_fail(api_client, user):
     url = reverse("refresh-token")
 
     data = {
@@ -112,6 +129,20 @@ def test_forgot_password(mock_send_mail, api_client, user):
     user.refresh_from_db()
     assert user.reset_password_token is not None
     assert user.reset_password_token_expiry > timezone.now()
+
+
+@patch("api.utils.mails.send_mail")
+@pytest.mark.django_db
+def test_forgot_password_not_found_email(mock_send_mail, api_client, user):
+    url = reverse("forgot-password")
+    data = {"email": "unkown@example.cpm"}
+
+    response = api_client.post(url, data, format="json")
+
+    assert response.status_code == status.HTTP_200_OK
+    assert not mock_send_mail.called
+    assert user.reset_password_token is None
+    assert user.reset_password_token_expiry is None
 
 
 @pytest.mark.django_db

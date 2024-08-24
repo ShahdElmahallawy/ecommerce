@@ -52,7 +52,7 @@ wishlist_patterns = [
         "items/create/", WishlistItemCreateView.as_view(), name="wishlist-item-create"
     ),
     path(
-        "items/delete/<int:product_id>",
+        "items/delete/<int:item_id>",
         WishlistItemDeleteView.as_view(),
         name="wishlist-item-delete",
     ),

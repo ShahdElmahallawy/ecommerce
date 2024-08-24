@@ -2,10 +2,12 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.exceptions import ValidationError
 
 from api.selectors.wishlist import (
     get_wishlist_by_user,
 )
+
 from api.services.wishlist import (
     add_item_to_wishlist,
     delete_item_from_wishlist,
@@ -49,8 +51,11 @@ class WishlistDeleteView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+from rest_framework.exceptions import ValidationError
+
+
 class WishlistItemCreateView(APIView):
-    """Api view for creating a wishlist item"""
+    """API view for creating a wishlist item"""
 
     permission_classes = [IsAuthenticated]
 
@@ -62,10 +67,15 @@ class WishlistItemCreateView(APIView):
         wishlist = get_wishlist_by_user(request.user)
         serializer = WishlistItemCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        wishlist_item = add_item_to_wishlist(
-            wishlist, serializer.validated_data.get("product")
-        )
-        serializer = WishlistItemSerializer(wishlist_item)
+
+        product = serializer.validated_data.get("product_id")
+
+        try:
+            wishlist = add_item_to_wishlist(wishlist, product)
+        except ValidationError as e:
+            return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = WishlistSerializer(wishlist)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -74,15 +84,17 @@ class WishlistItemDeleteView(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def delete(self, request, product_id):
+    def delete(self, request, item_id):
         """Handle DELETE request to delete a wishlist item
         Returns:
             Response object containing the deleted wishlist item data.
         """
         wishlist = get_wishlist_by_user(request.user)
-        success = delete_item_from_wishlist(wishlist, product_id)
-        if not success:
-            return Response(
-                {"error": "Item not found"}, status=status.HTTP_404_NOT_FOUND
-            )
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        try:
+            wishlist = delete_item_from_wishlist(wishlist, item_id)
+            print("afasf")
+        except ValidationError as e:
+            return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = WishlistSerializer(wishlist)
+        return Response(serializer.data, status=status.HTTP_200_OK)

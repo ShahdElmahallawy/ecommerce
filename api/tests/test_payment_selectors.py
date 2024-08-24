@@ -49,3 +49,11 @@ def test_get_payment(user, payment):
 
     assert retrieved_payment == payment
     assert retrieved_payment.pan == "1234567890123456"
+
+
+@pytest.mark.django_db
+def test_get_payment_not_found(user, payment):
+
+    retrieved_payment = get_payment(2, user)
+
+    assert retrieved_payment == None
