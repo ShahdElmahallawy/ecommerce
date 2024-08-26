@@ -1,4 +1,4 @@
-from api.models import Payment
+from api.models.payment import Payment
 import pytest
 from django.urls import reverse
 from rest_framework import status

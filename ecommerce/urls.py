@@ -39,6 +39,5 @@ urlpatterns = [
     path("api/products/<int:pk>/update/", UpdateProductView.as_view(), name="update-product"),
     path("api/products/<int:pk>/delete/", DeleteProductView.as_view(), name="delete-product"),
     path('api/products/create/', CreateProductView.as_view(), name='create-product'),
-
 ]
 

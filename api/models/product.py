@@ -4,7 +4,9 @@ from django.utils import timezone
 from api.models.category import Category
 
 
+
 User = get_user_model()
+
 
 
 class Product(models.Model):
@@ -16,7 +18,6 @@ class Product(models.Model):
     - description: description of product
     - image: image of product
     - count: count of product
-    - category: category of product
     - currency: currency of product
     """
 
@@ -28,14 +29,13 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
 
+
     image = models.ImageField(upload_to="products")
     count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
 
+
     currency = models.CharField(max_length=3)
-    created_by = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True, related_name="products"
-    )
 
     def __str__(self):
 

@@ -1,5 +1,5 @@
 from api.services import create_payment, update_payment, delete_payment
-from api.models import Payment
+from api.models.payment import Payment
 import pytest
 
 
