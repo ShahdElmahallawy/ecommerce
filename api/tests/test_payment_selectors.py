@@ -1,6 +1,6 @@
 from api.selectors import list_payments, get_payment
 from django.contrib.auth import get_user_model
-from api.models import Payment
+from api.models.payment import Payment
 
 import pytest
 
