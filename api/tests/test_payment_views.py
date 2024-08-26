@@ -90,6 +90,31 @@ def test_delete_payment(api_client_auth, payment):
 
 
 @pytest.mark.django_db
+def test_delete_payment(api_client_auth, user, payment):
+    payment2 = Payment.objects.create(
+        user=user,
+        pan="1234567890123457",
+        bank_name="CIB",
+        expiry_date="2024-12-12",
+        cvv="123",
+        card_type="credit",
+        default=True,
+    )
+
+    url = reverse("payment-delete", kwargs={"payment_id": payment.id})
+    response = api_client_auth.delete(url, format="json")
+
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+
+@pytest.mark.django_db
+def test_delete_payment_fail(api_client_auth, user, payment):
+    url = reverse("payment-delete", kwargs={"payment_id": payment.id})
+    with pytest.raises(Exception):
+        response = api_client_auth.delete(url, format="json")
+
+
+@pytest.mark.django_db
 def test_delete_payment_not_found(api_client_auth, payment):
     url = reverse("payment-delete", kwargs={"payment_id": 2})
     response = api_client_auth.delete(url, format="json")
