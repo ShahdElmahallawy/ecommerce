@@ -16,27 +16,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from api.views.cart_view import (
-    CreateCartView,
-    DeleteCartView,
-    CheckoutCartView,
-    ListCartView,
-    TotalPriceCartView,
+from django.urls import path, include
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
 )
-from api.views.product_view import ListProductsView, RetrieveProductView, UpdateProductView, DeleteProductView, CreateProductView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/cart/", CreateCartView.as_view(), name="add-to-cart"),
-    path("api/cart/<int:pk>/", DeleteCartView.as_view(), name="remove-from-cart"),
-    path("api/cart/", ListCartView.as_view(), name="list-cart"),
-    path("api/cart/total/", TotalPriceCartView.as_view(), name="total-cart"),
-    path("api/cart/checkout/", CheckoutCartView.as_view(), name="checkout-cart"),
-    path("api/products/", ListProductsView.as_view(), name="product-list"),
-    path("api/products/<int:pk>/", RetrieveProductView.as_view(), name="product-detail"),
-    path("api/products/<int:pk>/update/", UpdateProductView.as_view(), name="update-product"),
-    path("api/products/<int:pk>/delete/", DeleteProductView.as_view(), name="delete-product"),
-    path('api/products/create/', CreateProductView.as_view(), name='create-product'),
+    path("api/", include("api.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
-

@@ -1,4 +1,8 @@
-from api.selector.cart_selector import get_cart_by_user, get_cart_item, get_cart_items
+from api.selector.cart_selector import(
+    get_cart_by_user,
+    get_cart_item,
+    get_cart_items,
+)
 import logging
 from api.models.cart_items import CartItems
 from api.models.product import Product

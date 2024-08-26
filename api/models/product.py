@@ -26,7 +26,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to="products")
     count = models.PositiveIntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="products"

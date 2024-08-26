@@ -1,6 +1,8 @@
 import pytest
 from django.contrib.auth.models import User
 from api.models.product import Product
+from api.models.category import Category
+
 
 @pytest.fixture
 def user(db):
@@ -11,13 +13,18 @@ def another_user(db):
     return User.objects.create_user(username='anotheruser', password='password')
 
 @pytest.fixture
-def product(user, db):
+def category(db):
+    return Category.objects.create(name='Test Category')
+
+@pytest.fixture
+def product(user, db, category):
     return Product.objects.create(
         name="Test Product",
         price=100.00,
         description="A product",
         count=5, 
-        created_by=user
+        created_by=user,
+        category=category,
     )
 
 

@@ -4,6 +4,7 @@ from api.models.cart_items import CartItems
 from api.service.cart_service import add_product_to_cart, remove_product_from_cart, calculate_cart_total, checkout_cart
 from django.contrib.auth.models import User
 from api.models.product import Product
+from api.models.category import Category
 
 
 @pytest.fixture
@@ -11,8 +12,12 @@ def user(db):
     return User.objects.create_user(username='testuser', email='test@example.com', password='password')
 
 @pytest.fixture
-def product(db):
-    return Product.objects.create(name='Test Product', price=100.00, count=10)
+def category(db):
+    return Category.objects.create(name='Test Category')
+
+@pytest.fixture
+def product(db, category):
+    return Product.objects.create(name='Test Product', price=100.00, count=10, category=category)
 
 @pytest.fixture
 def cart(user, db):
