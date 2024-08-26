@@ -32,9 +32,7 @@ class Product(models.Model):
 
     image = models.ImageField(upload_to="products")
     count = models.PositiveIntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
-
-
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
 
     def __str__(self):

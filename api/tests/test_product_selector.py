@@ -1,20 +1,26 @@
 import pytest
 from api.models.product import Product
-from api.selector.product_selector import get_all_products, get_all_products_with_details, get_product_by_id, get_products_by_category
+from api.selector.product_selector import get_all_products, get_product_by_id
 from django.contrib.auth.models import User
+from api.models.category import Category
 
 @pytest.fixture
 def user(db):
     return User.objects.create_user(username='testuser', password='password')
 
 @pytest.fixture
-def product(user, db):
+def category(db):
+    return Category.objects.create(name='Test Category')
+
+@pytest.fixture
+def product(user, db, category):
     return Product.objects.create(
         name="Test Product",
         price=100.00,
        description="A sample product description",
         count=5, 
-        created_by=user
+        created_by=user,
+        category=category
     )
 
 @pytest.mark.django_db
