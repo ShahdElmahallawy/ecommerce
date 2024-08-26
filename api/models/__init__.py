@@ -3,4 +3,10 @@ from .product import Product
 from .cart import Cart
 from .category import Category
 from .audit import Audit
-
+from .user import User
+from .profile import Profile
+from .wishlist import Wishlist
+from .payment import Payment
+from .order import Order
+from .wishlist_item import WishlistItem
+from .order_item import OrderItem
