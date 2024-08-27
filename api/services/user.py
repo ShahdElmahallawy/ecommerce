@@ -1,13 +1,15 @@
 import os
 import hashlib
 from datetime import timedelta
+from random import randint
 from rest_framework.exceptions import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError, AccessToken
 from rest_framework.exceptions import APIException
 from api.utils import send_password_reset_email
+from api.utils.mails import send_otp_email
 
 
 def create_user(validated_data):
@@ -56,6 +58,29 @@ def get_refreshed_tokens(validated_data):
         raise ValidationError({"refresh": str(e)})
 
     return {"access": new_access_token, "refresh": validated_data}
+
+
+def generate_otp_for_user(user):
+    """
+    Generates a 6-digit OTP and sends it to the user's email.
+
+    Returns:
+        str: The generated OTP token
+    """
+    otp = randint(100000, 999999)
+    otp_token = AccessToken.for_user(user)
+    otp_token.set_exp(lifetime=timedelta(minutes=5))
+    otp_token["type"] = "otp"
+
+    try:
+        send_otp_email(user, otp)
+    except Exception:
+        raise APIException("Failed to send OTP email. Please try again later.")
+
+    user.otp_code = otp
+    user.save(update_fields=["otp_code"])
+
+    return {"otp_token": str(otp_token)}
 
 
 def generate_reset_password_token(user, request):

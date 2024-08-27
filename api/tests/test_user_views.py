@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 
 from api.models import Profile
-from api.services.user import get_tokens_for_user
+from api.services.user import get_tokens_for_user, generate_otp_for_user
 
 
 User = get_user_model()
@@ -73,7 +73,9 @@ def test_user_register_with_missing_field(api_client):
 
 
 @pytest.mark.django_db
-def test_user_login(api_client, user):
+@patch("api.utils.mails.send_mail")
+@patch("api.services.user.randint")
+def test_user_login(mock_randint, mock_send_mail, api_client, user):
     url = reverse("user-login")
 
     data = {
@@ -81,11 +83,77 @@ def test_user_login(api_client, user):
         "password": "testpassword123",
     }
 
+    mock_randint.return_value = 123456
+
     response = api_client.post(url, data, format="json")
 
+    user.refresh_from_db()
+
     assert response.status_code == status.HTTP_200_OK
-    assert "refresh" in response.data
+    assert "otp_token" in response.data
+    assert mock_send_mail.called
+    assert mock_randint.called
+    assert user.otp_code == "123456"
+
+
+@pytest.mark.django_db
+def test_user_login_invalid_credentials(api_client, user):
+    url = reverse("user-login")
+
+    data = {
+        "email": "amr@example.com",
+        "password": "invalidpassword",
+    }
+
+    response = api_client.post(url, data, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
+@patch("api.utils.mails.send_mail")
+@patch("api.services.user.randint")
+def test_verify_otp(mock_randint, mock_send_mail, api_client, user):
+    mock_randint.return_value = 123456
+    token = generate_otp_for_user(user)
+
+    url = reverse("verify-otp")
+    data = {
+        "otp_code": str(123456),
+    }
+
+    response = api_client.post(
+        url,
+        data,
+        format="json",
+        headers={"Authorization": f"Bearer {token['otp_token']}"},
+    )
+
+    assert response.status_code == status.HTTP_200_OK
     assert "access" in response.data
+    assert "refresh" in response.data
+
+
+@pytest.mark.django_db
+@patch("api.utils.mails.send_mail")
+@patch("api.services.user.randint")
+def test_verify_otp_fail(mock_randint, mock_send_mail, api_client, user):
+    mock_randint.return_value = 123456
+    token = generate_otp_for_user(user)
+
+    url = reverse("verify-otp")
+    data = {
+        "otp_code": str(123455),
+    }
+
+    response = api_client.post(
+        url,
+        data,
+        format="json",
+        headers={"Authorization": f"Bearer {token['otp_token']}"},
+    )
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db

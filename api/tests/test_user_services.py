@@ -1,3 +1,4 @@
+from smtplib import SMTPException
 from unittest.mock import patch
 from django.urls import reverse
 import pytest
@@ -10,6 +11,7 @@ from api.services import (
     get_refreshed_tokens,
     generate_reset_password_token,
     reset_user_password,
+    generate_otp_for_user,
 )
 
 
@@ -31,6 +33,25 @@ def test_create_user():
     assert user.check_password("password123")
     assert "refresh" in tokens
     assert "access" in tokens
+
+
+@pytest.mark.django_db
+@patch("api.utils.mails.send_mail")
+def test_generate_otp_for_user(mock_send_email, user):
+    generate_otp_for_user(user)
+
+    assert user.otp_code
+    assert mock_send_email.called
+
+
+@pytest.mark.django_db
+@patch("api.utils.mails.send_mail")
+def test_generate_otp_for_user_fail(mock_send_email, user):
+    generate_otp_for_user(user)
+    mock_send_email.side_effect = SMTPException("Email sending failed")
+
+    with pytest.raises(APIException):
+        generate_otp_for_user(user)
 
 
 @pytest.mark.django_db
@@ -64,6 +85,16 @@ def test_generate_reset_password_token(mock_send_email, user, rf):
     assert user.reset_password_token
     assert user.reset_password_token_expiry
     assert mock_send_email.called
+
+
+@pytest.mark.django_db
+@patch("api.utils.mails.send_mail")
+def test_generate_reset_password_token_fail(mock_send_email, user, rf):
+    mock_request = rf.get("/")
+    mock_send_email.side_effect = Exception("Email sending failed")
+
+    with pytest.raises(APIException):
+        generate_reset_password_token(user, mock_request)
 
 
 @patch("api.utils.mails.send_mail")

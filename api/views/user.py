@@ -3,6 +3,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+from api.permissions import IsOtpToken
+from api.serializers.user import OTPVerificationSerializer
 from api.services import (
     create_user,
     generate_reset_password_token,
@@ -18,6 +20,7 @@ from api.serializers import (
     PasswordResetRequestSerializer,
     PasswordResetSerializer,
 )
+from api.services.user import generate_otp_for_user
 
 logger = logging.getLogger(__name__)
 
@@ -51,12 +54,36 @@ class UserLoginView(APIView):
         Handle POST requests for user login.
 
         Returns:
-            Response object containing the JWT token pair or validation errors.
+            Response object containing the OTP token or validation.
         """
         logger.info(f"User login request from {request.data.get('email')}")
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        tokens = get_tokens_for_user(serializer.validated_data["user"])
+        token = generate_otp_for_user(serializer.validated_data["user"])
+        return Response(token, status=status.HTTP_200_OK)
+
+
+class VerifyOTPView(APIView):
+    """
+    API view for verifying OTP.
+    """
+
+    permission_classes = [IsOtpToken]
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests for verifying OTP.
+
+        Returns:
+            Response object containing the JWT token pair or validation errors.
+        """
+        logger.info(f"OTP verification request from {request.data.get('otp_code')}")
+        serializer = OTPVerificationSerializer(
+            data=request.data, context={"user": request.user}
+        )
+        serializer.is_valid(raise_exception=True)
+        print(serializer.validated_data)
+        tokens = get_tokens_for_user(request.user)
         return Response(tokens, status=status.HTTP_200_OK)
 
 
