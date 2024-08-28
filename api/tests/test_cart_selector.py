@@ -2,7 +2,7 @@ import pytest
 from api.models.cart import Cart
 from api.models.cart_items import CartItems
 from api.models.product import Product
-from api.selector.cart_selector import get_cart_by_user
+from api.selectors.cart_selector import get_cart_by_user
 from django.contrib.auth.models import User
 
 @pytest.fixture

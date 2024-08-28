@@ -1,6 +1,6 @@
 import pytest
 from api.models.product import Product
-from api.selector.product_selector import get_all_products, get_product_by_id
+from api.selectors.product_selector import get_all_products, get_product_by_id
 from django.contrib.auth.models import User
 from api.models.category import Category
 

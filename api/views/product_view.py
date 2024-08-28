@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from api.service.product_service import list_products, retrieve_product, update_product, delete_product
+from api.services.product_service import list_products, retrieve_product, update_product, delete_product
 from rest_framework.views import APIView
 
 

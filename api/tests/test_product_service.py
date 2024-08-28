@@ -2,6 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from api.models.product import Product
 from api.models.category import Category
+from api.services.product_service import list_products, retrieve_product, update_product
 
 
 @pytest.fixture
@@ -33,26 +34,22 @@ def update_data():
     return {'name': 'Updated Name', 'price': 150.00}
 
 def test_list_products(product, db):
-    from api.service.product_service import list_products
     products = list_products()
     assert len(products) == 1
     assert products[0] == product
+
 def test_retrieve_product(product, db):
-    from api.service.product_service import retrieve_product
     fetched_product = retrieve_product(product.id)
     assert fetched_product == product
 
 def test_retrieve_product_not_found(db):
-    from api.service.product_service import retrieve_product
     fetched_product = retrieve_product(999)
     assert fetched_product is None
 def test_update_product(product, user, update_data, db):
-    from api.service.product_service import update_product
     updated_product = update_product(product.id, user, update_data)
     assert updated_product.name == update_data['name']
 
 def test_update_product_unauthorized(product, another_user, update_data, db):
-    from api.service.product_service import update_product
     updated_product = update_product(product.id, another_user, update_data)
     assert updated_product is None
 

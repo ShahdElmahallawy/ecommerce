@@ -7,7 +7,7 @@ from api.models.product import Product
 from api.models.cart_items import CartItems
 from decimal import Decimal
 from api.models.category import Category
-from api.service.cart_service import (
+from api.services.cart_service import (
     add_product_to_cart,
     remove_product_from_cart,
     calculate_cart_total,

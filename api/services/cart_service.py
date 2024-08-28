@@ -1,4 +1,4 @@
-from api.selector.cart_selector import(
+from api.selectors.cart_selector import(
     get_cart_by_user,
     get_cart_item,
     get_cart_items,
