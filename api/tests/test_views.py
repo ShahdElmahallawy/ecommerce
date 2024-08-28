@@ -95,8 +95,6 @@ def test_category_product_list_view(api_client_auth):
 
     response = api_client_auth.get(url)
 
-    print(response.data)
-    print("5" * 100)
     assert response.status_code == status.HTTP_200_OK
 
     expected_data = {

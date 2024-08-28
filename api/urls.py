@@ -7,11 +7,7 @@ from .views.category import (
     CategoryDeleteView,
     CategoryProductListView,
 )
-from .views.order import (
-    OrderListView,
-    OrderCancelView,
-    OrderTrackView,
-)
+from .views.order import OrderListView, OrderCancelView, OrderTrackView, OrderCreateView
 
 from .views import (
     UserRegisterView,
@@ -47,6 +43,7 @@ order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
+    path("orders/create/", OrderCreateView.as_view(), name="create"),
 ]
 
 user_patterns = [
