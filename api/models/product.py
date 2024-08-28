@@ -19,6 +19,9 @@ class Product(models.Model):
     - image: image of product
     - count: count of product
     - currency: currency of product
+    -feedback: feedback of product
+    - rate: rate of product
+    - total_rate: total rate of product (average of all rates)
     """
 
     # category = models.ForeignKey('Category', on_delete=models.CASCADE)
@@ -34,6 +37,9 @@ class Product(models.Model):
     count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     currency = models.CharField(max_length=3)
+    feedback = models.TextField()
+    rate = models.PositiveIntegerField()
+    total_rate = models.PositiveIntegerField()
 
     def __str__(self):
 

@@ -7,3 +7,4 @@ class ApiConfig(AppConfig):
 
     def ready(self) -> None:
         import api.signals.handlers
+        
