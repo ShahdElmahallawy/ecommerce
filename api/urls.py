@@ -1,16 +1,18 @@
+from django.contrib import admin
 from django.urls import path, include
-
-from .views.category import (
-    CategoryListView,
-    CategoryDetailView,
-    CategoryUpdateView,
-    CategoryDeleteView,
-    CategoryProductListView,
+from api.views.cart_view import (
+    CreateCartView,
+    DeleteCartView,
+    CheckoutCartView,
+    ListCartView,
+    TotalPriceCartView,
 )
-from .views.order import (
-    OrderListView,
-    OrderCancelView,
-    OrderTrackView,
+from api.views.product_view import (
+    ListProductsView,
+    RetrieveProductView,
+    UpdateProductView,
+    DeleteProductView,
+    CreateProductView,
 )
 
 from .views import (
@@ -31,7 +33,31 @@ from .views import (
     WishlistItemCreateView,
     WishlistItemDeleteView,
     WishlistDeleteView,
+    CategoryListView,
+    CategoryDetailView,
+    CategoryUpdateView,
+    CategoryDeleteView,
+    CategoryProductListView,
+    OrderListView,
+    OrderCancelView,
+    OrderTrackView,
 )
+
+cart_patterns = [
+    path("", ListCartView.as_view(), name="list-cart"),
+    path("<int:pk>/", DeleteCartView.as_view(), name="remove-from-cart"),
+    path("total/", TotalPriceCartView.as_view(), name="total-cart"),
+    path("checkout/", CheckoutCartView.as_view(), name="checkout-cart"),
+    path("create/", CreateCartView.as_view(), name="add-to-cart"),
+]
+
+product_patterns = [
+    path("", ListProductsView.as_view(), name="product-list"),
+    path("<int:pk>/", RetrieveProductView.as_view(), name="product-detail"),
+    path("<int:pk>/update/", UpdateProductView.as_view(), name="update-product"),
+    path("<int:pk>/delete/", DeleteProductView.as_view(), name="delete-product"),
+    path("create/", CreateProductView.as_view(), name="create-product"),
+]
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -44,6 +70,7 @@ category_patterns = [
         name="products",
     ),
 ]
+
 order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
@@ -91,9 +118,11 @@ wishlist_patterns = [
 ]
 
 urlpatterns = [
+    path("cart/", include((cart_patterns, "cart"))),
+    path("products/", include((product_patterns, "products"))),
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
-    path("users/", include(user_patterns)),
-    path("payments/", include(payment_patterns)),
-    path("wishlists/", include(wishlist_patterns)),
+    path("users/", include((user_patterns, "users"))),
+    path("payments/", include((payment_patterns, "payments"))),
+    path("wishlist/", include((wishlist_patterns, "wishlist"))),
 ]
