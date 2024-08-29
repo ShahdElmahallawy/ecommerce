@@ -13,7 +13,7 @@ def api_client():
 @pytest.fixture
 def user_data():
     return {
-        "email": "amr@example.com",  
+        "email": "amr@example.com",
         "name": "Amr Test",
         "password": "testpassword123",
     }
@@ -22,7 +22,7 @@ def user_data():
 @pytest.fixture
 def admin_data():
     return {
-        "email": "admin@example.com",  
+        "email": "admin@example.com",
         "name": "Admin Test",
         "password": "adminpassword123",
     }
