@@ -26,7 +26,7 @@ class PaymentListView(APIView):
         logger.info(f"User {request.user} requested their payments")
         payments = list_payments(request.user)
         serializer = PaymentSerializer(payments, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"data": serializer.data}, status=status.HTTP_200_OK)
 
 
 class PaymentCreateView(APIView):
@@ -117,5 +117,12 @@ class PaymentDeleteView(APIView):
             return Response(
                 {"detail": "Payment not found."}, status=status.HTTP_404_NOT_FOUND
             )
-        delete_payment(payment)
+        try:
+            delete_payment(payment)
+        except Exception as e:
+            logger.error(f"Failed to delete payment: {e}")
+            return Response(
+                {"detail": f"Failed to delete payment. {e}"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         return Response(status=status.HTTP_204_NO_CONTENT)

@@ -1,5 +1,4 @@
-# Draft not used yet
-# Checks if the token is valid and if the password was changed after the token was issued
+# Draft not used
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.authentication import JWTAuthentication

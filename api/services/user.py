@@ -8,8 +8,7 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError, AccessToken
 from rest_framework.exceptions import APIException
-from api.utils import send_password_reset_email
-from api.utils.mails import send_otp_email
+from api.utils.mails import EmailService
 
 
 def create_user(validated_data):
@@ -73,9 +72,9 @@ def generate_otp_for_user(user):
     otp_token["type"] = "otp"
 
     try:
-        send_otp_email(user, otp)
-    except Exception:
-        raise APIException("Failed to send OTP email. Please try again later.")
+        EmailService(user).send_otp_email(otp)
+    except Exception as e:
+        raise APIException(str(e))
 
     user.otp_code = otp
     user.save(update_fields=["otp_code"])
@@ -96,11 +95,9 @@ def generate_reset_password_token(user, request):
         reverse("password-reset", args=[reset_token])
     )
     try:
-        send_password_reset_email(user, reset_link)
-    except Exception:
-        raise APIException(
-            "Failed to send password reset email. Please try again later."
-        )
+        EmailService(user).send_password_reset_email(reset_link)
+    except Exception as e:
+        raise APIException(str(e))
 
 
 def reset_user_password(user, new_password):
@@ -113,6 +110,18 @@ def reset_user_password(user, new_password):
             "password",
             "reset_password_token",
             "reset_password_token_expiry",
+            "password_changed_at",
+        ]
+    )
+
+
+def update_user_password(user, new_password):
+    user.set_password(new_password)
+    user.password_changed_at = timezone.now()
+
+    user.save(
+        update_fields=[
+            "password",
             "password_changed_at",
         ]
     )

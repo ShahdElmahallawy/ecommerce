@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "api.permissions.jwt_authentication.CustomJWTAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -174,7 +175,7 @@ LOGGING = {
     },
     "loggers": {
         "": {
-            "handlers": ["console", "file"],
+            "handlers": ["file"],
             "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
         },
     },

@@ -12,6 +12,7 @@ from api.services import (
     generate_reset_password_token,
     reset_user_password,
     generate_otp_for_user,
+    update_user_password,
 )
 
 
@@ -112,3 +113,11 @@ def test_reset_user_password(user):
     assert not user.reset_password_token
     assert not user.reset_password_token_expiry
     assert user.password_changed_at
+
+
+@pytest.mark.django_db
+def test_update_user_password(user):
+    new_password = "new_password12"
+    update_user_password(user, new_password)
+
+    assert user.check_password(new_password)

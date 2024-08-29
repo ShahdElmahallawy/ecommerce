@@ -38,8 +38,10 @@ class OrangeSMSProvider(SMSProvider):
         return 0.03
 
 
-def get_cheapest_sms_provider(*providers):
-    """
-    Return the cheapest SMS provider.
-    """
-    return min(providers, key=lambda provider: provider.price)
+class SMSProviderUtils:
+    @staticmethod
+    def get_cheapest_sms_provider(*providers):
+        """
+        Return the cheapest SMS provider.
+        """
+        return min(providers, key=lambda provider: provider.price)

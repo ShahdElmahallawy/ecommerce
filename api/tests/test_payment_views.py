@@ -110,8 +110,10 @@ def test_delete_payment(api_client_auth, user, payment):
 @pytest.mark.django_db
 def test_delete_payment_fail(api_client_auth, user, payment):
     url = reverse("payment-delete", kwargs={"payment_id": payment.id})
-    with pytest.raises(Exception):
-        response = api_client_auth.delete(url, format="json")
+
+    response = api_client_auth.delete(url, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db

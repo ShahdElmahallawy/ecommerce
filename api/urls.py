@@ -20,6 +20,7 @@ from .views import (
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
+    UpdatePasswordView,
     ProfileDetailView,
     ProfileUpdateView,
     PaymentListView,
@@ -63,6 +64,7 @@ user_patterns = [
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
+    path("update-password/", UpdatePasswordView.as_view(), name="update-password"),
 ]
 
 payment_patterns = [
@@ -70,10 +72,10 @@ payment_patterns = [
     path("create/", PaymentCreateView.as_view(), name="payment-create"),
     path("<int:payment_id>/", PaymentDetailView.as_view(), name="payment-detail"),
     path(
-        "<int:payment_id>/update/", PaymentUpdateView.as_view(), name="payment-update"
+        "update/<int:payment_id>/", PaymentUpdateView.as_view(), name="payment-update"
     ),
     path(
-        "<int:payment_id>/delete/", PaymentDeleteView.as_view(), name="payment-delete"
+        "delete/<int:payment_id>/", PaymentDeleteView.as_view(), name="payment-delete"
     ),
 ]
 
