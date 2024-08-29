@@ -18,6 +18,7 @@ def test_create_payment(user):
     assert payment.pan == data["pan"]
     assert payment.bank_name == data["bank_name"]
     assert payment.user == user
+    assert payment.default == True
 
 
 @pytest.mark.django_db
@@ -33,7 +34,23 @@ def test_update_payment(user, payment):
 
 @pytest.mark.django_db
 def test_delete_payment(user, payment):
-
+    payment2 = Payment.objects.create(
+        user=user,
+        pan="1234567890123457",
+        bank_name="CIB",
+        expiry_date="2024-12-12",
+        cvv="123",
+        card_type="credit",
+        default=True,
+    )
+    payment.refresh_from_db()
     delete_payment(payment)
 
     assert Payment.objects.filter(id=payment.id).exists() == False
+
+
+@pytest.mark.django_db
+def test_delete_payment_fail(user, payment):
+
+    with pytest.raises(Exception):
+        delete_payment(payment)

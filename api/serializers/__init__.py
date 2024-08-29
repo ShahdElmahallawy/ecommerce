@@ -4,6 +4,7 @@ from .user import (
     RefreshTokenSerializer,
     PasswordResetRequestSerializer,
     PasswordResetSerializer,
+    OTPVerificationSerializer,
 )
 from .profile import ProfileSerializer, UserProfileSerializer
 from .payment import PaymentSerializer

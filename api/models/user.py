@@ -45,6 +45,8 @@ class User(AbstractUser):
     reset_password_token_expiry = models.DateTimeField(null=True)
     password_changed_at = models.DateTimeField(null=True)
 
+    otp_code = models.CharField(max_length=6, null=True)
+
     objects = UserManager()
 
     USERNAME_FIELD = "email"
