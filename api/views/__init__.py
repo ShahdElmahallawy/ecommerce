@@ -4,6 +4,7 @@ from .user import (
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
+    VerifyOTPView,
 )
 from .profile import ProfileDetailView, ProfileUpdateView
 from .payment import (

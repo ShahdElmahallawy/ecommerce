@@ -11,23 +11,37 @@ class ProductSimpleSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "name", "price"]
 
 
-class WishlistItemSerializer(serializers.Serializer):
+class WishlistItemSerializer(serializers.ModelSerializer):
     """Serializer for a wishlist item"""
 
     class Meta:
         model = WishlistItem
-        fields = ["id", "wishlist", "product", "created_at", "updated_at"]
+        fields = ["id", "product"]
 
-    id = serializers.IntegerField()
+    id = serializers.IntegerField(read_only=True)
     product = ProductSimpleSerializer()
+
+
+class WishlistSerializer(serializers.ModelSerializer):
+    """Serializer for the Wishlist model"""
+
+    class Meta:
+        model = Wishlist
+        fields = ["id", "user", "items", "results"]
+
+    items = WishlistItemSerializer(many=True)
+    results = serializers.SerializerMethodField()
+
+    def get_results(self, obj):
+        return obj.items.count()
 
 
 class WishlistItemCreateSerializer(serializers.Serializer):
     """Serializer for creating a wishlist item"""
 
-    product = serializers.IntegerField()
+    product_id = serializers.IntegerField()
 
-    def validate_product(self, value):
+    def validate_product_id(self, value):
         """Validate the product id"""
         try:
             # TODO: Replace this with product selector once implemented
@@ -39,14 +53,3 @@ class WishlistItemCreateSerializer(serializers.Serializer):
     class Meta:
         model = WishlistItem
         fields = ["product_id"]
-
-
-class WishlistSerializer(serializers.ModelSerializer):
-    """Serializer for the Wishlist model"""
-
-    class Meta:
-        model = Wishlist
-        fields = ["id", "user", "items"]
-        read_only_fields = ["id", "user", "items"]
-
-    items = WishlistItemSerializer(many=True)

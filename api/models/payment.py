@@ -27,6 +27,26 @@ class Payment(Audit):
     expiry_date = models.DateField(null=True)
     cvv = models.CharField(max_length=3)
     card_type = models.CharField(max_length=10, choices=CARD_TYPES)
+    default = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        """Overrides the save method to set the default payment."""
+
+        if self.default:
+            Payment.objects.filter(user=self.user).update(default=False)
+
+        if Payment.objects.filter(user=self.user).count() <= 1:
+            self.default = True
+
+        super(Payment, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Overrides the delete method to set the default payment."""
+        if self.default:
+            raise Exception(
+                "Cannot delete default payment, set another payment as default first"
+            )
+        super(Payment, self).delete(*args, **kwargs)
 
     def __str__(self):
         """Returns a string representation of the payment."""

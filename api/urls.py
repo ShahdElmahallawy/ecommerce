@@ -16,6 +16,7 @@ from .views.order import (
 from .views import (
     UserRegisterView,
     UserLoginView,
+    VerifyOTPView,
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
@@ -61,6 +62,7 @@ user_patterns = [
     path("refresh-token/", RefreshTokenView.as_view(), name="refresh-token"),
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
+    path("verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
 ]
 
 payment_patterns = [
@@ -81,7 +83,7 @@ wishlist_patterns = [
         "items/create/", WishlistItemCreateView.as_view(), name="wishlist-item-create"
     ),
     path(
-        "items/delete/<int:product_id>",
+        "items/delete/<int:item_id>",
         WishlistItemDeleteView.as_view(),
         name="wishlist-item-delete",
     ),
