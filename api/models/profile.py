@@ -1,5 +1,6 @@
 from django.db import models
 from . import User, Audit
+from api.models.address import Address
 
 
 class Profile(Audit):
@@ -19,7 +20,9 @@ class Profile(Audit):
         ("customer", "Customer"),
     )
     user_type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
-    address = models.CharField(max_length=255, null=True)
+    address = models.ForeignKey(
+        Address, related_name="shipping_address", on_delete=models.SET_NULL, null=True
+    )
     phone = models.CharField(max_length=11, null=True)
     CURRENCY_CHOICES = (
         ("EGP", "Egyptian Pound"),
