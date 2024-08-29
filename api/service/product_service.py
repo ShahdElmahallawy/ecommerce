@@ -1,11 +1,14 @@
 from api.selector.product_selector import get_all_products, get_product_by_id
+from api.models.product import Product
 import logging
+
 
 def list_products():
     """
     Service to list all products.
     """
     return get_all_products()
+
 
 def retrieve_product(product_id):
     """
@@ -25,8 +28,11 @@ def update_product(product_id, user, data):
         product.save()
         return product
     else:
-        logging.warning(f'Product with ID {product_id} not found or user is not the creator.')
+        logging.warning(
+            f"Product with ID {product_id} not found or user is not the creator."
+        )
     return None
+
 
 def delete_product(product_id, user):
     """
@@ -34,9 +40,10 @@ def delete_product(product_id, user):
     """
     product = get_product_by_id(product_id)
     if product and product.created_by == user:
-        product.is_deleted = True
-        product.save()
+        product.delete()
         return True
     else:
-        logging.warning(f'Product with ID {product_id} not found or user is not the creator.')
+        logging.warning(
+            f"Product with ID {product_id} not found or user is not the creator."
+        )
     return False

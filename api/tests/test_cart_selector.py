@@ -5,17 +5,21 @@ from api.models.product import Product
 from api.selector.cart_selector import get_cart_by_user
 from django.contrib.auth.models import User
 
+
 @pytest.fixture
 def user(db):
-    return User.objects.create(username='testuser')
+    return User.objects.create(username="testuser")
+
 
 @pytest.fixture
 def product(db):
     return Product.objects.create(name="Sample Product", price=20.00)
 
+
 @pytest.fixture
 def cart(user, db):
     return Cart.objects.create(user=user)
+
 
 @pytest.fixture
 def cart_item(cart, product, db):
