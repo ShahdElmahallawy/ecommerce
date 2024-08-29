@@ -1,7 +1,7 @@
 from django.db import models
 
-from . import Wishlist, Product
-from . import Audit
+from . import Wishlist, Audit
+from api.models.product import Product
 
 
 class WishlistItem(Audit):

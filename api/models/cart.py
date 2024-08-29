@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from api.models.audit import Audit
 
 User = get_user_model()
 
 
-class Cart(models.Model):
+class Cart(Audit):
     """Model of cart.
 
     Fields:

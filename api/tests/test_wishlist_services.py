@@ -1,6 +1,7 @@
+from rest_framework.exceptions import ValidationError
 import pytest
 from django.contrib.auth.models import User
-from api.models import Wishlist, WishlistItem, Product
+from api.models import Wishlist, WishlistItem, Product, Category
 from api.services.wishlist import (
     add_item_to_wishlist,
     delete_item_from_wishlist,
@@ -10,8 +11,15 @@ from api.selectors.wishlist import get_wishlist_by_user
 
 
 @pytest.fixture
-def product():
-    return Product.objects.create(name="Test Product", price=100.0, count=10)
+def category():
+    return Category.objects.create(name="Test Category")
+
+
+@pytest.fixture
+def product(category):
+    return Product.objects.create(
+        name="Test Product", price=100.0, count=10, category=category
+    )
 
 
 @pytest.fixture
@@ -25,19 +33,34 @@ def wishlist_item(wishlist, product):
 
 
 def test_add_item_to_wishlist(wishlist, product):
-    item = add_item_to_wishlist(wishlist, product)
+    wishlist = add_item_to_wishlist(wishlist, product)
 
-    assert item.wishlist == wishlist
-    assert item.product == product
+    assert wishlist.user == wishlist.user
+    assert wishlist.items.count() == 1
+    assert wishlist.items.first().product == product
+
+
+def test_add_item_to_wishlist_item_exists(wishlist, product):
+    wishlist = add_item_to_wishlist(wishlist, product)
+    assert wishlist.items.count() == 1
+
+    with pytest.raises(ValidationError):
+        wishlist = add_item_to_wishlist(wishlist, product)
 
 
 def test_delete_item_from_wishlist(wishlist, wishlist_item):
-    assert WishlistItem.objects.filter(id=wishlist_item.id).count() == 1
+    assert wishlist.items.count() == 1
 
-    result = delete_item_from_wishlist(wishlist, wishlist_item.product)
+    wishlist = delete_item_from_wishlist(wishlist, wishlist_item.id)
 
-    assert result is True
-    assert WishlistItem.objects.filter(id=wishlist_item.id).count() == 0
+    assert wishlist.items.count() == 0
+
+
+def test_delete_item_from_wishlist_fail(wishlist, wishlist_item):
+    assert wishlist.items.count() == 1
+
+    with pytest.raises(ValidationError):
+        delete_item_from_wishlist(wishlist, 4)
 
 
 def test_clear_wishlist(wishlist, wishlist_item):

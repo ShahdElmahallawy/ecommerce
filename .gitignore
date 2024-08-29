@@ -11,3 +11,6 @@ pycache/
 .env
 dummy/
 .pytest_cache/
+
+
+*.log

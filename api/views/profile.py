@@ -1,3 +1,4 @@
+import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions, status
@@ -5,6 +6,8 @@ from rest_framework import permissions, status
 from api.services import update_profile
 from api.selectors import get_user_profile
 from api.serializers import ProfileSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class ProfileDetailView(APIView):
@@ -21,8 +24,10 @@ class ProfileDetailView(APIView):
         Returns:
             Response object containing the profile data.
         """
+        logger.info(f"User {request.user} requested their profile")
         profile = get_user_profile(request.user)
         if not profile:
+            logger.error(f"Profile not found for user {request.user}")
             return Response(
                 {"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND
             )
@@ -44,8 +49,10 @@ class ProfileUpdateView(APIView):
         Returns:
             Response object containing the updated profile data.
         """
+        logger.info(f"User {request.user} requested to update their profile")
         profile = get_user_profile(request.user)
         if not profile:
+            logger.error(f"Profile not found for user {request.user}")
             return Response(
                 {"detail": "Profile not found."}, status=status.HTTP_404_NOT_FOUND
             )

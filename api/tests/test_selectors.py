@@ -47,12 +47,15 @@ def test_get_category_by_id_non_existent():
 
 @pytest.mark.django_db
 def test_get_products_by_category():
+    category = Category.objects.create(name="Category 1")
+    category2 = Category.objects.create(name="Category 2")
     product1 = Product.objects.create(
         name="Product 1",
         price=10.00,
         description="Description for product 1",
         count=5,
         currency="USD",
+        category=category,
     )
     product2 = Product.objects.create(
         name="Product 2",
@@ -60,18 +63,13 @@ def test_get_products_by_category():
         description="Description for product 2",
         count=10,
         currency="USD",
+        category=category2,
     )
 
-    category = Category.objects.create(name="Category 1", featured_product=product1)
+    category_products = Product.objects.filter(category=product1.category)
 
-    category_products = Product.objects.filter(
-        id__in=Category.objects.filter(featured_product=product1).values_list(
-            "featured_product", flat=True
-        )
-    )
-
-    assert product1 in category_products
-    assert product2 not in category_products
+    assert product1 in list(category_products)
+    assert product2 not in list(category_products)
 
 
 # order

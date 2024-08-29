@@ -1,13 +1,11 @@
+from django.contrib.auth import get_user_model
 import pytest
 from api.models.product import Product
-from api.selector.product_selector import get_all_products, get_product_by_id
-from django.contrib.auth.models import User
+from api.selectors.product_selector import get_all_products, get_product_by_id
+
 from api.models.category import Category
 
-
-@pytest.fixture
-def user(db):
-    return User.objects.create_user(username="testuser", password="password")
+User = get_user_model()
 
 
 @pytest.fixture

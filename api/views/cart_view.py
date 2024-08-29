@@ -1,6 +1,6 @@
 from api.serializers.cart_serializer import CartSerializer
 from rest_framework.permissions import IsAuthenticated
-from api.service.cart_service import (
+from api.services.cart_service import (
     add_product_to_cart,
     remove_product_from_cart,
     calculate_cart_total,

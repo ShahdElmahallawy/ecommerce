@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractUser, PermissionsMixin):
+class User(AbstractUser):
     """Custom user model that supports using email instead of username
 
     Fields:
@@ -44,6 +44,8 @@ class User(AbstractUser, PermissionsMixin):
     reset_password_token = models.CharField(max_length=255, null=True, unique=True)
     reset_password_token_expiry = models.DateTimeField(null=True)
     password_changed_at = models.DateTimeField(null=True)
+
+    otp_code = models.CharField(max_length=6, null=True)
 
     objects = UserManager()
 

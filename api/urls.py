@@ -30,9 +30,11 @@ from .views.order import (
     OrderTrackView,
 )
 
+
 from .views import (
     UserRegisterView,
     UserLoginView,
+    VerifyOTPView,
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
@@ -49,6 +51,7 @@ from .views import (
     WishlistDeleteView,
 )
 
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -60,6 +63,7 @@ category_patterns = [
         name="products",
     ),
 ]
+
 order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
@@ -78,6 +82,7 @@ user_patterns = [
     path("refresh-token/", RefreshTokenView.as_view(), name="refresh-token"),
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
+    path("verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
 ]
 
 payment_patterns = [
@@ -98,13 +103,12 @@ wishlist_patterns = [
         "items/create/", WishlistItemCreateView.as_view(), name="wishlist-item-create"
     ),
     path(
-        "items/delete/<int:product_id>",
+        "items/delete/<int:item_id>",
         WishlistItemDeleteView.as_view(),
         name="wishlist-item-delete",
     ),
     path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
 ]
-
 
 cart_patterns = [
     path("", ListCartView.as_view(), name="list-cart"),
@@ -124,11 +128,11 @@ product_patterns = [
 
 
 urlpatterns = [
-    path("categories/", include((category_patterns, "categories"))),
-    path("orders/", include((order_patterns, "orders"))),
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
+    path("categories/", include((category_patterns, "categories"))),
+    path("orders/", include((order_patterns, "orders"))),
     path("cart/", include((cart_patterns, "cart"))),
     path("products/", include((product_patterns, "products"))),
 ]

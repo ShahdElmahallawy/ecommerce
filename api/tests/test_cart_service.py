@@ -1,22 +1,19 @@
 import pytest
 from api.models.cart import Cart
 from api.models.cart_items import CartItems
-from api.service.cart_service import (
+
+from api.services.cart_service import (
     add_product_to_cart,
     remove_product_from_cart,
     calculate_cart_total,
     checkout_cart,
 )
-from django.contrib.auth.models import User
+
 from api.models.product import Product
 from api.models.category import Category
+from django.contrib.auth import get_user_model
 
-
-@pytest.fixture
-def user(db):
-    return User.objects.create_user(
-        username="testuser", email="test@example.com", password="password"
-    )
+User = get_user_model()
 
 
 @pytest.fixture
@@ -27,7 +24,7 @@ def category(db):
 @pytest.fixture
 def product(db, category):
     return Product.objects.create(
-        name="Test Product", price=100.00, count=10, category=category
+        name="Sample Product", price=20.00, count=10, category=category
     )
 
 

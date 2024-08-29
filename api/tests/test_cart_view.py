@@ -1,27 +1,17 @@
 import pytest
 from django.urls import reverse
 from rest_framework.test import APIClient
-from django.contrib.auth.models import User
 from api.models.cart import Cart
 from api.models.product import Product
 from api.models.cart_items import CartItems
 from decimal import Decimal
 from api.models.category import Category
-from api.service.cart_service import (
+from api.services.cart_service import (
     add_product_to_cart,
     remove_product_from_cart,
     calculate_cart_total,
     checkout_cart,
 )
-
-
-@pytest.fixture
-def authenticated_client():
-    user = User.objects.create_user(username="test", password="test")
-    client = APIClient()
-    client.force_authenticate(user=user)
-
-    return client
 
 
 @pytest.fixture
@@ -42,8 +32,7 @@ def create_product(db, category):
 
 
 @pytest.fixture
-def create_cart(authenticated_client):
-    user = authenticated_client.handler._force_user
+def create_cart(user):
     return Cart.objects.create(user=user)
 
 

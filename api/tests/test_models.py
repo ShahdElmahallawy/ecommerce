@@ -9,16 +9,19 @@ from api.models.payment import Payment
 
 @pytest.mark.django_db
 def test_category_creation():
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
-    category = Category.objects.create(name="Test Category", featured_product=product)
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(
+        name="Test Product", price=10.00, count=10, category=category
+    )
+    category.featured_product = product
+    category.save()
     assert category.name == "Test Category"
     assert category.featured_product == product
 
 
 @pytest.mark.django_db
 def test_category_str():
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
-    category = Category.objects.create(name="Test Category", featured_product=product)
+    category = Category.objects.create(name="Test Category")
     assert str(category) == "Test Category"
 
 
@@ -82,8 +85,13 @@ def test_order_total_price_calculation():
 
     order = Order.objects.create(user=user, payment_method=payment)
 
-    product1 = Product.objects.create(name="Product 1", price=10.00, count=10)
-    product2 = Product.objects.create(name="Product 2", price=20.00, count=10)
+    category = Category.objects.create(name="Test Category")
+    product1 = Product.objects.create(
+        name="Product 1", price=10.00, count=10, category=category
+    )
+    product2 = Product.objects.create(
+        name="Product 2", price=20.00, count=10, category=category
+    )
 
     OrderItem.objects.create(
         order=order, product=product1, quantity=2, unit_price=10.00
@@ -113,8 +121,10 @@ def test_order_item_creation():
     )
 
     order = Order.objects.create(user=user, payment_method=payment)
-
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(
+        name="Test Product", price=10.00, count=10, category=category
+    )
 
     order_item = OrderItem.objects.create(
         order=order, product=product, quantity=2, unit_price=10.00
@@ -141,8 +151,10 @@ def test_order_item_str():
     )
 
     order = Order.objects.create(user=user, payment_method=payment)
-
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
+    category = Category.objects.create(name="Test Category")
+    product = Product.objects.create(
+        name="Test Product", price=10.00, count=10, category=category
+    )
 
     order_item = OrderItem.objects.create(
         order=order, product=product, quantity=2, unit_price=10.00

@@ -1,4 +1,4 @@
-from api.selector.product_selector import get_all_products, get_product_by_id
+from api.selectors.product_selector import get_all_products, get_product_by_id
 from api.models.product import Product
 import logging
 

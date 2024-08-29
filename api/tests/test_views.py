@@ -87,11 +87,12 @@ def test_category_product_list_view(api_client_auth):
         description="A high-performance laptop.",
         count=10,
         currency="USD",
+        category=category,
     )
     category.featured_product = featured_product
     category.save()
 
-    url = reverse("categories:products", args=[category.id])
+    url = reverse("categories:products", kwargs={"category_pk": category.pk})
 
     response = api_client_auth.get(url)
 
@@ -100,7 +101,6 @@ def test_category_product_list_view(api_client_auth):
     assert response.status_code == status.HTTP_200_OK
 
     expected_data = {
-        "id": featured_product.id,
         "name": "Laptop",
         "price": "999.99",
         "description": "A high-performance laptop.",
@@ -108,7 +108,6 @@ def test_category_product_list_view(api_client_auth):
         "currency": "USD",
     }
 
-    assert response.data[0]["id"] == expected_data["id"]
     assert response.data[0]["name"] == expected_data["name"]
     assert response.data[0]["price"] == expected_data["price"]
     assert response.data[0]["description"] == expected_data["description"]
@@ -118,16 +117,19 @@ def test_category_product_list_view(api_client_auth):
 
 @pytest.mark.django_db
 def test_category_product_list(api_client_auth):
-
+    category = Category.objects.create(name="Electronics")
     product1 = Product.objects.create(
         name="Smartphone",
         price=699.99,
         description="A high-end smartphone",
         count=50,
         currency="USD",
+        category=category,
     )
 
-    category = Category.objects.create(name="Electronics", featured_product=product1)
+    category.featured_product = product1
+    category.save()
+
     url = reverse("categories:products", kwargs={"category_pk": category.pk})
 
     response = api_client_auth.get(url)

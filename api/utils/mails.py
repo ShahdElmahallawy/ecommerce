@@ -24,3 +24,27 @@ def send_password_reset_email(user, reset_link):
         raise SMTPException(
             "Failed to send password reset email. Please try again later."
         )
+
+
+def send_otp_email(user, otp):
+    """
+    Sends an OTP email to the user.
+    """
+    subject = "OTP Verification (Expires in 5 minutes)"
+    message = f"Hi {user.name},\n\n"
+    message += "Here is your OTP code for verification:\n\n"
+    message += f"{otp}\n\n"
+    message += "This code will expire in 5 minutes."
+    message += (
+        "If you did not request this OTP, please change your password immediately."
+    )
+    try:
+        res = send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [user.email],
+            fail_silently=False,
+        )
+    except:
+        raise SMTPException("Failed to send OTP email. Please try again later.")
