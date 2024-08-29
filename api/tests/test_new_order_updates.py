@@ -4,8 +4,10 @@ from rest_framework import status
 from api.models.product import Product
 from api.models.order import Order
 from api.models.order_item import OrderItem
+from api.models.user import User
 
 from api.services.order import create_order
+
 
 @pytest.mark.django_db
 def test_create_order_success(api_client_auth, payment):
@@ -42,3 +44,27 @@ def test_create_order_success(api_client_auth, payment):
     assert product2.count == 2
 
 
+@pytest.mark.django_db
+def test_create_order_failure(api_client_auth, payment):
+    url = reverse("orders:create")
+
+    data = {
+        "payment_method": payment.id,
+        "items": [
+            {"product_id": 99999, "quantity": 2},
+        ],
+    }
+
+    response = api_client_auth.post(url, data, format="json")
+    assert "error" in response.data
+
+
+@pytest.mark.django_db
+def test_order_deliver_success(api_admin_auth, admin, payment):
+    product = Product.objects.create(name="Product", price=100.00, count=5)
+
+    order = create_order(admin, payment, [{"product_id": product.id, "quantity": 1}])
+
+    assert order is not None
+    assert order.items.count() == 1
+    assert order.total_price == 100.00
