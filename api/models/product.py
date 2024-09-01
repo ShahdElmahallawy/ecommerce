@@ -1,8 +1,9 @@
 from django.db import models
 from django.utils import timezone
+from api.models.audit import Audit
 
 
-class Product(models.Model):
+class Product(Audit):
     """Model of product.
 
     Fields:
