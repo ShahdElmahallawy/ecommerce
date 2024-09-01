@@ -34,6 +34,14 @@ from .views import (
     WishlistDeleteView,
 )
 
+from .views.product import (
+    ProductListView,
+    ProductDetailView,
+    ProductCreateView,
+    ProductUpdateView,
+    ProductDeleteView,
+)
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -92,10 +100,23 @@ wishlist_patterns = [
     path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
 ]
 
+product_patterns = [
+    path("", ProductListView.as_view(), name="product-list"),
+    path("<int:product_id>/", ProductDetailView.as_view(), name="product-detail"),
+    path("create/", ProductCreateView.as_view(), name="product-create"),
+    path(
+        "update/<int:product_id>/", ProductUpdateView.as_view(), name="product-update"
+    ),
+    path(
+        "delete/<int:product_id>/", ProductDeleteView.as_view(), name="product-delete"
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
+    path("products/", include(product_patterns)),
 ]

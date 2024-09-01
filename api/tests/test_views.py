@@ -102,7 +102,7 @@ def test_category_product_list_view(api_client_auth):
     expected_data = {
         "id": featured_product.id,
         "name": "Laptop",
-        "price": "999.99",
+        "price": 999.99,
         "description": "A high-performance laptop.",
         "count": 10,
         "currency": "USD",
@@ -138,7 +138,7 @@ def test_category_product_list(api_client_auth):
     product_names = [product["name"] for product in response.data]
     assert "Smartphone" in product_names
 
-    assert any(product["price"] == "699.99" for product in response.data)
+    assert any(product["price"] == 699.99 for product in response.data)
 
 
 # order views

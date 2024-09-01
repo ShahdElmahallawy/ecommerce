@@ -1,7 +1,6 @@
 from rest_framework.exceptions import ValidationError
 import pytest
-from django.contrib.auth.models import User
-from api.models import Wishlist, WishlistItem, Product
+from api.models import WishlistItem, Product, Category
 from api.services.wishlist import (
     add_item_to_wishlist,
     delete_item_from_wishlist,
@@ -11,8 +10,15 @@ from api.selectors.wishlist import get_wishlist_by_user
 
 
 @pytest.fixture
-def product():
-    return Product.objects.create(name="Test Product", price=100.0, count=10)
+def category():
+    return Category.objects.create(name="Test Category")
+
+
+@pytest.fixture
+def product(category):
+    return Product.objects.create(
+        name="Test Product", price=100.0, count=10, category=category
+    )
 
 
 @pytest.fixture
