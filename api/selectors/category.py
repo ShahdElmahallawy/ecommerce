@@ -11,7 +11,7 @@ def get_all_categories():
 def get_category_by_id(pk):
     try:
         # category = Category.objects.get(pk=pk)
-        category = Category.objects.select_related('featured_product').get(pk=pk)
+        category = Category.objects.select_related("featured_product").get(pk=pk)
         return category
     except Category.DoesNotExist:
         logger.error(f"Category with id {pk} not found.")
