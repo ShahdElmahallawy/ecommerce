@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 def get_order_by_id_and_user(pk, user):
     try:
-        order = Order.objects.get(pk=pk, user=user)
+        order = Order.objects.select_related("user").get(pk=pk, user=user)
         return order
     except Order.DoesNotExist:
         logger.error(f"Order with id {pk} for user {user} not found.")
