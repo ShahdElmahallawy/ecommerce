@@ -48,7 +48,7 @@ def test_wishlist_list_view(api_client_auth, wishlist):
 
 @pytest.mark.django_db
 def test_wishlist_item_create_view(api_client_auth, product):
-    data = {"product_id": product.id}
+    data = {"product": product.id}
     url = reverse("wishlist-item-create")
     response = api_client_auth.post(url, data)
 

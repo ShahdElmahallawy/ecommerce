@@ -9,16 +9,12 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
         model = CartItem
         fields = ["product", "quantity"]
 
+    quantity = serializers.IntegerField()
+
     def validate_quantity(self, value):
         if value <= 0:
-            raise ValidationError("Quantity must be greater than 0")
+            raise ValidationError("Enter a valid quantity greater than 0")
         return value
-
-    def validate_product(self, value):
-        product = get_product_by_id(value.id)
-        if product is None:
-            raise ValidationError("Product does not exist")
-        return product
 
 
 class CartItemUpdateSerializer(serializers.ModelSerializer):
@@ -26,9 +22,11 @@ class CartItemUpdateSerializer(serializers.ModelSerializer):
         model = CartItem
         fields = ["quantity"]
 
+    quantity = serializers.IntegerField()
+
     def validate_quantity(self, value):
         if value <= 0:
-            raise ValidationError("Quantity must be greater than 0")
+            raise ValidationError("Enter a valid quantity greater than 0")
         return value
 
 
@@ -41,20 +39,20 @@ class ProductSimpleSerializer(serializers.ModelSerializer):
         read_only_fields = ["id", "name", "price"]
 
 
-class CartItemerializer(serializers.ModelSerializer):
+class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSimpleSerializer()
 
     class Meta:
         model = CartItem
-        fields = ["product", "quantity"]
+        fields = ["id", "product", "quantity"]
 
 
 class CartSerializer(serializers.ModelSerializer):
-    items = CartItemCreateSerializer(many=True)
+    items = CartItemSerializer(many=True)
 
     class Meta:
         model = Cart
-        fields = ["user", "items", "total_price"]
+        fields = ["id", "user", "items", "total_price"]
 
     total_price = serializers.SerializerMethodField()
 

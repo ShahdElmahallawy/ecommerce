@@ -166,6 +166,6 @@ urlpatterns = [
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
     path("products/", include(product_patterns)),
-    path("cart/", include(cart_patterns)),
+    path("carts/", include(cart_patterns)),
     path("reviews/", include(review_patterns)),
 ]

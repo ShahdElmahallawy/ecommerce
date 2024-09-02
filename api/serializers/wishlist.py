@@ -36,20 +36,9 @@ class WishlistSerializer(serializers.ModelSerializer):
         return obj.items.count()
 
 
-class WishlistItemCreateSerializer(serializers.Serializer):
+class WishlistItemCreateSerializer(serializers.ModelSerializer):
     """Serializer for creating a wishlist item"""
-
-    product_id = serializers.IntegerField()
-
-    def validate_product_id(self, value):
-        """Validate the product id"""
-        try:
-            # TODO: Replace this with product selector once implemented
-            product = Product.objects.get(pk=value)
-        except Product.DoesNotExist:
-            raise serializers.ValidationError("Product does not exist")
-        return product
 
     class Meta:
         model = WishlistItem
-        fields = ["product_id"]
+        fields = ["product"]

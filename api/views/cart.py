@@ -14,6 +14,9 @@ from api.serializers.cart import (
     CartItemCreateSerializer,
 )
 from api.permissions import IsAuthenticated
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 
 class AddToCartView(APIView):
@@ -22,12 +25,13 @@ class AddToCartView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        logger.info(f"Adding product to cart for {request.user.email}")
         serializer = CartItemCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         cart = add_to_cart(
             request.user,
-            serializer.validated_data["product"],
-            serializer.validated_data["quantity"],
+            serializer.validated_data.get("product"),
+            serializer.validated_data.get("quantity", 1),
         )
         cart_serializer = CartSerializer(cart)
         return Response(cart_serializer.data, status=status.HTTP_201_CREATED)
@@ -64,7 +68,7 @@ class UpdateCartItemView(APIView):
         serializer = CartItemUpdateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         cart = update_cart_item(
-            request.user, item_id, serializer.validated_data["quantity"]
+            request.user, item_id, serializer.validated_data.get("quantity")
         )
         cart_serializer = CartSerializer(cart)
         return Response(cart_serializer.data, status=status.HTTP_200_OK)

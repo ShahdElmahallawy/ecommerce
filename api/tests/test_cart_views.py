@@ -32,14 +32,14 @@ def test_add_to_cart_view(user, api_client_auth, product):
     response = api_client_auth.post(url, data)
     assert response.status_code == 201
     assert response.data["user"] == user.id
-    assert response.data["items"][0]["product"] == product.id
+    assert response.data["items"][0]["product"]["id"] == product.id
     assert response.data["items"][0]["quantity"] == 1
     assert response.data["total_price"] == 10
 
     response = api_client_auth.post(url, data)
     assert response.status_code == 201
     assert response.data["user"] == user.id
-    assert response.data["items"][0]["product"] == product.id
+    assert response.data["items"][0]["product"]["id"] == product.id
     assert response.data["items"][0]["quantity"] == 2
     assert response.data["total_price"] == 20
 

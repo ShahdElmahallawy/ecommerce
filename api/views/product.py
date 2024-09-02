@@ -10,6 +10,9 @@ from api.serializers.product import ProductSerializer
 from api.services.product import create_product, update_product, delete_product
 from api.permissions import IsAdminOrSeller
 from rest_framework.permissions import IsAuthenticated
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 
 class ProductListView(APIView):
@@ -18,6 +21,7 @@ class ProductListView(APIView):
     """
 
     def get(self, request):
+        logger.info("User requested to list all products")
         products = list_products()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
@@ -32,7 +36,7 @@ class ProductDetailView(APIView):
         """
         Handle GET request to get details of a product.
         """
-
+        logger.info(f"User requested to view product {kwargs['product_id']}")
         product = get_product_by_id(kwargs["product_id"])
         if not product:
             return Response(
@@ -53,7 +57,7 @@ class ProductCreateView(APIView):
         """
         Handle POST request to create a product.
         """
-
+        logger.info("User requested to create a product")
         serializer = ProductSerializer(
             data=request.data, context={"user": request.user}
         )
@@ -74,11 +78,13 @@ class ProductUpdateView(APIView):
         """
         Handle PATCH request to update a product.
         """
-
+        logger.info(f"User requested to update product {product_id}")
         product = get_product_by_id_for_edit(product_id, request.user)
         if not product:
+            logger.error(f"Product {product_id} not found, failed to update")
             return Response(
-                {"detail": "No available found."}, status=status.HTTP_404_NOT_FOUND
+                {"detail": "No available product found."},
+                status=status.HTTP_404_NOT_FOUND,
             )
         serializer = ProductSerializer(product, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -101,6 +107,7 @@ class ProductDeleteView(APIView):
 
         product = get_product_by_id_for_edit(product_id, request.user)
         if not product:
+            logger.error(f"Product {product_id} not found, failed to delete")
             return Response(
                 {"detail": "Product not found."}, status=status.HTTP_404_NOT_FOUND
             )
