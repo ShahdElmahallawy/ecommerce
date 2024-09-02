@@ -5,12 +5,8 @@ from rest_framework import status
 import pytest
 from rest_framework.test import APIClient
 from api.models import Product, Category
-from api.views.product import (
-    ProductListView,
-    ProductDetailView,
-    ProductCreateView,
-    ProductUpdateView,
-)
+
+
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -151,8 +147,6 @@ def test_product_update_view_admin(api_admin_auth, product):
     }
 
     response = api_admin_auth.patch(url, data)
-
-    print(response.data)
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data["name"] == "Product Updated"

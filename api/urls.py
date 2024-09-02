@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+
 from .views.category import (
     CategoryListView,
     CategoryDetailView,
@@ -48,6 +49,13 @@ from .views.product import (
     ProductCreateView,
     ProductUpdateView,
     ProductDeleteView,
+)
+
+from .views.review import (
+    GetReviewsByProductView,
+    CreateReviewView,
+    UpdateReviewView,
+    DeleteReviewView,
 )
 
 category_patterns = [
@@ -132,6 +140,25 @@ cart_patterns = [
     ),
 ]
 
+review_patterns = [
+    path(
+        "product/<int:product_id>/reviews/",
+        GetReviewsByProductView.as_view(),
+        name="product-reviews",
+    ),
+    path(
+        "product/<int:product_id>/review/",
+        CreateReviewView.as_view(),
+        name="create-review",
+    ),
+    path("reviews/<int:review_id>/", UpdateReviewView.as_view(), name="update-review"),
+    path(
+        "reviews/<int:review_id>/delete/",
+        DeleteReviewView.as_view(),
+        name="delete-review",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -140,4 +167,5 @@ urlpatterns = [
     path("wishlists/", include(wishlist_patterns)),
     path("products/", include(product_patterns)),
     path("cart/", include(cart_patterns)),
+    path("reviews/", include(review_patterns)),
 ]
