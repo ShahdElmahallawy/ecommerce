@@ -33,6 +33,14 @@ from .views import (
     WishlistItemDeleteView,
     WishlistDeleteView,
 )
+from .views.report import ReportListView, ReportCreateView, ReportDetailView
+
+report_patterns = [
+    path("reports/", ReportListView.as_view(), name="report-list"),
+    path("reports/create/", ReportCreateView.as_view(), name="report-create"),
+    path("reports/<int:pk>/", ReportDetailView.as_view(), name="report-detail"),
+]
+
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -98,4 +106,5 @@ urlpatterns = [
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
+    path("reports/", include(report_patterns)),
 ]
