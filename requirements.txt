@@ -3,7 +3,10 @@ attrs==24.2.0
 black==24.8.0
 click==8.1.7
 colorama==0.4.6
+coverage==7.6.1
 Django==5.1
+django-countries==7.6.1
+django-debug-toolbar==4.4.6
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
 drf-spectacular==0.27.2
@@ -22,6 +25,7 @@ platformdirs==4.2.2
 pluggy==1.5.0
 PyJWT==2.9.0
 pytest==8.3.2
+pytest-cov==5.0.0
 pytest-django==4.8.0
 pytest-xdist==3.6.1
 python-dotenv==1.0.1

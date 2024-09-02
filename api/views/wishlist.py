@@ -55,9 +55,6 @@ class WishlistDeleteView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-from rest_framework.exceptions import ValidationError
-
-
 class WishlistItemCreateView(APIView):
     """API view for creating a wishlist item"""
 

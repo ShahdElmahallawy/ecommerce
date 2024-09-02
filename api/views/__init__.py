@@ -21,3 +21,12 @@ from .wishlist import (
     WishlistItemDeleteView,
     WishlistDeleteView,
 )
+
+
+from .cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)

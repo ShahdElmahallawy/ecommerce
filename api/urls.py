@@ -13,6 +13,14 @@ from .views.order import (
     OrderTrackView,
 )
 
+from .views.cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)
+
 from .views import (
     UserRegisterView,
     UserLoginView,
@@ -112,6 +120,18 @@ product_patterns = [
     ),
 ]
 
+cart_patterns = [
+    path("", CartView.as_view(), name="cart"),
+    path("add/", AddToCartView.as_view(), name="add-to-cart"),
+    path(
+        "remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"
+    ),
+    path("clear/", ClearCartView.as_view(), name="clear-cart"),
+    path(
+        "update/<int:item_id>/", UpdateCartItemView.as_view(), name="update-cart-item"
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -119,4 +139,5 @@ urlpatterns = [
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
     path("products/", include(product_patterns)),
+    path("cart/", include(cart_patterns)),
 ]
