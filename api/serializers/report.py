@@ -7,7 +7,7 @@ from api.models.order import Order
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
-        fields = ['id', 'report_type', 'rid', 'user', 'message']
+        fields = ["id", "report_type", "rid", "user", "message"]
 
     def validate(self, data):
         report_type = data.get("report_type")
