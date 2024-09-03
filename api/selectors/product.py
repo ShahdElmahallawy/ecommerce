@@ -9,7 +9,7 @@ def get_product_by_id(product_id):
         The product with the given ID.
     """
     try:
-        product = Product.objects.select_related("category").get(id=product_id)
+        product = Product.objects.select_related("category").prefetch_related("reviews").get(id=product_id)
     except Product.DoesNotExist:
         return None
 
@@ -23,7 +23,7 @@ def list_products():
     Returns:
         A queryset of products.
     """
-    return Product.objects.select_related("category").all()
+    return Product.objects.select_related("category").prefetch_related("reviews").all()
 
 
 def get_product_by_id_for_edit(product_id, user):

@@ -6,7 +6,7 @@ from api.selectors.product import (
     list_products,
     get_product_by_id_for_edit,
 )
-from api.serializers.product import ProductSerializer
+from api.serializers.product import ProductSerializer, ProductDetailSerializer
 from api.services.product import create_product, update_product, delete_product
 from api.permissions import IsAdminOrSeller
 from rest_framework.permissions import IsAuthenticated
@@ -42,7 +42,7 @@ class ProductDetailView(APIView):
             return Response(
                 {"detail": "Product not found."}, status=status.HTTP_404_NOT_FOUND
             )
-        serializer = ProductSerializer(product)
+        serializer = ProductDetailSerializer(product)
         return Response(serializer.data)
 
 

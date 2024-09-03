@@ -21,7 +21,7 @@ def update_review(review_id, user, data):
     """
     review = get_review_for_edit(user, review_id)
     if not review:
-        raise ValidationError("No available review found with the given ID.")
+        raise ValidationError({"detail": "No available review found with the given ID."})
     for field, value in data.items():
         setattr(review, field, value)
     review.save(update_fields=["rating", "text"])
@@ -34,6 +34,6 @@ def delete_review(review_id, user):
     """
     review = get_review_for_edit(user, review_id)
     if not review:
-        raise ValidationError("No available review found with the given ID.")
+        raise ValidationError({"detail": "No available review found with the given ID."})
     review.delete()
     return None

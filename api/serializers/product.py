@@ -1,7 +1,7 @@
 from statistics import mean
 from rest_framework import serializers
 from api.models import Product
-
+from api.serializers.review import ReviewSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,3 +38,9 @@ class ProductSerializer(serializers.ModelSerializer):
         if self.context.get("user"):
             data["created_by"] = self.context["user"]
         return data
+
+class ProductDetailSerializer(ProductSerializer):
+    class Meta(ProductSerializer.Meta):
+        fields = ProductSerializer.Meta.fields + ["reviews"]
+    
+    reviews = ReviewSerializer(many=True, read_only=True)
