@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import status
 
 from api.models import Profile
+from api.models.address import Address
 
 
 @pytest.mark.django_db
@@ -29,8 +30,17 @@ def test_retrieve_profile_not_found(api_client_auth, user):
 @pytest.mark.django_db
 def test_update_profile(api_client_auth, user):
     url = reverse("profile-update")
+    address = Address.objects.create(
+        user=user,
+        street_address="123 Paymob St",
+        apartment_address="Apt 1",
+        country="EGP",
+        zip=12345,
+        address_type="company",
+    )
     data = {
         "user": {"name": "Amr New"},
+        "address": address.id,
         "phone": "01234567890",
         "preferred_currency": "EGP",
     }
@@ -40,6 +50,12 @@ def test_update_profile(api_client_auth, user):
 
     assert response.status_code == status.HTTP_200_OK
     assert user.name == "Amr New"
+    update = profile.address
+    assert update.street_address == "123 Paymob St"
+    assert update.apartment_address == "Apt 1"
+    assert update.country == "EGP"
+    assert update.zip == 12345
+    assert update.address_type == "company"
     assert user.profile.phone == "01234567890"
     assert user.profile.preferred_currency == "EGP"
 
