@@ -22,9 +22,9 @@ def user_data():
 @pytest.fixture
 def admin_data():
     return {
-        "email": "adim@example.com",
-        "name": "Amr Test",
-        "password": "testpassword123",
+        "email": "admin@example.com",
+        "name": "Admin Test",
+        "password": "adminpassword123",
     }
 
 
@@ -38,8 +38,8 @@ def user(db, user_data):
 @pytest.fixture
 def admin(db, admin_data):
     User = get_user_model()
-    user = User.objects.create_superuser(**admin_data)
-    return user
+    admin_user = User.objects.create_superuser(**admin_data)
+    return admin_user
 
 
 @pytest.fixture

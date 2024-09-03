@@ -1,9 +1,8 @@
 from django.db import models
-
-# from django.contrib.auth.models import User
 from api.models.user import User
 from api.models.audit import Audit
 from api.models.payment import Payment
+from decimal import Decimal
 
 
 class Order(Audit):
@@ -23,6 +22,7 @@ class Order(Audit):
         return f"Order #{self.id}"
 
     def calculate_total_price(self):
+        total = Decimal("0.00")
         total = sum(item.quantity * item.unit_price for item in self.items.all())
         self.total_price = total
         self.save()

@@ -37,3 +37,4 @@ tomli==2.0.1
 typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
+django-countries==7.6.1
