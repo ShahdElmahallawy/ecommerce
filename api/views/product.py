@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from api.selectors.product import (
@@ -11,19 +12,34 @@ from api.services.product import create_product, update_product, delete_product
 from api.permissions import IsAdminOrSeller
 from rest_framework.permissions import IsAuthenticated
 from logging import getLogger
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from api.filters.product import ProductFilter
 
 logger = getLogger(__name__)
 
 
-class ProductListView(APIView):
+class ProductListView(GenericAPIView):
     """
     View to list all products.
     """
 
+    queryset = list_products()
+    serializer_class = ProductSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ["category"]
+    search_fields = ["name"]
+    ordering_fields = ["price", "created_at"]
+    filterset_class = ProductFilter
+
     def get(self, request):
-        logger.info("User requested to list all products")
-        products = list_products()
-        serializer = ProductSerializer(products, many=True)
+        """
+        Handle GET request to list all products.
+        """
+        logger.info("User requested to view all products")
+        filtered_products = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(filtered_products, many=True)
+
         return Response(serializer.data)
 
 
