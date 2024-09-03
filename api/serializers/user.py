@@ -138,3 +138,22 @@ class PasswordResetSerializer(serializers.Serializer):
             raise serializers.ValidationError("Passwords do not match.")
 
         return data
+
+
+class OTPVerificationSerializer(serializers.Serializer):
+    """
+    Serializer for verifying OTP code.
+    """
+
+    otp_code = serializers.CharField(max_length=6)
+
+    def validate_otp_code(self, value):
+        """
+        Validate that the OTP code is correct for the user.
+        """
+        user = self.context["user"]
+
+        if user.otp_code != value:
+            raise serializers.ValidationError("Invalid OTP code.")
+
+        return value
