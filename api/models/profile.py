@@ -6,7 +6,6 @@ from api.constants import CURRENCY_CHOICES
 from api.models.address import Address
 
 
-
 class Profile(Audit):
     """Profile model for users
 
@@ -17,14 +16,9 @@ class Profile(Audit):
         phone: Phone number of the user
         preferred_currency: Preferred currency of the user
     """
-    USER_TYPES = (
-        ("seller", "Seller"),
-        ("customer", "Customer"),
-    )
-    
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    user_type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
     address = models.ForeignKey(
         Address, related_name="shipping_address", on_delete=models.SET_NULL, null=True
     )
