@@ -27,11 +27,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["user", "phone", "preferred_currency"]
+        fields = ["user", "address", "phone", "preferred_currency"]
 
     def update(self, instance, validated_data):
         """
         Update the profile and the associated user's information.
+
+        Returns:
+            instance: The updated profile.
         """
         user_data = validated_data.pop("user", None)
         if user_data:

@@ -146,18 +146,18 @@ cart_patterns = [
 
 review_patterns = [
     path(
-        "product/<int:product_id>/reviews/",
+        "products/<int:product_id>/",
         GetReviewsByProductView.as_view(),
         name="product-reviews",
     ),
     path(
-        "product/<int:product_id>/review/",
+        "products/<int:product_id>/create/",
         CreateReviewView.as_view(),
         name="create-review",
     ),
-    path("reviews/<int:review_id>/", UpdateReviewView.as_view(), name="update-review"),
+    path("update/<int:review_id>", UpdateReviewView.as_view(), name="update-review"),
     path(
-        "reviews/<int:review_id>/delete/",
+        "delete/<int:review_id>",
         DeleteReviewView.as_view(),
         name="delete-review",
     ),

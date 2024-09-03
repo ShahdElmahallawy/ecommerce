@@ -4,8 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 import pytest
 from rest_framework.test import APIClient
-from api.models import Product, Category
-
+from api.models import Product
 
 from django.contrib.auth import get_user_model
 
@@ -13,15 +12,8 @@ User = get_user_model()
 
 
 @pytest.fixture
-def category():
-    return Category.objects.create(name="Category")
-
-
-@pytest.fixture
-def product(user, category):
-    return Product.objects.create(
-        name="Product", price=10, count=10, created_by=user, category=category
-    )
+def product(user):
+    return Product.objects.create(name="Product", price=10, count=10, created_by=user)
 
 
 @pytest.fixture
@@ -63,13 +55,12 @@ def test_product_detail_view_not_found(api_client):
 
 
 @pytest.mark.django_db
-def test_product_create_view_not_admin_nor_seller(api_client_auth, category):
+def test_product_create_view_not_admin_nor_seller(api_client_auth):
     url = reverse("product-create")
     data = {
         "name": "Product",
         "price": 10,
         "count": 10,
-        "category": category,
     }
 
     response = api_client_auth.post(url, data)
@@ -78,14 +69,13 @@ def test_product_create_view_not_admin_nor_seller(api_client_auth, category):
 
 
 @pytest.mark.django_db
-def test_product_create_view_admin(api_admin_auth, category, upload_image):
+def test_product_create_view_admin(api_admin_auth, upload_image):
     url = reverse("product-create")
 
     data = {
         "name": "Product",
         "price": 10,
         "count": 10,
-        "category": category.id,
         "currency": "USD",
         "image": upload_image,
     }
@@ -98,7 +88,7 @@ def test_product_create_view_admin(api_admin_auth, category, upload_image):
 
 
 @pytest.mark.django_db
-def test_product_create_view_seller(user, category, upload_image):
+def test_product_create_view_seller(user, upload_image):
     user.user_type = "seller"
     user.save()
 
@@ -111,13 +101,11 @@ def test_product_create_view_seller(user, category, upload_image):
         "name": "Product",
         "price": 10,
         "count": 10,
-        "category": category.id,
         "currency": "USD",
         "image": upload_image,
     }
 
     response = api_client.post(url, data, format="multipart")
-
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name"] == "Product"
     assert response.data["price"] == 10
