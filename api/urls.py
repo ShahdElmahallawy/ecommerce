@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+
 from .views.category import (
     CategoryListView,
     CategoryDetailView,
@@ -15,6 +16,14 @@ from .views.order import (
     OrderDeliverView,
 )
 
+from .views.cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)
+
 from .views import (
     UserRegisterView,
     UserLoginView,
@@ -22,6 +31,7 @@ from .views import (
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
+    UpdatePasswordView,
     ProfileDetailView,
     ProfileUpdateView,
     PaymentListView,
@@ -33,6 +43,21 @@ from .views import (
     WishlistItemCreateView,
     WishlistItemDeleteView,
     WishlistDeleteView,
+)
+
+from .views.product import (
+    ProductListView,
+    ProductDetailView,
+    ProductCreateView,
+    ProductUpdateView,
+    ProductDeleteView,
+)
+
+from .views.review import (
+    GetReviewsByProductView,
+    CreateReviewView,
+    UpdateReviewView,
+    DeleteReviewView,
 )
 
 category_patterns = [
@@ -67,6 +92,7 @@ user_patterns = [
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
+    path("update-password/", UpdatePasswordView.as_view(), name="update-password"),
 ]
 
 payment_patterns = [
@@ -74,10 +100,10 @@ payment_patterns = [
     path("create/", PaymentCreateView.as_view(), name="payment-create"),
     path("<int:payment_id>/", PaymentDetailView.as_view(), name="payment-detail"),
     path(
-        "<int:payment_id>/update/", PaymentUpdateView.as_view(), name="payment-update"
+        "update/<int:payment_id>/", PaymentUpdateView.as_view(), name="payment-update"
     ),
     path(
-        "<int:payment_id>/delete/", PaymentDeleteView.as_view(), name="payment-delete"
+        "delete/<int:payment_id>/", PaymentDeleteView.as_view(), name="payment-delete"
     ),
 ]
 
@@ -94,10 +120,56 @@ wishlist_patterns = [
     path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
 ]
 
+product_patterns = [
+    path("", ProductListView.as_view(), name="product-list"),
+    path("<int:product_id>/", ProductDetailView.as_view(), name="product-detail"),
+    path("create/", ProductCreateView.as_view(), name="product-create"),
+    path(
+        "update/<int:product_id>/", ProductUpdateView.as_view(), name="product-update"
+    ),
+    path(
+        "delete/<int:product_id>/", ProductDeleteView.as_view(), name="product-delete"
+    ),
+]
+
+cart_patterns = [
+    path("", CartView.as_view(), name="cart"),
+    path("add/", AddToCartView.as_view(), name="add-to-cart"),
+    path(
+        "remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"
+    ),
+    path("clear/", ClearCartView.as_view(), name="clear-cart"),
+    path(
+        "update/<int:item_id>/", UpdateCartItemView.as_view(), name="update-cart-item"
+    ),
+]
+
+review_patterns = [
+    path(
+        "product/<int:product_id>/reviews/",
+        GetReviewsByProductView.as_view(),
+        name="product-reviews",
+    ),
+    path(
+        "product/<int:product_id>/review/",
+        CreateReviewView.as_view(),
+        name="create-review",
+    ),
+    path("reviews/<int:review_id>/", UpdateReviewView.as_view(), name="update-review"),
+    path(
+        "reviews/<int:review_id>/delete/",
+        DeleteReviewView.as_view(),
+        name="delete-review",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
+    path("products/", include(product_patterns)),
+    path("carts/", include(cart_patterns)),
+    path("reviews/", include(review_patterns)),
 ]

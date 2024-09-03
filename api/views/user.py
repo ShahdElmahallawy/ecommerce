@@ -1,16 +1,20 @@
 import logging
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
-from api.permissions import IsOtpToken
-from api.serializers.user import OTPVerificationSerializer
+from api.permissions.jwt_authentication import OTPAuthentication
+from api.serializers.user import OTPVerificationSerializer, UpdateUserPasswordSerializer
 from api.services import (
     create_user,
     generate_reset_password_token,
     reset_user_password,
     get_tokens_for_user,
     get_refreshed_tokens,
+    generate_otp_for_user,
+    update_user_password,
 )
 from api.selectors import get_user_by_reset_token, get_user_by_email
 from api.serializers import (
@@ -20,7 +24,7 @@ from api.serializers import (
     PasswordResetRequestSerializer,
     PasswordResetSerializer,
 )
-from api.services.user import generate_otp_for_user
+
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +72,8 @@ class VerifyOTPView(APIView):
     API view for verifying OTP.
     """
 
-    permission_classes = [IsOtpToken]
+    authentication_classes = [OTPAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         """
@@ -82,7 +87,6 @@ class VerifyOTPView(APIView):
             data=request.data, context={"user": request.user}
         )
         serializer.is_valid(raise_exception=True)
-        print(serializer.validated_data)
         tokens = get_tokens_for_user(request.user)
         return Response(tokens, status=status.HTTP_200_OK)
 
@@ -107,7 +111,12 @@ class RefreshTokenView(APIView):
 
 
 class ForgotPasswordView(APIView):
+    """
+    API view for password reset request."""
+
     def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests for password reset request."""
         logger.info(f"Password reset request from {request.data.get('email')}")
         serializer = PasswordResetRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -127,7 +136,12 @@ class ForgotPasswordView(APIView):
 
 
 class PasswordResetView(APIView):
+    """
+    API view for resetting user password."""
+
     def post(self, request, token, *args, **kwargs):
+        """
+        Handle POST requests for resetting user password."""
         logger.info(f"Password reset request from {token}")
         user = get_user_by_reset_token(token)
         if not user:
@@ -143,5 +157,31 @@ class PasswordResetView(APIView):
         reset_user_password(user, serializer.validated_data["new_password"])
         return Response(
             {"detail": "Password has been reset successfully."},
+            status=status.HTTP_200_OK,
+        )
+
+
+class UpdatePasswordView(APIView):
+    """
+    API view for updating user password."""
+
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, *args, **kwargs):
+        """
+        Handle PATCH requests for updating user password."""
+        logger.info(f"Password update request from {request.user.email}")
+        serializer = UpdateUserPasswordSerializer(
+            data=request.data, context={"user": request.user}
+        )
+        serializer.is_valid(raise_exception=True)
+        update_user_password(request.user, serializer.validated_data["new_password"])
+        token = get_tokens_for_user(request.user)
+        return Response(
+            {
+                "detail": "Password has been updated successfully.",
+                "refresh": token["refresh"],
+                "access": token["access"],
+            },
             status=status.HTTP_200_OK,
         )

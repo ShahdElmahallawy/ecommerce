@@ -14,7 +14,6 @@ def test_get_user_profile(user):
 
     assert retrieved_profile == profile
     assert retrieved_profile.user == user
-    assert retrieved_profile.user_type == "customer"
 
 
 @pytest.mark.django_db

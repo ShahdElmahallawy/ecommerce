@@ -1,5 +1,6 @@
+# draft not used anymore
 from rest_framework.permissions import BasePermission
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
+from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.exceptions import PermissionDenied
 
 
@@ -16,7 +17,6 @@ class IsOtpToken(BasePermission):
         try:
             token = auth_header.split(" ")[1]
             access_token = AccessToken(token)
-
             if access_token["type"] != "otp":
                 raise PermissionDenied("Invalid token type.")
         except Exception as e:

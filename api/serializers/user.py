@@ -17,7 +17,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "password", "name", "confirm_password"]
+        fields = ["email", "password", "name", "confirm_password", "user_type"]
 
     def validate_name(self, value):
         """
@@ -53,7 +53,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             data: The validated data.
         """
         if data["password"] != data["confirm_password"]:
-            raise serializers.ValidationError("Passwords do not match.")
+            raise serializers.ValidationError({"error": "Passwords do not match."})
 
         data.pop("confirm_password")
 
@@ -90,11 +90,14 @@ class LoginSerializer(serializers.Serializer):
             data: The validated data.
         """
         if not data.get("email") or not data.get("password"):
-            raise serializers.ValidationError("Email and password are required.")
+            raise serializers.ValidationError(
+                {"error": "Email and password are required."}
+            )
 
         user = get_user_by_email(data["email"])
-        if user and not user.check_password(data["password"]):
-            raise serializers.ValidationError("Invalid email or password.")
+
+        if not user or not user.check_password(data["password"]):
+            raise serializers.ValidationError({"error": "Invalid email or password."})
 
         data["user"] = user
         return data
@@ -114,7 +117,7 @@ class RefreshTokenSerializer(serializers.Serializer):
             data: The validated data.
         """
         if not data.get("refresh"):
-            raise serializers.ValidationError("Refresh token is required.")
+            raise serializers.ValidationError({"error": "Refresh token is required."})
 
         return data
 
@@ -135,7 +138,7 @@ class PasswordResetSerializer(serializers.Serializer):
         Validate that the new passwords match and the token is valid.
         """
         if data["new_password"] != data["confirm_new_password"]:
-            raise serializers.ValidationError("Passwords do not match.")
+            raise serializers.ValidationError({"error": "Passwords do not match."})
 
         return data
 
@@ -152,8 +155,34 @@ class OTPVerificationSerializer(serializers.Serializer):
         Validate that the OTP code is correct for the user.
         """
         user = self.context["user"]
-
         if user.otp_code != value:
             raise serializers.ValidationError("Invalid OTP code.")
 
+        user.otp_code = None
+        user.save(update_fields=["otp_code"])
+
         return value
+
+
+class UpdateUserPasswordSerializer(serializers.Serializer):
+    """
+    Serializer for updating user password.
+    """
+
+    current_password = serializers.CharField()
+    new_password = serializers.CharField(min_length=8)
+    confirm_new_password = serializers.CharField(min_length=8)
+
+    def validate(self, data):
+        """
+        Validate that the new passwords match and the current password is correct.
+        """
+        user = self.context["user"]
+
+        if not user.check_password(data["current_password"]):
+            raise serializers.ValidationError({"error": "Invalid current password."})
+
+        if data["new_password"] != data["confirm_new_password"]:
+            raise serializers.ValidationError({"error": "Passwords do not match."})
+
+        return data

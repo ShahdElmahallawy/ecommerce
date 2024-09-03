@@ -13,3 +13,4 @@ from .wishlist import (
     WishlistItemSerializer,
     WishlistItemCreateSerializer,
 )
+from .product import ProductSerializer

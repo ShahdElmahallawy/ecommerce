@@ -16,7 +16,6 @@ def test_retrieve_profile(api_client_auth, user):
 
     assert response.status_code == status.HTTP_200_OK
     assert response.data["user"]["email"] == user.email
-    assert response.data["address"] == user.profile.address
 
 
 @pytest.mark.django_db
@@ -51,14 +50,12 @@ def test_update_profile(api_client_auth, user):
 
     assert response.status_code == status.HTTP_200_OK
     assert user.name == "Amr New"
-
     update = profile.address
     assert update.street_address == "123 Paymob St"
     assert update.apartment_address == "Apt 1"
     assert update.country == "EGP"
     assert update.zip == 12345
     assert update.address_type == "company"
-
     assert user.profile.phone == "01234567890"
     assert user.profile.preferred_currency == "EGP"
 

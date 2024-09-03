@@ -12,7 +12,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "name"]
+        fields = ["email", "name", "user_type"]
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -27,14 +27,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["user", "user_type", "address", "phone", "preferred_currency"]
+        fields = ["user", "phone", "preferred_currency"]
 
     def update(self, instance, validated_data):
         """
         Update the profile and the associated user's information.
-
-        Returns:
-            instance: The updated profile.
         """
         user_data = validated_data.pop("user", None)
         if user_data:
