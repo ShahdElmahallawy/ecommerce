@@ -3,7 +3,9 @@ from api.models.report import Report
 from api.models.product import Product
 from api.models.order import Order
 from api.selectors.product import get_product_by_id
-from api.selectors.order import  get_order_by_id
+from api.selectors.order import get_order_by_id
+
+
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
@@ -19,11 +21,9 @@ class ReportSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     "Product with this ID does not exist."
                 )
-        
+
         elif report_type == "order":
             order = get_order_by_id(rid)
             if order is None:
-                raise serializers.ValidationError(
-                    "Order with this ID does not exist."
-                )
+                raise serializers.ValidationError("Order with this ID does not exist.")
         return data
