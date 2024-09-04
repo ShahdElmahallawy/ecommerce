@@ -15,3 +15,12 @@ def get_order_by_id_and_user(pk, user):
 
 def get_orders_by_user(user):
     return Order.objects.filter(user=user)
+
+def get_order_by_id(order_id):
+
+    try:
+        order = Order.objects.prefetch_related('items__product').get(id=order_id)
+    except Order.DoesNotExist:
+        return None
+
+    return order
