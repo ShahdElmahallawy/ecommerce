@@ -36,6 +36,14 @@ from .views import (
 )
 from .views.report import ReportListView, ReportCreateView, ReportDetailView
 
+from api.views.cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)
+
 report_patterns = [
     path("reports/", ReportListView.as_view(), name="report-list"),
     path("reports/create/", ReportCreateView.as_view(), name="report-create"),
@@ -101,6 +109,17 @@ wishlist_patterns = [
     ),
     path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
 ]
+cart_patterns = [
+    path("", CartView.as_view(), name="cart"),
+    path("add/", AddToCartView.as_view(), name="add-to-cart"),
+    path(
+        "remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"
+    ),
+    path("clear/", ClearCartView.as_view(), name="clear-cart"),
+    path(
+        "update/<int:item_id>/", UpdateCartItemView.as_view(), name="update-cart-item"
+    ),
+]
 
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
@@ -109,4 +128,5 @@ urlpatterns = [
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
     path("reports/", include(report_patterns)),
+    path("carts/", include(cart_patterns)),
 ]

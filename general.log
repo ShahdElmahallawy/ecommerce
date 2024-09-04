@@ -1,0 +1,495 @@
+2024-09-03 08:04:33,534 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:33,653 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:33,771 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:33,889 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:33,889 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:34,159 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:04:34,162 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:04:34,292 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:34,292 (WARNING) - django.request - Bad Request: /api/carts/remove/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:34,293 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:04:34,414 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:34,417 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:04:34,421 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:04:34,690 (ERROR) - api.views.order - Failed to create order for user amr@example.com: Product matching query does not exist. - 75 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/order.py
+2024-09-03 08:04:34,690 (ERROR) - django.request - Internal Server Error: /api/orders/orders/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:36,223 (INFO) - api.views.payment - User amr@example.com requested their payments - 26 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,339 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,456 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,456 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 68 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,456 (WARNING) - django.request - Not Found: /api/payments/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:36,572 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,691 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,693 (WARNING) - django.request - Bad Request: /api/payments/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:36,811 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,930 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,930 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 91 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:36,931 (WARNING) - django.request - Not Found: /api/payments/update/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:37,047 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:37,163 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:37,164 (ERROR) - api.views.payment - Failed to delete payment: Cannot delete default payment, set another payment as default first - 123 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:37,164 (WARNING) - django.request - Bad Request: /api/payments/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:37,280 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:37,280 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 116 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:04:37,280 (WARNING) - django.request - Not Found: /api/payments/delete/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:37,984 (INFO) - api.views.product - User requested to list all products - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,101 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,104 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,104 (WARNING) - django.request - Not Found: /api/products/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:38,224 (WARNING) - django.request - Forbidden: /api/products/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:38,344 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,511 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,634 (WARNING) - django.request - Forbidden: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:38,865 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:38,984 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:39,217 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:39,218 (ERROR) - api.views.product - Product 1 not found, failed to update - 84 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:39,218 (WARNING) - django.request - Not Found: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:39,336 (WARNING) - django.request - Forbidden: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:39,921 (ERROR) - api.views.product - Product 1 not found, failed to delete - 110 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:04:39,921 (WARNING) - django.request - Not Found: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:40,457 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,573 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,573 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,573 (WARNING) - django.request - Not Found: /api/users/me/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:40,689 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,809 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,809 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 55 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:04:40,809 (WARNING) - django.request - Not Found: /api/users/me/update/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:42,439 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:42,672 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/delete/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:42,677 (ERROR) - api.selectors.category - Category with id 9999 not found. - 16 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/category.py
+2024-09-03 08:04:42,909 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:04:43,262 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:04:43,264 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:04:43,380 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:04:43,496 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:04:43,612 (WARNING) - api.services.order - Order with id 1 for user testuser@example.com cannot be cancelled. - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:04:45,944 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,171 (INFO) - api.views.user - User registration request from amr - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,172 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,173 (INFO) - api.views.user - User registration request from None - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,174 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,174 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,175 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,175 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,176 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,289 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,520 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,633 (WARNING) - django.request - Bad Request: /api/users/login/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,752 (INFO) - api.views.user - OTP verification request from 123456 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,869 (INFO) - api.views.user - OTP verification request from 123455 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:46,870 (WARNING) - django.request - Bad Request: /api/users/verify-otp/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:46,985 (INFO) - api.views.user - Token refresh request from eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNTQzNzA4NiwiaWF0IjoxNzI1MzUwNjg2LCJqdGkiOiI0MDFmOWFiMGIyNzc0Yjc3YjI0MjM5MGVlZTE3ODAzMCIsInVzZXJfaWQiOjF9.q8uoGXDtirb49sd63V-AsNnSYE_hBhNkhrFkWBkOFg0 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,107 (INFO) - api.views.user - Token refresh request from testrefresh123 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,107 (WARNING) - django.request - Bad Request: /api/users/refresh-token/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:47,230 (INFO) - api.views.user - Password reset request from amr@example.com - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,350 (INFO) - api.views.user - Password reset request from unkown@example.cpm - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,351 (WARNING) - api.views.user - Password reset request for non-existent user unkown@example.cpm - 125 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,474 (INFO) - api.views.user - Password reset request from 53c206dc31a68d8663753f731a8aed9f976bd4a10817c0bedaacc802d1f16f21 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,842 (INFO) - api.views.user - Password reset request from invalidtoken - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,843 (WARNING) - api.views.user - Password reset request with invalid or expired token invalidtoken - 148 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,843 (WARNING) - django.request - Bad Request: /api/users/password-reset/invalidtoken/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:47,965 (INFO) - api.views.user - Password reset request from 93f055d5f3b109797c5558f3ac695c58a2a08cbc4132363a7c98bad4f4ec01b9 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:47,966 (WARNING) - django.request - Bad Request: /api/users/password-reset/93f055d5f3b109797c5558f3ac695c58a2a08cbc4132363a7c98bad4f4ec01b9/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:48,088 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:48,561 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:04:48,689 (WARNING) - django.request - Bad Request: /api/users/update-password/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:49,109 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:04:49,242 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:04:49,740 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:04:50,091 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:04:50,091 (WARNING) - django.request - Bad Request: /api/orders/1/cancel/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:50,690 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:04:50,690 (WARNING) - django.request - Not Found: /api/orders/1/track/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:51,047 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,165 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,282 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,416 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,535 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,537 (ERROR) - api.services.wishlist - Item already exists in wishlist for user amr@example.com, failed to add - 19 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:04:51,653 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,774 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:51,777 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:04:51,894 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:52,014 (INFO) - api.views.wishlist - User amr@example.com requested their wishlist - 34 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:04:52,131 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:04:52,133 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:04:52,250 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:04:52,313 (WARNING) - django.request - Bad Request: /api/wishlists/items/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:52,429 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:04:52,551 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:04:52,552 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:04:52,552 (WARNING) - django.request - Bad Request: /api/wishlists/items/delete/2 - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:04:52,671 (INFO) - api.views.wishlist - User amr@example.com requested to clear their wishlist - 50 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:40,091 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,209 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,330 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,448 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,449 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,708 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:10:40,711 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:10:40,831 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,831 (WARNING) - django.request - Bad Request: /api/carts/remove/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:40,831 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:10:40,953 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:40,956 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:10:40,959 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:10:41,225 (ERROR) - api.views.order - Failed to create order for user amr@example.com: Product matching query does not exist. - 75 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/order.py
+2024-09-03 08:10:41,226 (ERROR) - django.request - Internal Server Error: /api/orders/orders/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:42,829 (INFO) - api.views.payment - User amr@example.com requested their payments - 26 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:42,948 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,069 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,070 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 68 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,070 (WARNING) - django.request - Not Found: /api/payments/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:43,190 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,313 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,314 (WARNING) - django.request - Bad Request: /api/payments/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:43,435 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,558 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,559 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 91 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,559 (WARNING) - django.request - Not Found: /api/payments/update/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:43,680 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,801 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,802 (ERROR) - api.views.payment - Failed to delete payment: Cannot delete default payment, set another payment as default first - 123 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,802 (WARNING) - django.request - Bad Request: /api/payments/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:43,923 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,924 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 116 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:10:43,925 (WARNING) - django.request - Not Found: /api/payments/delete/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:44,642 (INFO) - api.views.product - User requested to list all products - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:44,761 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:44,764 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:44,765 (WARNING) - django.request - Not Found: /api/products/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:44,883 (WARNING) - django.request - Forbidden: /api/products/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:45,001 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,157 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,280 (WARNING) - django.request - Forbidden: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:45,512 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,632 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,867 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,868 (ERROR) - api.views.product - Product 1 not found, failed to update - 84 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:45,868 (WARNING) - django.request - Not Found: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:45,986 (WARNING) - django.request - Forbidden: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:46,592 (ERROR) - api.views.product - Product 1 not found, failed to delete - 110 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:10:46,592 (WARNING) - django.request - Not Found: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:47,201 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,322 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,323 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,323 (WARNING) - django.request - Not Found: /api/users/me/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:47,450 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,572 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,572 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 55 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:10:47,572 (WARNING) - django.request - Not Found: /api/users/me/update/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:49,252 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:49,494 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/delete/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:49,500 (ERROR) - api.selectors.category - Category with id 9999 not found. - 16 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/category.py
+2024-09-03 08:10:49,751 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:10:50,128 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:10:50,131 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:10:50,244 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:10:50,369 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:10:50,482 (WARNING) - api.services.order - Order with id 1 for user testuser@example.com cannot be cancelled. - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:10:52,863 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,103 (INFO) - api.views.user - User registration request from amr - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,104 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,106 (INFO) - api.views.user - User registration request from None - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,107 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,107 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,108 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,109 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,110 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,243 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,472 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,598 (WARNING) - django.request - Bad Request: /api/users/login/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,715 (INFO) - api.views.user - OTP verification request from 123456 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,847 (INFO) - api.views.user - OTP verification request from 123455 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:53,847 (WARNING) - django.request - Bad Request: /api/users/verify-otp/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:53,964 (INFO) - api.views.user - Token refresh request from eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNTQzNzQ1MywiaWF0IjoxNzI1MzUxMDUzLCJqdGkiOiIyMGY0NzM5ZjQwYTk0ZTRjYTYzMmI4OWFjMWRhZmU0YiIsInVzZXJfaWQiOjF9.XoFkgAFO7jRi7s5ZRASWus8M1NpWjADDpeIXfuG38kU - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,095 (INFO) - api.views.user - Token refresh request from testrefresh123 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,096 (WARNING) - django.request - Bad Request: /api/users/refresh-token/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:54,211 (INFO) - api.views.user - Password reset request from amr@example.com - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,344 (INFO) - api.views.user - Password reset request from unkown@example.cpm - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,344 (WARNING) - api.views.user - Password reset request for non-existent user unkown@example.cpm - 125 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,460 (INFO) - api.views.user - Password reset request from b97b9f8c55b60cb9334e49b070d185eac83d92d9f8d672ef4c7b35cf6e9a4670 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,797 (INFO) - api.views.user - Password reset request from invalidtoken - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,798 (WARNING) - api.views.user - Password reset request with invalid or expired token invalidtoken - 148 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,798 (WARNING) - django.request - Bad Request: /api/users/password-reset/invalidtoken/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:54,914 (INFO) - api.views.user - Password reset request from 230d8580a64c51f682f1d8284998d228c5c8c3e76eab1bc121709b478d6a2dee - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:54,915 (WARNING) - django.request - Bad Request: /api/users/password-reset/230d8580a64c51f682f1d8284998d228c5c8c3e76eab1bc121709b478d6a2dee/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:55,029 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:55,484 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:10:55,594 (WARNING) - django.request - Bad Request: /api/users/update-password/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:55,955 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:10:56,068 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:10:56,517 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:10:56,848 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:10:56,848 (WARNING) - django.request - Bad Request: /api/orders/1/cancel/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:57,404 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:10:57,405 (WARNING) - django.request - Not Found: /api/orders/1/track/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:57,747 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:57,860 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:57,973 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,088 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,200 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,202 (ERROR) - api.services.wishlist - Item already exists in wishlist for user amr@example.com, failed to add - 19 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:10:58,327 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,444 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,447 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:10:58,564 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,685 (INFO) - api.views.wishlist - User amr@example.com requested their wishlist - 34 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:58,803 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:58,804 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:10:58,925 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:58,926 (WARNING) - django.request - Bad Request: /api/wishlists/items/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:59,043 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:59,161 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:10:59,162 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:10:59,162 (WARNING) - django.request - Bad Request: /api/wishlists/items/delete/2 - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:10:59,279 (INFO) - api.views.wishlist - User amr@example.com requested to clear their wishlist - 50 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:24,852 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:24,966 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,081 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,194 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,195 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,443 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:11:25,446 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:11:25,560 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,561 (WARNING) - django.request - Bad Request: /api/carts/remove/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:25,561 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:11:25,678 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,680 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:11:25,683 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:11:25,929 (ERROR) - api.views.order - Failed to create order for user amr@example.com: Product matching query does not exist. - 75 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/order.py
+2024-09-03 08:11:25,929 (ERROR) - django.request - Internal Server Error: /api/orders/orders/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:27,402 (INFO) - api.views.payment - User amr@example.com requested their payments - 26 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,516 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,629 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,629 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 68 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,630 (WARNING) - django.request - Not Found: /api/payments/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:27,743 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,859 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:27,860 (WARNING) - django.request - Bad Request: /api/payments/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:27,976 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,092 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,093 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 91 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,093 (WARNING) - django.request - Not Found: /api/payments/update/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:28,209 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,322 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,323 (ERROR) - api.views.payment - Failed to delete payment: Cannot delete default payment, set another payment as default first - 123 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,323 (WARNING) - django.request - Bad Request: /api/payments/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:28,439 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,439 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 116 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:11:28,439 (WARNING) - django.request - Not Found: /api/payments/delete/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:29,128 (INFO) - api.views.product - User requested to list all products - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:29,243 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:29,247 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:29,248 (WARNING) - django.request - Not Found: /api/products/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:29,360 (WARNING) - django.request - Forbidden: /api/products/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:29,475 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:29,618 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:29,736 (WARNING) - django.request - Forbidden: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:29,962 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:30,078 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:30,306 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:30,307 (ERROR) - api.views.product - Product 1 not found, failed to update - 84 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:30,307 (WARNING) - django.request - Not Found: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:30,422 (WARNING) - django.request - Forbidden: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:31,043 (ERROR) - api.views.product - Product 1 not found, failed to delete - 110 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:11:31,043 (WARNING) - django.request - Not Found: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:31,621 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:11:31,737 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:11:31,738 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:11:31,738 (WARNING) - django.request - Not Found: /api/users/me/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:31,993 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:11:31,994 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 55 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:11:31,994 (WARNING) - django.request - Not Found: /api/users/me/update/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:33,576 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:33,801 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/delete/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:33,805 (ERROR) - api.selectors.category - Category with id 9999 not found. - 16 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/category.py
+2024-09-03 08:11:34,031 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:11:34,378 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:11:34,380 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:11:34,494 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:11:34,609 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:11:34,723 (WARNING) - api.services.order - Order with id 1 for user testuser@example.com cannot be cancelled. - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:11:37,000 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,236 (INFO) - api.views.user - User registration request from amr - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,238 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:37,240 (INFO) - api.views.user - User registration request from None - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,240 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:37,241 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,241 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:37,242 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,242 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:37,358 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,585 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,698 (WARNING) - django.request - Bad Request: /api/users/login/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:37,827 (INFO) - api.views.user - OTP verification request from 123456 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,947 (INFO) - api.views.user - OTP verification request from 123455 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:37,948 (WARNING) - django.request - Bad Request: /api/users/verify-otp/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:38,063 (INFO) - api.views.user - Token refresh request from eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNTQzNzQ5OCwiaWF0IjoxNzI1MzUxMDk4LCJqdGkiOiIwZDQ2YmY3YzkwOTk0M2U5YTg3NzVjYTEwZTRlMDQ2NCIsInVzZXJfaWQiOjF9.lsLUaP2P8xsCiRvAYS7C00OoLUYAt8EaM3Pb3UvRspI - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,182 (INFO) - api.views.user - Token refresh request from testrefresh123 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,182 (WARNING) - django.request - Bad Request: /api/users/refresh-token/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:38,300 (INFO) - api.views.user - Password reset request from amr@example.com - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,418 (INFO) - api.views.user - Password reset request from unkown@example.cpm - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,419 (WARNING) - api.views.user - Password reset request for non-existent user unkown@example.cpm - 125 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,538 (INFO) - api.views.user - Password reset request from 726f2bdd5128c81c7bbee8d5dbfa6b33c895b06999d07e534ac3ea709440e2fd - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,888 (INFO) - api.views.user - Password reset request from invalidtoken - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,889 (WARNING) - api.views.user - Password reset request with invalid or expired token invalidtoken - 148 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:38,889 (WARNING) - django.request - Bad Request: /api/users/password-reset/invalidtoken/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:39,007 (INFO) - api.views.user - Password reset request from b6779d30809f644242541c4d5f24d175c71e0dde61103fbd58f20c13fa2e6de9 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:39,008 (WARNING) - django.request - Bad Request: /api/users/password-reset/b6779d30809f644242541c4d5f24d175c71e0dde61103fbd58f20c13fa2e6de9/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:39,125 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:39,582 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:11:39,692 (WARNING) - django.request - Bad Request: /api/users/update-password/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:40,035 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:11:40,150 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:11:40,607 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:11:40,943 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:11:40,943 (WARNING) - django.request - Bad Request: /api/orders/1/cancel/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:41,513 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:11:41,514 (WARNING) - django.request - Not Found: /api/orders/1/track/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:41,857 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:41,970 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,084 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,198 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,312 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,314 (ERROR) - api.services.wishlist - Item already exists in wishlist for user amr@example.com, failed to add - 19 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:11:42,427 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,545 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,548 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:11:42,662 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:42,779 (INFO) - api.views.wishlist - User amr@example.com requested their wishlist - 34 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:42,893 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:42,894 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:11:43,010 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:43,012 (WARNING) - django.request - Bad Request: /api/wishlists/items/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:43,125 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:43,242 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:11:43,243 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:11:43,243 (WARNING) - django.request - Bad Request: /api/wishlists/items/delete/2 - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:11:43,358 (INFO) - api.views.wishlist - User amr@example.com requested to clear their wishlist - 50 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:22:50,919 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,039 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,158 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,277 (INFO) - api.services.cart - Updating item 1 in cart for amr@example.com - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,278 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,540 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:22:51,545 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:22:51,665 (ERROR) - api.services.cart - Item 1 does not exist in cart for amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,666 (WARNING) - django.request - Bad Request: /api/carts/remove/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:51,666 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:22:51,789 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:51,792 (INFO) - api.views.cart - Adding product to cart for amr@example.com - 28 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/cart.py
+2024-09-03 08:22:51,795 (INFO) - api.services.cart - Clearing cart for amr@example.com - 36 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/cart.py
+2024-09-03 08:22:52,054 (ERROR) - api.views.order - Failed to create order for user amr@example.com: Product matching query does not exist. - 75 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/order.py
+2024-09-03 08:22:52,054 (ERROR) - django.request - Internal Server Error: /api/orders/orders/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:53,583 (INFO) - api.views.payment - User amr@example.com requested their payments - 26 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:53,698 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:53,814 (INFO) - api.views.payment - User amr@example.com requested a payment - 65 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:53,814 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 68 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:53,815 (WARNING) - django.request - Not Found: /api/payments/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:53,929 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,052 (INFO) - api.views.payment - User amr@example.com requested to create a payment - 45 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,053 (WARNING) - django.request - Bad Request: /api/payments/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:54,172 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,293 (INFO) - api.views.payment - User amr@example.com requested to update a payment - 88 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,294 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 91 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,295 (WARNING) - django.request - Not Found: /api/payments/update/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:54,411 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,530 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,531 (ERROR) - api.views.payment - Failed to delete payment: Cannot delete default payment, set another payment as default first - 123 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,532 (WARNING) - django.request - Bad Request: /api/payments/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:54,649 (INFO) - api.views.payment - User amr@example.com requested to delete a payment - 113 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,649 (ERROR) - api.views.payment - Payment not found for user amr@example.com - 116 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/payment.py
+2024-09-03 08:22:54,649 (WARNING) - django.request - Not Found: /api/payments/delete/2/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:55,357 (INFO) - api.views.product - User requested to list all products - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:55,478 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:55,483 (INFO) - api.views.product - User requested to view product 1 - 39 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:55,483 (WARNING) - django.request - Not Found: /api/products/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:55,601 (WARNING) - django.request - Forbidden: /api/products/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:55,734 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:55,879 (INFO) - api.views.product - User requested to create a product - 60 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:56,006 (WARNING) - django.request - Forbidden: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:56,241 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:56,360 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:56,601 (INFO) - api.views.product - User requested to update product 1 - 81 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:56,602 (ERROR) - api.views.product - Product 1 not found, failed to update - 84 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:56,602 (WARNING) - django.request - Not Found: /api/products/update/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:56,719 (WARNING) - django.request - Forbidden: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:57,366 (ERROR) - api.views.product - Product 1 not found, failed to delete - 110 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/product.py
+2024-09-03 08:22:57,366 (WARNING) - django.request - Not Found: /api/products/delete/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:57,954 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,076 (INFO) - api.views.profile - User amr@example.com requested their profile - 27 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,077 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 30 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,077 (WARNING) - django.request - Not Found: /api/users/me/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:58,196 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,319 (INFO) - api.views.profile - User amr@example.com requested to update their profile - 52 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,319 (ERROR) - api.views.profile - Profile not found for user amr@example.com - 55 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/profile.py
+2024-09-03 08:22:58,320 (WARNING) - django.request - Not Found: /api/users/me/update/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:22:59,946 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:00,183 (WARNING) - django.request - Bad Request: /api/reviews/reviews/1/delete/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:00,190 (ERROR) - api.selectors.category - Category with id 9999 not found. - 16 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/category.py
+2024-09-03 08:23:00,420 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:23:00,776 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:23:00,779 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:23:00,895 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:23:01,013 (ERROR) - api.selectors.order - Order with id 9999 for user testuser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:23:01,130 (WARNING) - api.services.order - Order with id 1 for user testuser@example.com cannot be cancelled. - 24 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:23:03,537 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:03,777 (INFO) - api.views.user - User registration request from amr - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:03,778 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:03,781 (INFO) - api.views.user - User registration request from None - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:03,782 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:03,782 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:03,783 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:03,784 (INFO) - api.views.user - User registration request from amr@example.com - 44 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:03,784 (WARNING) - django.request - Bad Request: /api/users/register/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:03,903 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,149 (INFO) - api.views.user - User login request from amr@example.com - 63 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,270 (WARNING) - django.request - Bad Request: /api/users/login/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:04,392 (INFO) - api.views.user - OTP verification request from 123456 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,514 (INFO) - api.views.user - OTP verification request from 123455 - 85 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,515 (WARNING) - django.request - Bad Request: /api/users/verify-otp/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:04,638 (INFO) - api.views.user - Token refresh request from eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyNTQzODE4NCwiaWF0IjoxNzI1MzUxNzg0LCJqdGkiOiIyMzE3ZDliMWY0MzY0ZjhkOGQ0OGU0YWFlMzQ2MWQyOSIsInVzZXJfaWQiOjF9.dFAgcFJdPGsBlsP7MyyIEdmHEiXA7MQjk_Ui5Sqf7a0 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,768 (INFO) - api.views.user - Token refresh request from testrefresh123 - 106 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:04,769 (WARNING) - django.request - Bad Request: /api/users/refresh-token/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:04,891 (INFO) - api.views.user - Password reset request from amr@example.com - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,011 (INFO) - api.views.user - Password reset request from unkown@example.cpm - 120 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,012 (WARNING) - api.views.user - Password reset request for non-existent user unkown@example.cpm - 125 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,132 (INFO) - api.views.user - Password reset request from 69bc6ea385a1c481a680e7f0c69a89386d34736b018b73d2abafcbe5421daf93 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,487 (INFO) - api.views.user - Password reset request from invalidtoken - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,488 (WARNING) - api.views.user - Password reset request with invalid or expired token invalidtoken - 148 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,489 (WARNING) - django.request - Bad Request: /api/users/password-reset/invalidtoken/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:05,616 (INFO) - api.views.user - Password reset request from 2c29a0422794695b6449876d1574e9763cfb850b4af6ad2d4e6470b56f251395 - 145 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:05,617 (WARNING) - django.request - Bad Request: /api/users/password-reset/2c29a0422794695b6449876d1574e9763cfb850b4af6ad2d4e6470b56f251395/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:05,734 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:06,205 (INFO) - api.views.user - Password update request from amr@example.com - 173 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/user.py
+2024-09-03 08:23:06,321 (WARNING) - django.request - Bad Request: /api/users/update-password/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:06,727 (INFO) - api.services.category - Category with id 1 was updated. - 15 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:23:06,853 (INFO) - api.services.category - Category with id 1 was deleted. - 23 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/category.py
+2024-09-03 08:23:07,342 (INFO) - api.services.order - Order with id 1 for user testuser@example.com was cancelled. - 21 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/order.py
+2024-09-03 08:23:07,701 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:23:07,701 (WARNING) - django.request - Bad Request: /api/orders/1/cancel/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:08,302 (ERROR) - api.selectors.order - Order with id 1 for user anotheruser@example.com not found. - 12 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/order.py
+2024-09-03 08:23:08,303 (WARNING) - django.request - Not Found: /api/orders/1/track/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:08,661 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:08,779 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:08,898 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,019 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,140 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,142 (ERROR) - api.services.wishlist - Item already exists in wishlist for user amr@example.com, failed to add - 19 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:23:09,259 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,380 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,383 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:23:09,503 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,630 (INFO) - api.views.wishlist - User amr@example.com requested their wishlist - 34 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:23:09,760 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:23:09,762 (INFO) - api.selectors.wishlist - Creating a new wishlist for user amr@example.com - 13 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/selectors/wishlist.py
+2024-09-03 08:23:09,885 (INFO) - api.views.wishlist - User amr@example.com requested to add an item to their wishlist - 66 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:23:09,889 (WARNING) - django.request - Bad Request: /api/wishlists/items/create/ - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:10,007 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:23:10,129 (INFO) - api.views.wishlist - User amr@example.com requested to delete an item from their wishlist - 87 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py
+2024-09-03 08:23:10,129 (ERROR) - api.services.wishlist - Item does not exist in wishlist for user amr@example.com, failed to delete - 31 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/services/wishlist.py
+2024-09-03 08:23:10,130 (WARNING) - django.request - Bad Request: /api/wishlists/items/delete/2 - 241 - /home/ahmadsameh8/anaconda3/lib/python3.11/site-packages/django/utils/log.py
+2024-09-03 08:23:10,250 (INFO) - api.views.wishlist - User amr@example.com requested to clear their wishlist - 50 - /media/ahmadsameh8/New Volume/PayMob/ecommerce/api/views/wishlist.py

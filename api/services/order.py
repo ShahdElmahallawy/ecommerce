@@ -2,6 +2,8 @@ import logging
 from api.selectors.order import get_order_by_id_and_user
 from api.models.order import Order
 from api.models.product import Product
+from api.models.payment import Payment
+from api.models.cart import Cart
 from api.models.order_item import OrderItem
 from django.core.exceptions import ValidationError
 from django.db.models import F
@@ -27,47 +29,6 @@ def cancel_order(pk, user):
     return {"error": "Order cannot be cancelled"}, False
 
 
-def create_order(user, payment_method, items):
-    order = Order.objects.create(user=user, payment_method=payment_method)
-    total_price = Decimal("0.00")
-
-    product_ids = [item["product_id"] for item in items]
-    products = Product.objects.filter(id__in=product_ids)
-    product_map = {product.id: product for product in products}
-
-    order_items = []
-
-    for item_data in items:
-        product_id = item_data["product_id"]
-        quantity = item_data["quantity"]
-
-        product = product_map.get(product_id)
-        if not product:
-            raise ValidationError(f"Product with id {product_id} not found.")
-
-        if product.count < quantity:
-            raise ValidationError(f"Insufficient stock for product {product.name}")
-
-        product.count = F("count") - quantity
-        product.save()
-
-        unit_price = Decimal(product.price)
-        total_price += quantity * unit_price
-
-        order_items.append(
-            OrderItem(
-                order=order, product=product, quantity=quantity, unit_price=unit_price
-            )
-        )
-
-    OrderItem.objects.bulk_create(order_items)
-
-    order.total_price = total_price
-    order.save()
-
-    return order
-
-
 def mark_order_as_delivered(order_id, user):
     try:
         order = Order.objects.get(id=order_id, user=user)
@@ -86,3 +47,46 @@ def mark_order_as_delivered(order_id, user):
 
     logger.info(f"Order with id {order_id} marked as delivered for user {user}.")
     return {"status": "Order delivered"}, True
+
+
+def create_order_from_cart(user, payment_method):
+
+    try:
+        cart = Cart.objects.prefetch_related("items__product").get(user=user)
+    except Cart.DoesNotExist:
+        raise ValueError("No cart found for the user")
+
+    cart_items = cart.items.all()
+
+    if not cart_items.exists():
+        raise ValueError("The cart is empty")
+
+    try:
+        payment_method = Payment.objects.get(id=payment_method)
+    except Payment.DoesNotExist:
+        raise ValueError("Invalid payment method")
+
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    order = Order.objects.create(
+        user=user,
+        payment_method=payment_method,
+        total_price=Decimal(total_price),
+        status="pending",
+    )
+
+    order_items = [
+        OrderItem(
+            order=order,
+            product=cart_item.product,
+            quantity=cart_item.quantity,
+            unit_price=cart_item.product.price,
+        )
+        for cart_item in cart_items
+    ]
+
+    OrderItem.objects.bulk_create(order_items)
+
+    cart.items.all().delete()
+
+    return order
