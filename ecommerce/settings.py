@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+from celery.schedules import crontab
 
 load_dotenv()
 
@@ -189,5 +190,16 @@ LOGGING = {
             "style": "{",
         },
         "simple": {"format": "%(levelname)s %(message)s"},
+    },
+}
+
+
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_BEAT_SCHEDULE = {
+    "task-name": {
+        "task": "api.tasks.send_restock_mails",
+        "schedule": 20.0,
+        # "schedule": crontab(minute=0, hour=0),
     },
 }

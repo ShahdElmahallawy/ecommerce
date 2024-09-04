@@ -16,3 +16,6 @@ dummy/
 *.log
 
 images/
+
+media/
+celerybeat-schedule*
