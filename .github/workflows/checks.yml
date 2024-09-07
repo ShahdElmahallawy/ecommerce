@@ -23,8 +23,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
-
+          pytest -x -n 10
       - name: Check formatting
         run: |
           black --check .

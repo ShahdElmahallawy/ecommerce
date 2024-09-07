@@ -10,7 +10,9 @@ logger = getLogger(__name__)
 
 @shared_task
 def send_restock_mails():
-    products = Product.objects.filter(count__lte=5, created_by__isnull=False)
+    products = Product.objects.select_related("created_by", "supplier").filter(
+        count__lte=5, created_by__isnull=False
+    )
 
     seller_products = defaultdict(list)
     for product in products:
@@ -18,9 +20,16 @@ def send_restock_mails():
     logger.info(seller_products)
     for seller, products in seller_products.items():
         product_list = "\n".join(
-            [f"{product.name} ({product.count} left)" for product in products]
+            [
+                f"{product.name} (Supplier: {product.supplier.name} - contact:{product.supplier.email}) - {product.count} left"
+                for product in products
+            ]
         )
-        email_body = f"The following products are low on stock:\n\n{product_list}\n\nPlease restock them.\n\n Ecommerce Team.\n CEO: Amr"
+        email_body = (
+            f"The following products are low on stock:\n\n{product_list}\n\n"
+            "Please restock them by contacting the respective suppliers.\n\n"
+            "Ecommerce Team.\nCEO: Amr"
+        )
         try:
             send_mail(
                 "Restock products",

@@ -111,6 +111,18 @@ DATABASES = {
     }
 }
 
+if os.getenv("MYSQL_ACTIVE") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -194,12 +206,11 @@ LOGGING = {
 }
 
 
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
 CELERY_BEAT_SCHEDULE = {
     "task-name": {
         "task": "api.tasks.send_restock_mails",
-        "schedule": 20.0,
-        # "schedule": crontab(minute=0, hour=0),
+        "schedule": crontab(minute=0, hour=0),
     },
 }
