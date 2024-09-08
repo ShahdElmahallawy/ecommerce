@@ -4,6 +4,7 @@ from api.selectors.review import (
 from api.models import Review
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
+from django.db.utils import IntegrityError
 
 User = get_user_model()
 
@@ -12,7 +13,12 @@ def create_review(user, product, rating, text):
     """
     Create a review for a product.
     """
-    return Review.objects.create(user=user, product=product, rating=rating, text=text)
+    try:
+        return Review.objects.create(
+            user=user, product=product, rating=rating, text=text
+        )
+    except IntegrityError:
+        raise ValidationError({"detail": "You have already reviewed this product."})
 
 
 def update_review(review_id, user, data):

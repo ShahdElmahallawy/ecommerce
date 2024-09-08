@@ -11,7 +11,7 @@ class Review(Audit):
         "Product", on_delete=models.CASCADE, related_name="reviews"
     )
     text = models.TextField()
-    rating = models.PositiveSmallIntegerField()
+    rating = models.FloatField()
 
     class Meta:
         unique_together = ("user", "product")

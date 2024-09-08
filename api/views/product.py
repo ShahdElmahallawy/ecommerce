@@ -15,6 +15,7 @@ from logging import getLogger
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from api.filters.product import ProductFilter
+from api.filters.product import ProductRatingFilter
 
 logger = getLogger(__name__)
 
@@ -24,12 +25,19 @@ class ProductListView(GenericAPIView):
     View to list all products.
     """
 
-    queryset = list_products()
+    def get_queryset(self):
+        queryset = list_products()
+        queryset = ProductRatingFilter.filter_rating(
+            queryset, self.request.query_params
+        )
+
+        return queryset
+
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["category"]
     search_fields = ["name"]
-    ordering_fields = ["price", "created_at"]
+    ordering_fields = ["price", "created_at", "rating"]
     filterset_class = ProductFilter
 
     def get(self, request):

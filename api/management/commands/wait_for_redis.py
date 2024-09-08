@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Entrypoint for command."""
         self.stdout.write("Waiting for database...")
-        redis = False
+        redis_up = False
 
         while redis_up is False:
             try:

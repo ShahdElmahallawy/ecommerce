@@ -23,7 +23,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer(read_only=True)
 
     def validate_rating(self, value):
-        if value <= 0 or value >= 5:
+        print(value)
+        print(value >= 5)
+        if value < 0 or value > 5:
             raise serializers.ValidationError("Rating must be between 1 and 5.")
         return value
 
