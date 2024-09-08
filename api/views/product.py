@@ -48,7 +48,7 @@ class ProductListView(GenericAPIView):
         filtered_products = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(filtered_products, many=True)
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductDetailView(APIView):
@@ -67,7 +67,7 @@ class ProductDetailView(APIView):
                 {"detail": "Product not found."}, status=status.HTTP_404_NOT_FOUND
             )
         serializer = ProductDetailSerializer(product)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductCreateView(APIView):
@@ -114,7 +114,7 @@ class ProductUpdateView(APIView):
         serializer.is_valid(raise_exception=True)
         product = update_product(serializer.validated_data, product)
         serializer = ProductSerializer(product)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductDeleteView(APIView):
