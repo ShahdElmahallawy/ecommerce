@@ -3,6 +3,7 @@ from .audit import Audit
 from .profile import Profile
 from .payment import Payment
 from .category import Category
+from .supplier import Supplier
 from .product import Product
 from .order import Order
 from .order_item import OrderItem

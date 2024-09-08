@@ -1,4 +1,5 @@
 from api.models import Product
+from django.db.models import Avg
 
 
 def get_product_by_id(product_id):
@@ -27,7 +28,11 @@ def list_products():
     Returns:
         A queryset of products.
     """
-    products = Product.objects.select_related("category").prefetch_related("reviews")
+    products = (
+        Product.objects.select_related("category")
+        .prefetch_related("reviews")
+        .annotate(rating=Avg("reviews__rating"))
+    )
     return products
 
 

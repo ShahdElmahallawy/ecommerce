@@ -15,6 +15,7 @@ from logging import getLogger
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from api.filters.product import ProductFilter
+from api.filters.product import ProductRatingFilter
 
 logger = getLogger(__name__)
 
@@ -24,12 +25,19 @@ class ProductListView(GenericAPIView):
     View to list all products.
     """
 
-    queryset = list_products()
+    def get_queryset(self):
+        queryset = list_products()
+        queryset = ProductRatingFilter.filter_rating(
+            queryset, self.request.query_params
+        )
+
+        return queryset
+
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ["category"]
     search_fields = ["name"]
-    ordering_fields = ["price", "created_at"]
+    ordering_fields = ["price", "created_at", "rating"]
     filterset_class = ProductFilter
 
     def get(self, request):
@@ -40,7 +48,7 @@ class ProductListView(GenericAPIView):
         filtered_products = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(filtered_products, many=True)
 
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductDetailView(APIView):
@@ -59,7 +67,7 @@ class ProductDetailView(APIView):
                 {"detail": "Product not found."}, status=status.HTTP_404_NOT_FOUND
             )
         serializer = ProductDetailSerializer(product)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductCreateView(APIView):
@@ -106,7 +114,7 @@ class ProductUpdateView(APIView):
         serializer.is_valid(raise_exception=True)
         product = update_product(serializer.validated_data, product)
         serializer = ProductSerializer(product)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductDeleteView(APIView):

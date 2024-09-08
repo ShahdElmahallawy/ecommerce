@@ -60,6 +60,14 @@ from .views.review import (
     DeleteReviewView,
 )
 
+from .views.supplier import (
+    SupplierCreateView,
+    SupplierUpdateView,
+    SupplierDeleteView,
+    SupplierListView,
+    SupplierDetailView,
+)
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -163,6 +171,22 @@ review_patterns = [
     ),
 ]
 
+supplier_patterns = [
+    path("", SupplierListView.as_view(), name="supplier-list"),
+    path("create/", SupplierCreateView.as_view(), name="supplier-create"),
+    path("<int:supplier_id>/", SupplierDetailView.as_view(), name="supplier-detail"),
+    path(
+        "<int:supplier_id>/update/",
+        SupplierUpdateView.as_view(),
+        name="supplier-update",
+    ),
+    path(
+        "<int:supplier_id>/delete/",
+        SupplierDeleteView.as_view(),
+        name="supplier-delete",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -172,4 +196,5 @@ urlpatterns = [
     path("products/", include(product_patterns)),
     path("carts/", include(cart_patterns)),
     path("reviews/", include(review_patterns)),
+    path("suppliers/", include(supplier_patterns)),
 ]

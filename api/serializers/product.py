@@ -21,13 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["created_by"]
 
-    rating = serializers.SerializerMethodField()
-
-    def get_rating(self, obj):
-        reviews = obj.reviews.all()
-        if not reviews:
-            return 0
-        return mean([review.rating for review in reviews])
+    rating = serializers.FloatField(read_only=True)
 
     def validate(self, data):
         if "price" in data and data["price"] < 0:

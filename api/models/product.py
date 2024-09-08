@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from api.models.category import Category
+from api.models.supplier import Supplier
 from django.contrib.auth import get_user_model
 from api.models.audit import Audit
 from api.constants import CURRENCY_CHOICES
@@ -33,6 +34,9 @@ class Product(Audit):
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default="USD")
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, related_name="products"
+    )
+    supplier = models.ForeignKey(
+        Supplier, on_delete=models.SET_NULL, null=True, related_name="products"
     )
 
     def __str__(self):
