@@ -2,6 +2,7 @@ from api.models.cart import Cart
 from api.models.cart_item import CartItem
 
 
+
 def get_cart_by_user(user):
     cart = Cart.objects.filter(user=user).prefetch_related("items__product").first()
     if not cart:

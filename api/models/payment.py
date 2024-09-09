@@ -35,8 +35,12 @@ class Payment(Audit):
         if self.default:
             Payment.objects.filter(user=self.user).update(default=False)
 
-        if Payment.objects.filter(user=self.user).count() <= 1:
+        if Payment.objects.filter(user=self.user).count() == 0:
             self.default = True
+
+        if self.default == False:
+            if Payment.objects.filter(user=self.user, default=True).count() == 0:
+                self.default = True
 
         super(Payment, self).save(*args, **kwargs)
 

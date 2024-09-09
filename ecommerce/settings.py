@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from dotenv import load_dotenv
+from celery.schedules import crontab
 
 load_dotenv()
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
     "drf_spectacular",
     "rest_framework",
     "rest_framework_simplejwt",
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "api.permissions.jwt_authentication.CustomJWTAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -108,6 +111,18 @@ DATABASES = {
     }
 }
 
+if os.getenv("MYSQL_ACTIVE") == "True":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USER"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+        }
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -145,6 +160,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -174,7 +192,7 @@ LOGGING = {
     },
     "loggers": {
         "": {
-            "handlers": ["console", "file"],
+            "handlers": ["file"],
             "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
         },
     },
@@ -184,5 +202,15 @@ LOGGING = {
             "style": "{",
         },
         "simple": {"format": "%(levelname)s %(message)s"},
+    },
+}
+
+
+CELERY_RESULT_BACKEND = os.getenv("REDIS_URL")
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
+CELERY_BEAT_SCHEDULE = {
+    "task-name": {
+        "task": "api.tasks.send_restock_mails",
+        "schedule": crontab(minute=0, hour=0),
     },
 }

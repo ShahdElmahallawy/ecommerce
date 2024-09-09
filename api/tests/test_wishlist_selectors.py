@@ -27,11 +27,11 @@ def test_get_wishlist_by_user(user):
     assert wishlist.user == user
 
 
-def test_get_wishlist_item(wishlist, wishlist_item):
-    item = get_wishlist_item(wishlist, wishlist_item.id)
+def test_get_wishlist_item(user, wishlist_item):
+    item = get_wishlist_item(user, wishlist_item.id)
     assert item == wishlist_item
 
 
-def test_get_wishlist_item_fail(wishlist, wishlist_item):
+def test_get_wishlist_item_fail(user, wishlist_item):
     with pytest.raises(WishlistItem.DoesNotExist):
-        get_wishlist_item(wishlist, 4)
+        get_wishlist_item(user, 4)

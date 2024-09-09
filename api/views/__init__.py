@@ -5,6 +5,7 @@ from .user import (
     ForgotPasswordView,
     PasswordResetView,
     VerifyOTPView,
+    UpdatePasswordView,
 )
 from .profile import ProfileDetailView, ProfileUpdateView
 from .payment import (
@@ -19,4 +20,13 @@ from .wishlist import (
     WishlistItemCreateView,
     WishlistItemDeleteView,
     WishlistDeleteView,
+)
+
+
+from .cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
 )

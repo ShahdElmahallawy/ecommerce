@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+
 from .views.category import (
     CategoryListView,
     CategoryDetailView,
@@ -15,6 +16,14 @@ from .views.order import (
     OrderDeliverView,
 )
 
+from .views.cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)
+
 from .views import (
     UserRegisterView,
     UserLoginView,
@@ -22,6 +31,7 @@ from .views import (
     RefreshTokenView,
     ForgotPasswordView,
     PasswordResetView,
+    UpdatePasswordView,
     ProfileDetailView,
     ProfileUpdateView,
     PaymentListView,
@@ -44,12 +54,28 @@ from api.views.cart import (
     CartView,
 )
 
-report_patterns = [
-    path("reports/", ReportListView.as_view(), name="report-list"),
-    path("reports/create/", ReportCreateView.as_view(), name="report-create"),
-    path("reports/<int:pk>/", ReportDetailView.as_view(), name="report-detail"),
-]
+from .views.product import (
+    ProductListView,
+    ProductDetailView,
+    ProductCreateView,
+    ProductUpdateView,
+    ProductDeleteView,
+)
 
+from .views.review import (
+    GetReviewsByProductView,
+    CreateReviewView,
+    UpdateReviewView,
+    DeleteReviewView,
+)
+
+from .views.supplier import (
+    SupplierCreateView,
+    SupplierUpdateView,
+    SupplierDeleteView,
+    SupplierListView,
+    SupplierDetailView,
+)
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -83,6 +109,7 @@ user_patterns = [
     path("me/", ProfileDetailView.as_view(), name="profile-detail"),
     path("me/update/", ProfileUpdateView.as_view(), name="profile-update"),
     path("verify-otp/", VerifyOTPView.as_view(), name="verify-otp"),
+    path("update-password/", UpdatePasswordView.as_view(), name="update-password"),
 ]
 
 payment_patterns = [
@@ -90,10 +117,10 @@ payment_patterns = [
     path("create/", PaymentCreateView.as_view(), name="payment-create"),
     path("<int:payment_id>/", PaymentDetailView.as_view(), name="payment-detail"),
     path(
-        "<int:payment_id>/update/", PaymentUpdateView.as_view(), name="payment-update"
+        "update/<int:payment_id>/", PaymentUpdateView.as_view(), name="payment-update"
     ),
     path(
-        "<int:payment_id>/delete/", PaymentDeleteView.as_view(), name="payment-delete"
+        "delete/<int:payment_id>/", PaymentDeleteView.as_view(), name="payment-delete"
     ),
 ]
 
@@ -121,6 +148,70 @@ cart_patterns = [
     ),
 ]
 
+product_patterns = [
+    path("", ProductListView.as_view(), name="product-list"),
+    path("<int:product_id>/", ProductDetailView.as_view(), name="product-detail"),
+    path("create/", ProductCreateView.as_view(), name="product-create"),
+    path(
+        "update/<int:product_id>/", ProductUpdateView.as_view(), name="product-update"
+    ),
+    path(
+        "delete/<int:product_id>/", ProductDeleteView.as_view(), name="product-delete"
+    ),
+]
+
+cart_patterns = [
+    path("", CartView.as_view(), name="cart"),
+    path("add/", AddToCartView.as_view(), name="add-to-cart"),
+    path(
+        "remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"
+    ),
+    path("clear/", ClearCartView.as_view(), name="clear-cart"),
+    path(
+        "update/<int:item_id>/", UpdateCartItemView.as_view(), name="update-cart-item"
+    ),
+]
+
+review_patterns = [
+    path(
+        "products/<int:product_id>/",
+        GetReviewsByProductView.as_view(),
+        name="product-reviews",
+    ),
+    path(
+        "products/<int:product_id>/create/",
+        CreateReviewView.as_view(),
+        name="create-review",
+    ),
+    path("update/<int:review_id>", UpdateReviewView.as_view(), name="update-review"),
+    path(
+        "delete/<int:review_id>",
+        DeleteReviewView.as_view(),
+        name="delete-review",
+    ),
+]
+
+supplier_patterns = [
+    path("", SupplierListView.as_view(), name="supplier-list"),
+    path("create/", SupplierCreateView.as_view(), name="supplier-create"),
+    path("<int:supplier_id>/", SupplierDetailView.as_view(), name="supplier-detail"),
+    path(
+        "<int:supplier_id>/update/",
+        SupplierUpdateView.as_view(),
+        name="supplier-update",
+    ),
+    path(
+        "<int:supplier_id>/delete/",
+        SupplierDeleteView.as_view(),
+        name="supplier-delete",
+    ),
+]
+report_patterns = [
+    path("reports/", ReportListView.as_view(), name="report-list"),
+    path("reports/create/", ReportCreateView.as_view(), name="report-create"),
+    path("reports/<int:pk>/", ReportDetailView.as_view(), name="report-detail"),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -129,4 +220,7 @@ urlpatterns = [
     path("wishlists/", include(wishlist_patterns)),
     path("reports/", include(report_patterns)),
     path("carts/", include(cart_patterns)),
+    path("products/", include(product_patterns)),
+    path("reviews/", include(review_patterns)),
+    path("suppliers/", include(supplier_patterns)),
 ]

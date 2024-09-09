@@ -1,5 +1,8 @@
 from django.db import models
 from . import User, Audit
+
+from api.constants import CURRENCY_CHOICES
+
 from api.models.address import Address
 
 
@@ -15,31 +18,13 @@ class Profile(Audit):
     """
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    USER_TYPES = (
-        ("seller", "Seller"),
-        ("customer", "Customer"),
-    )
-    user_type = models.CharField(max_length=10, choices=USER_TYPES, default="customer")
+
     address = models.ForeignKey(
         Address, related_name="shipping_address", on_delete=models.SET_NULL, null=True
     )
+
     phone = models.CharField(max_length=11, null=True)
-    CURRENCY_CHOICES = (
-        ("EGP", "Egyptian Pound"),
-        ("MXN", "Mexican Peso"),
-        ("SAR", "Saudi Riyal"),
-        ("USD", "United States Dollar"),
-        ("EUR", "Euro"),
-        ("JPY", "Japanese Yen"),
-        ("GBP", "British Pound Sterling"),
-        ("CHF", "Swiss Franc"),
-        ("CAD", "Canadian Dollar"),
-        ("AUD", "Australian Dollar"),
-        ("INR", "Indian Rupee"),
-        ("RUB", "Russian Ruble"),
-        ("ZAR", "South African Rand"),
-        ("TRY", "Turkish Lira"),
-    )
+
     preferred_currency = models.CharField(
         max_length=3, choices=CURRENCY_CHOICES, null=True
     )

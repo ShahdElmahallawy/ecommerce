@@ -3,8 +3,7 @@ from rest_framework import serializers
 from api.models.cart import Cart
 from api.models.product import Product
 from api.models.cart_item import CartItem
-
-# from api.selectors.product import get_product_by_id
+from api.selectors.product import get_product_by_id
 
 
 class CartItemCreateSerializer(serializers.ModelSerializer):

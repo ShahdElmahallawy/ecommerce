@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APIClient
-from api.models import Product, Wishlist, WishlistItem
+from api.models import Product, Wishlist, WishlistItem, Category
 from api.serializers import (
     WishlistSerializer,
     WishlistItemSerializer,
@@ -13,8 +13,15 @@ from django.urls import reverse
 
 
 @pytest.fixture
-def product():
-    return Product.objects.create(name="Test Product", price=100.0, count=10)
+def category():
+    return Category.objects.create(name="Test Category")
+
+
+@pytest.fixture
+def product(category):
+    return Product.objects.create(
+        name="Test Product", price=100.0, count=10, category=category
+    )
 
 
 @pytest.fixture
@@ -41,7 +48,7 @@ def test_wishlist_list_view(api_client_auth, wishlist):
 
 @pytest.mark.django_db
 def test_wishlist_item_create_view(api_client_auth, product):
-    data = {"product_id": product.id}
+    data = {"product": product.id}
     url = reverse("wishlist-item-create")
     response = api_client_auth.post(url, data)
 

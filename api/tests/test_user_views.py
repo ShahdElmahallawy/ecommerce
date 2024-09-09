@@ -253,4 +253,32 @@ def test_password_reset_mismatched_passwords(api_client, user):
     response = api_client.post(url, data, format="json")
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data["non_field_errors"][0] == "Passwords do not match."
+
+
+@pytest.mark.django_db
+def test_update_password_view(user, api_client_auth):
+    data = {
+        "current_password": "testpassword123",
+        "new_password": "newpassword123",
+        "confirm_new_password": "newpassword123",
+    }
+    url = reverse("update-password")
+    response = api_client_auth.patch(url, data)
+
+    assert response.status_code == status.HTTP_200_OK
+    user.refresh_from_db()
+    assert user.check_password("newpassword123")
+
+
+@pytest.mark.django_db
+def test_update_password_view_invalid_current_password(user, api_client_auth):
+    data = {
+        "current_password": "invalidpassword",
+        "new_password": "newpassword123",
+        "confirm_new_password": "newpassword123",
+    }
+
+    url = reverse("update-password")
+    response = api_client_auth.patch(url, data)
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST

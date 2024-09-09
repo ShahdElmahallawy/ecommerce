@@ -2,26 +2,42 @@ from django.db import models
 from django.utils import timezone
 from api.models.audit import Audit
 
+from django.core.validators import MinValueValidator
+from api.models.category import Category
+from api.models.supplier import Supplier
+from django.contrib.auth import get_user_model
+from api.models.audit import Audit
+from api.constants import CURRENCY_CHOICES
+
+
+User = get_user_model()
 
 class Product(Audit):
-    """Model of product.
-
+    """Model of product
     Fields:
-    - name: name of product
-    - price: price of product
-    - description: description of product
-    - image: image of product
-    - count: count of product
-    - currency: currency of product
+        name: The name of the product.
+        price: The price of the product.
+        description: The description of the product.
+        image: The image of the product.
+        count: The count of the product.
+        category: The category of the product.
+        currency: The currency of the product.
+        created_by: The user who created the product.
     """
 
-    # add viladation to name to be not null
-    name = models.CharField(max_length=255, null=False)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    description = models.TextField()
-    image = models.ImageField(upload_to="products")
+    name = models.CharField(max_length=255)
+    price = models.FloatField(validators=[MinValueValidator(0)])
+    description = models.TextField(null=True)
+    image = models.ImageField(upload_to="api/images/")
     count = models.PositiveIntegerField()
-    currency = models.CharField(max_length=3)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default="USD")
+    created_by = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, related_name="products"
+    )
+    supplier = models.ForeignKey(
+        Supplier, on_delete=models.SET_NULL, null=True, related_name="products"
+    )
 
     def __str__(self):
         return self.name
