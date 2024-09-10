@@ -1,7 +1,8 @@
 from django.db import models
+from . import Audit
 
 
-class Supplier(models.Model):
+class Supplier(Audit):
     name = models.CharField(max_length=255)
     email = models.EmailField()
 
