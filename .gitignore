@@ -14,13 +14,8 @@ dummy/
 
 
 *.log
-<<<<<<< HEAD
-**/*.log
-api/logs/*.log
-=======
 
 images/
 
 media/
 celerybeat-schedule*
->>>>>>> master
