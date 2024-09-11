@@ -5,6 +5,7 @@ from datetime import timedelta
 from api.models.user import User
 from api.models.audit import Audit
 
+
 class Discount(Audit):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="discounts")

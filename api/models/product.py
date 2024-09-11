@@ -12,6 +12,7 @@ from api.constants import CURRENCY_CHOICES
 
 User = get_user_model()
 
+
 class Product(Audit):
     """Model of product
     Fields:

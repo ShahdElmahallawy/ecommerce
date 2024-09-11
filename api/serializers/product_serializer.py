@@ -16,11 +16,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
 #     class Meta:
 #         model = Product
-#         fields = ['id', 'name', 'price', 'description', 'average_rating'] 
+#         fields = ['id', 'name', 'price', 'description', 'average_rating']
 
 # class SellerWithTopProductsSerializer(serializers.ModelSerializer):
 #     top_products = ProductSerializer(many=True)
 
 #     class Meta:
-#         model = User  
+#         model = User
 #         fields = ['id', 'name', 'email', 'top_products']

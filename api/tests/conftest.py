@@ -71,14 +71,14 @@ def payment(user):
 
 
 @pytest.fixture
-def product(db,user):
+def product(db, user):
     return Product.objects.create(
         name="Test Product",
         price=100.00,
         description="A test product",
         count=10,
         currency="USD",
-        created_by = user
+        created_by=user,
     )
 
 

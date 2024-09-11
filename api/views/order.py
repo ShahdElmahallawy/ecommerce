@@ -76,8 +76,6 @@ class OrderCreateView(APIView):
         return Response(order_serializer.data, status=status.HTTP_201_CREATED)
 
 
-        
-
 class OrderCreateViewWithDiscount(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -97,9 +95,7 @@ class OrderCreateViewWithDiscount(APIView):
             return Response({"detail": error}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            order = create_order_from_cart(
-                user=user, payment_method=payment_method
-            )
+            order = create_order_from_cart(user=user, payment_method=payment_method)
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
