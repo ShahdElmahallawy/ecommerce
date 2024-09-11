@@ -1,3 +1,7 @@
+from django.urls import reverse
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.utils.html import format_html
 from api.models import User, Profile, Product, Review, Payment, Supplier
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -63,7 +67,37 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ["user", "phone", "preferred_currency"]
+
+    fieldsets = (
+        (
+            None,
+            {
+                "fields": (
+                    "user",
+                    "phone",
+                    "preferred_currency",
+                )
+            },
+        ),
+    )
+
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "user",
+                    "phone",
+                    "preferred_currency",
+                ),
+            },
+        ),
+    )
+
     search_fields = ["user__name", "phone"]
+    list_select_related = ["user"]
+    autocomplete_fields = ["user"]
     list_filter = ["preferred_currency"]
     list_display_links = ["user"]
     list_per_page = 10
@@ -92,11 +126,16 @@ class ProductAdmin(admin.ModelAdmin):
         "price",
         "description",
         "count",
-        "category",
+        "category_name",
         "currency",
         "created_by",
-        "supplier",
+        "supplier_name",
+        "thumbnail",
     ]
+
+    def thumbnail(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="50" height="50" />', obj.image.url)
 
     fieldsets = (
         (
@@ -117,7 +156,6 @@ class ProductAdmin(admin.ModelAdmin):
         ),
     )
     readonly_fields = ["created_by"]
-
     add_fieldsets = (
         (
             None,
@@ -138,10 +176,24 @@ class ProductAdmin(admin.ModelAdmin):
         ),
     )
 
-    list_filter = ["category", "currency", "supplier", InventoryFilter]
+    list_filter = ["category", "supplier", "created_by", InventoryFilter]
     search_fields = ["name", "description"]
+    autocomplete_fields = ["supplier"]
     list_editable = ["price", "count"]
+    list_select_related = ["category", "created_by", "supplier"]
     list_per_page = 10
+
+    def category_name(self, product):
+        if product.category:
+            return product.category.name
+
+    def supplier_name(self, product):
+        if product.supplier:
+            return product.supplier.name
+
+    def created_by(self, product):
+        if product.created_by:
+            return product.created_by.name
 
 
 @admin.register(Payment)
@@ -176,8 +228,6 @@ class PaymentAdmin(admin.ModelAdmin):
         ),
     )
 
-    readonly_fields = ["pan", "cvv"]
-
     add_fieldsets = (
         (
             None,
@@ -195,23 +245,37 @@ class PaymentAdmin(admin.ModelAdmin):
             },
         ),
     )
-
+    list_select_related = ["user"]
+    autocomplete_fields = ["user"]
     list_filter = ["card_type", "default"]
     search_fields = ["user__username", "bank_name", "pan"]
     list_per_page = 10
 
     def save_model(self, request, obj, form, change):
-        if obj.default and not change:
+
+        if obj.default:
             Payment.objects.filter(user=obj.user).update(default=False)
-        elif obj.default:
-            Payment.objects.filter(user=obj.user).update(default=False)
+
+        if not Payment.objects.filter(user=obj.user, default=True).exists():
+            obj.default = True
+
+        if Payment.objects.filter(user=obj.user).count() == 1:
+            obj.default = True
+            messages.warning(
+                request, "The only payment method cannot be unset as the default."
+            )
+            messages.set_level(request, messages.WARNING)
+
         super().save_model(request, obj, form, change)
 
     def delete_model(self, request, obj):
         if obj.default:
-            raise Exception(
-                "Cannot delete default payment, set another payment as default first"
+            messages.error(
+                request,
+                "Cannot delete default payment, set another payment as default first",
             )
+            messages.set_level(request, messages.ERROR)
+            return redirect(reverse("admin:api_payment_change", args=[obj.pk]))
         super().delete_model(request, obj)
 
 
@@ -268,13 +332,8 @@ class ReviewAdmin(admin.ModelAdmin):
             },
         ),
     )
-
+    list_select_related = ["user", "product"]
+    autocomplete_fields = ["user", "product"]
     list_filter = ["rating"]
     search_fields = ["user__username", "product__name", "text"]
     list_per_page = 10
-
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-
-    def delete_model(self, request, obj):
-        super().delete_model(request, obj)

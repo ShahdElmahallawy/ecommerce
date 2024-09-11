@@ -13,6 +13,7 @@ def get_product_by_id(product_id):
         product = (
             Product.objects.select_related("category")
             .prefetch_related("reviews")
+            .exclude(is_deleted=True)
             .get(id=product_id)
         )
     except Product.DoesNotExist:
@@ -31,6 +32,7 @@ def list_products():
     products = (
         Product.objects.select_related("category")
         .prefetch_related("reviews")
+        .exclude(is_deleted=True)
         .annotate(rating=Avg("reviews__rating"))
     )
     return products

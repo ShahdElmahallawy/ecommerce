@@ -1,6 +1,9 @@
 from api.selectors.supplier import get_supplier_by_id, get_all_suppliers
 from api.models import Supplier
 from rest_framework.exceptions import ValidationError
+from logging import getLogger
+
+logger = getLogger(__name__)
 
 
 def create_supplier(data):
@@ -11,6 +14,7 @@ def update_supplier(supplier_id, data):
     try:
         supplier = get_supplier_by_id(supplier_id)
     except Supplier.DoesNotExist:
+        logger.error("Supplier not found")
         raise ValidationError("Supplier not found")
     for key, value in data.items():
         setattr(supplier, key, value)
@@ -22,6 +26,7 @@ def delete_supplier(supplier_id):
     try:
         supplier = get_supplier_by_id(supplier_id)
     except Supplier.DoesNotExist:
+        logger.error("Supplier not found")
         raise ValidationError("Supplier not found")
     supplier.delete()
     return supplier
