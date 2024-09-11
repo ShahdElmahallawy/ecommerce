@@ -14,6 +14,7 @@ from .views.order import (
     OrderTrackView,
     OrderCreateView,
     OrderDeliverView,
+    OrderCreateViewWithDiscount
 )
 
 from .views.cart import (
@@ -76,6 +77,7 @@ from .views.supplier import (
     SupplierListView,
     SupplierDetailView,
 )
+from api.views.top import TopSellingProductsView, TopRatedProductsView
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -94,6 +96,8 @@ order_patterns = [
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
     path("orders/create/", OrderCreateView.as_view(), name="create"),
     path("<int:pk>/deliver/", OrderDeliverView.as_view(), name="deliver"),
+    path("orders/create-with-discount/", OrderCreateViewWithDiscount.as_view(), name="create-with-discount"),
+    
 ]
 
 user_patterns = [
@@ -223,4 +227,5 @@ urlpatterns = [
     path("products/", include(product_patterns)),
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
-]
+    path('top-selling-products/', TopSellingProductsView.as_view(), name='top-selling-products'),
+    path('top-rated-products//', TopRatedProductsView.as_view(), name='top-rated-products'),]

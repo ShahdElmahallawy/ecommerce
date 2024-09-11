@@ -20,3 +20,14 @@ class OrderSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         ]
+        
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Order
+        fields = [
+            "user",
+            "payment_method",
+        ]
+        read_only_fields = ['user']
