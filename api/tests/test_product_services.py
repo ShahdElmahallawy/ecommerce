@@ -47,4 +47,4 @@ def test_update_product(product):
 def test_delete_product(product):
     delete_product(product)
 
-    assert Product.objects.count() == 0
+    assert Product.objects.exclude(is_deleted=True).count() == 0

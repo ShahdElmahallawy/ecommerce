@@ -1,4 +1,5 @@
 from api.models import Product
+from django.utils import timezone
 
 
 def create_product(validated_data):
@@ -34,5 +35,7 @@ def delete_product(product):
     Returns:
         None
     """
-    product.delete()
+    product.is_deleted = True
+    product.deleted_at = timezone.now()
+    product.save(update_fields=["is_deleted", "deleted_at"])
     return None
