@@ -12,8 +12,10 @@ from api.serializers import ProductSerializer
 
 from rest_framework.permissions import IsAuthenticated
 
+
 class TopSellingProductsView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         limit = int(request.query_params.get("limit", 10))
         seller_id = request.query_params.get("seller_id")
@@ -35,6 +37,7 @@ class TopSellingProductsView(APIView):
 
 class TopRatedProductsView(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         limit = int(request.query_params.get("limit", 10))
         seller_id = request.query_params.get("seller_id")
