@@ -1,37 +1,3 @@
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-# from api.services.top import get_top_selling_products_for_sellers, get_top_rated_products_for_sellers
-# from rest_framework.permissions import IsAuthenticated
-
-# class TopSellingProductsView(APIView):
-#     permission_classes = [IsAuthenticated]
-#     def get(self, request):
-#         limit = int(request.query_params.get('limit', 10))
-#         try:
-#             result = get_top_selling_products_for_sellers(limit)
-#             if len(result) !=0:
-#                 return Response(result, status=status.HTTP_200_OK)
-#             else:
-#                 return Response("No items",status=status.HTTP_404_NOT_FOUND)
-#         except Exception as e:
-#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-# class TopRatedProductsView(APIView):
-#     permission_classes = [IsAuthenticated]
-
-#     def get(self, request):
-#         limit = int(request.query_params.get('limit', 10))
-#         try:
-#             top_rated_products = get_top_rated_products_for_sellers(limit=int(limit))
-#             if len(top_rated_products) !=0:
-#                 return Response(top_rated_products, status=status.HTTP_200_OK)
-#             else:
-#                 return Response("No items",status=status.HTTP_404_NOT_FOUND)
-#         except Exception as e:
-#             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -44,8 +10,10 @@ from api.services.top import (
 from api.models import Product
 from api.serializers import ProductSerializer
 
+from rest_framework.permissions import IsAuthenticated
 
 class TopSellingProductsView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         limit = int(request.query_params.get("limit", 10))
         seller_id = request.query_params.get("seller_id")
@@ -66,6 +34,7 @@ class TopSellingProductsView(APIView):
 
 
 class TopRatedProductsView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         limit = int(request.query_params.get("limit", 10))
         seller_id = request.query_params.get("seller_id")
