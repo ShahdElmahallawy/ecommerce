@@ -18,10 +18,12 @@ class ProductSerializer(serializers.ModelSerializer):
             "description",
             "image",
             "rating",
+            "created_at",
         ]
-        read_only_fields = ["created_by"]
+        read_only_fields = ["created_by", "created_at"]
 
     rating = serializers.FloatField(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
 
     def validate(self, data):
         if "price" in data and data["price"] < 0:
