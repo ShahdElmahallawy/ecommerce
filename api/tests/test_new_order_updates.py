@@ -51,4 +51,3 @@ def test_create_order_invalid_payment_method(api_client_auth, user, product):
     response = api_client_auth.post(url, data, format="json")
 
     assert response.status_code == 400
-

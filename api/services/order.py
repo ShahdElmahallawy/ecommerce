@@ -66,7 +66,7 @@ def create_order_from_cart(user, payment_method, discount_code=None):
         raise ValueError("The cart is empty")
 
     try:
-        payment_method = get_payment(user = user, payment_id=payment_method)
+        payment_method = get_payment(user=user, payment_id=payment_method)
     except Payment.DoesNotExist:
         raise ValueError("Invalid payment method")
 
