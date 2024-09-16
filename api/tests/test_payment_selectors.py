@@ -1,16 +1,14 @@
+import pytest
 from api.selectors import list_payments, get_payment
 from django.contrib.auth import get_user_model
-from api.models.payment import Payment
-
-import pytest
+from api.tests.factories import PaymentFactory, UserFactory
 
 
 @pytest.mark.django_db
 def test_list_payments(user):
-    user_2 = get_user_model().objects.create_user(
-        email="user2@example.com", name="user2", password="password"
-    )
-    Payment.objects.create(
+    user_2 = UserFactory(email="user2@example.com", name="user2")
+
+    PaymentFactory(
         user=user,
         pan="1234567890123456",
         bank_name="CIB",
@@ -18,7 +16,7 @@ def test_list_payments(user):
         cvv="123",
         card_type="credit",
     )
-    Payment.objects.create(
+    PaymentFactory(
         user=user,
         pan="1111222233334444",
         bank_name="HSBC",
@@ -26,7 +24,7 @@ def test_list_payments(user):
         cvv="321",
         card_type="debit",
     )
-    Payment.objects.create(
+    PaymentFactory(
         user=user_2,
         pan="5555666677778888",
         bank_name="Bank of America",

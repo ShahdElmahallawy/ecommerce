@@ -1,25 +1,24 @@
 import pytest
-
-from api.models.category import Category
-from api.models.product import Product
-from api.models.user import User
-from api.models.order import Order
-from api.models.payment import Payment
-
 from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
 from api.selectors.category import (
     get_all_categories,
     get_category_by_id,
     get_products_by_category,
 )
+from api.tests.factories import (
+    ProductFactory,
+    UserFactory,
+    OrderFactory,
+    PaymentFactory,
+    CategoryFactory,
+)
 
 
 # categories
 @pytest.mark.django_db
 def test_get_all_categories():
-
-    category1 = Category.objects.create(name="Category 1")
-    category2 = Category.objects.create(name="Category 2")
+    category1 = CategoryFactory(name="Category 1")
+    category2 = CategoryFactory(name="Category 2")
 
     categories = get_all_categories()
 
@@ -30,7 +29,7 @@ def test_get_all_categories():
 
 @pytest.mark.django_db
 def test_get_category_by_id():
-    category = Category.objects.create(name="Category 1")
+    category = CategoryFactory(name="Category 1")
 
     result = get_category_by_id(category.pk)
 
@@ -47,27 +46,15 @@ def test_get_category_by_id_non_existent():
 
 @pytest.mark.django_db
 def test_get_products_by_category():
-    product1 = Product.objects.create(
-        name="Product 1",
-        price=10.00,
-        description="Description for product 1",
-        count=5,
-        currency="USD",
-    )
-    product2 = Product.objects.create(
-        name="Product 2",
-        price=20.00,
-        description="Description for product 2",
-        count=10,
-        currency="USD",
-    )
+    product1 = ProductFactory(name="Product 1")
+    product2 = ProductFactory(name="Product 2")
 
-    category = Category.objects.create(name="Category 1", featured_product=product1)
+    category = CategoryFactory(name="Category 1", featured_product=product1)
 
-    category_products = Product.objects.filter(
-        id__in=Category.objects.filter(featured_product=product1).values_list(
-            "featured_product", flat=True
-        )
+    category_products = ProductFactory._meta.model.objects.filter(
+        id__in=category._meta.model.objects.filter(
+            featured_product=product1
+        ).values_list("featured_product", flat=True)
     )
 
     assert product1 in category_products
@@ -77,19 +64,12 @@ def test_get_products_by_category():
 # order
 @pytest.mark.django_db
 def test_get_order_by_id_and_user():
-    user = User.objects.create_user(
-        password="password", email="testuser@example.com", name="Test User"
-    )
-    payment_method = Payment.objects.create(
-        user=user,
-        pan="1234567812345678",
-        bank_name="Bank of Test",
-        expiry_date="2025-12-31",
-        cvv="123",
-        card_type="credit",
+    user = UserFactory(email="testuser@example.com", name="Test User")
+    payment_method = PaymentFactory(
+        user=user, pan="1234567812345678", bank_name="CIB", expiry_date="2024-12-12"
     )
 
-    order = Order.objects.create(
+    order = OrderFactory(
         user=user, payment_method=payment_method, status="pending", total_price=100.00
     )
 
@@ -105,11 +85,7 @@ def test_get_order_by_id_and_user():
 
 @pytest.mark.django_db
 def test_get_order_by_id_and_user_non_existent():
-    user = User.objects.create_user(
-        name="testuser",
-        password="password",
-        email="testuser@example.com",
-    )
+    user = UserFactory(email="testuser@example.com", name="Test User")
 
     result = get_order_by_id_and_user(9999, user)
 
@@ -118,33 +94,26 @@ def test_get_order_by_id_and_user_non_existent():
 
 @pytest.mark.django_db
 def test_get_orders_by_user():
-    user1 = User.objects.create_user(
-        name="user1",
-        password="password1",
-        email="user1@example.com",
+    user1 = UserFactory(email="user1@example.com", name="User 1")
+    user2 = UserFactory(email="user2@example.com", name="User 2")
+
+    payment_method1 = PaymentFactory(
+        user=user1, pan="123456789", expiry_date="2024-12-12"
     )
-    user2 = User.objects.create_user(
-        name="user2",
-        password="password2",
-        email="user2@example.com",
-    )
-    payment_method1 = Payment.objects.create(
-        user=user1, pan="123456789", card_type="credit"
-    )
-    payment_method2 = Payment.objects.create(
-        user=user2, pan="987654321", card_type="debit"
+    payment_method2 = PaymentFactory(
+        user=user2, pan="987654321", expiry_date="2024-12-12"
     )
 
-    order1 = Order.objects.create(
+    order1 = OrderFactory(
         user=user1,
         payment_method=payment_method1,
         status="completed",
         total_price=100.00,
     )
-    order2 = Order.objects.create(
+    order2 = OrderFactory(
         user=user1, payment_method=payment_method1, status="pending", total_price=150.00
     )
-    order3 = Order.objects.create(
+    order3 = OrderFactory(
         user=user2, payment_method=payment_method2, status="shipped", total_price=200.00
     )
 
@@ -161,9 +130,7 @@ def test_get_orders_by_user():
 
 @pytest.mark.django_db
 def test_get_orders_by_user_no_orders():
-    user = User.objects.create_user(
-        name="testuser", password="password", email="testuser@example.com"
-    )
+    user = UserFactory(email="testuser@example.com", name="Test User")
 
     orders = get_orders_by_user(user)
 

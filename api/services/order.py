@@ -7,8 +7,9 @@ from api.models.cart import Cart
 from api.models.order_item import OrderItem
 from django.core.exceptions import ValidationError
 from django.db.models import F
-
-
+from api.selectors.payment import get_payment_by_id
+from api.selectors.cart import get_cart_by_user
+from api.selectors.order import get_order_by_id_and_user
 from decimal import Decimal
 
 logger = logging.getLogger(__name__)
@@ -31,7 +32,7 @@ def cancel_order(pk, user):
 
 def mark_order_as_delivered(order_id, user):
     try:
-        order = Order.objects.get(id=order_id, user=user)
+        order = get_order_by_id_and_user(id=order_id, user=user)
     except Order.DoesNotExist:
         logger.error(f"Order with id {order_id} not found for user {user}.")
         return {"error": "Order not found"}, False
@@ -52,7 +53,7 @@ def mark_order_as_delivered(order_id, user):
 def create_order_from_cart(user, payment_method):
 
     try:
-        cart = Cart.objects.prefetch_related("items__product").get(user=user)
+        cart = get_cart_by_user(user)
     except Cart.DoesNotExist:
         raise ValueError("No cart found for the user")
 
@@ -62,7 +63,7 @@ def create_order_from_cart(user, payment_method):
         raise ValueError("The cart is empty")
 
     try:
-        payment_method = Payment.objects.get(id=payment_method)
+        payment_method = get_payment_by_id(payment_id=payment_method)
     except Payment.DoesNotExist:
         raise ValueError("Invalid payment method")
 

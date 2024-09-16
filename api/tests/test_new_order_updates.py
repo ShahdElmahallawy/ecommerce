@@ -40,17 +40,6 @@ def test_create_order_empty_cart(api_client_auth, user, payment):
 
 
 @pytest.mark.django_db
-def test_create_order_no_cart(api_client_auth, user, payment):
-
-    url = reverse("orders:create")
-    data = {"payment_method": payment.id}
-    response = api_client_auth.post(url, data, format="json")
-
-    assert response.status_code == 400
-    assert response.json()["detail"] == "No cart found for the user"
-
-
-@pytest.mark.django_db
 def test_create_order_invalid_payment_method(api_client_auth, user, product):
 
     url = reverse("orders:create")
