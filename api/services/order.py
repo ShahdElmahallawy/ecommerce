@@ -14,6 +14,7 @@ from decimal import Decimal
 from rest_framework.response import Response
 from api.services.discount import apply_discount_to_order
 from rest_framework import status
+
 logger = logging.getLogger(__name__)
 
 
@@ -52,7 +53,7 @@ def mark_order_as_delivered(order_id, user):
     return {"status": "Order delivered"}, True
 
 
-def create_order_from_cart(user, payment_method,discount_code = None):
+def create_order_from_cart(user, payment_method, discount_code=None):
 
     try:
         cart = get_cart_by_user(user)
@@ -69,9 +70,8 @@ def create_order_from_cart(user, payment_method,discount_code = None):
     except Payment.DoesNotExist:
         raise ValueError("Invalid payment method")
 
-
     total_price = sum(item.product.price * item.quantity for item in cart_items)
-    
+
     if discount_code:
         discounted_price, error = apply_discount_to_order(
             user, discount_code, total_price
@@ -79,7 +79,7 @@ def create_order_from_cart(user, payment_method,discount_code = None):
         if error:
             return Response({"detail": error}, status=status.HTTP_400_BAD_REQUEST)
         total_price = discounted_price
-        
+
     order = Order.objects.create(
         user=user,
         payment_method=payment_method,
@@ -96,22 +96,21 @@ def create_order_from_cart(user, payment_method,discount_code = None):
         if product.count < cart_item.quantity:
             raise ValueError(f"Not enough stock for product {product.name}")
 
-            
         product_updates.append(
-                Product(id=product.id, count=F('count') - cart_item.quantity)
-            )
+            Product(id=product.id, count=F("count") - cart_item.quantity)
+        )
 
         order_item = OrderItem(
-                order=order,
-                product=product,
-                quantity=cart_item.quantity,
-                unit_price=product.price,
-            )
+            order=order,
+            product=product,
+            quantity=cart_item.quantity,
+            unit_price=product.price,
+        )
         order_items.append(order_item)
 
         OrderItem.objects.bulk_create(order_items)
 
-        Product.objects.bulk_update(product_updates, ['count'])
+        Product.objects.bulk_update(product_updates, ["count"])
 
         cart.items.all().delete()
 
