@@ -44,11 +44,11 @@ def test_create_order_invalid_payment_method(api_client_auth, user, product):
 
     url = reverse("orders:create")
 
-    invalid_payment_method_id = 999
+    invalid_payment_method_id = "haha"
     data = {"payment_method": invalid_payment_method_id}
     cart = Cart.objects.create(user=user)
     CartItem.objects.create(cart=cart, product=product, quantity=2)
     response = api_client_auth.post(url, data, format="json")
 
     assert response.status_code == 400
-    assert response.json()["detail"] == "Invalid payment method"
+

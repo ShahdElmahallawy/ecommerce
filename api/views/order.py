@@ -66,7 +66,7 @@ class OrderCreateView(APIView):
 
     def post(self, request):
         logger.info(f"Creating order for {request.user.email}")
-        serializer = OrderSerializer(data=request.data)
+        serializer = OrderCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
         payment_method = serializer.validated_data["payment_method"]
@@ -85,7 +85,7 @@ class OrderCreateViewWithDiscount(APIView):
 
     def post(self, request):
 
-        serializer = OrderSerializer(data=request.data)
+        serializer = OrderCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
         payment_method = serializer.validated_data["payment_method"]

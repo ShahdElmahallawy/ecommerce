@@ -30,4 +30,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             "user",
             "payment_method",
         ]
+
         read_only_fields = ["user"]
+    payment_method = serializers.IntegerField()

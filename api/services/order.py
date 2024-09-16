@@ -7,7 +7,7 @@ from api.models.cart import Cart
 from api.models.order_item import OrderItem
 from django.core.exceptions import ValidationError
 from django.db.models import F
-from api.selectors.payment import get_payment_by_id
+from api.selectors.payment import get_payment_by_id, get_payment
 from api.selectors.cart import get_cart_by_user
 from api.selectors.order import get_order_by_id_and_user
 from decimal import Decimal
@@ -66,7 +66,7 @@ def create_order_from_cart(user, payment_method, discount_code=None):
         raise ValueError("The cart is empty")
 
     try:
-        payment_method = get_payment_by_id(payment_id=payment_method)
+        payment_method = get_payment(user = user, payment_id=payment_method)
     except Payment.DoesNotExist:
         raise ValueError("Invalid payment method")
 
