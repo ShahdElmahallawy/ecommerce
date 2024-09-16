@@ -52,3 +52,4 @@ tzdata==2024.1
 uritemplate==4.1.1
 vine==5.1.0
 wcwidth==0.2.13
+factory_boy==3.3.1
