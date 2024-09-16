@@ -94,10 +94,10 @@ order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
-    path("orders/create/", OrderCreateView.as_view(), name="create"),
+    path("create/", OrderCreateView.as_view(), name="create"),
     path("<int:pk>/deliver/", OrderDeliverView.as_view(), name="deliver"),
     path(
-        "orders/create-with-discount/",
+        "create-with-discount/",
         OrderCreateViewWithDiscount.as_view(),
         name="create-with-discount",
     ),
