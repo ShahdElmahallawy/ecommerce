@@ -2,7 +2,7 @@ name: pytest-coverage-comment
 on:
   pull_request:
     branches:
-      - "master"
+      - "*"
 
 permissions:
   contents: write
@@ -29,20 +29,11 @@ jobs:
 
       - name: Build coverage file
         run: |
-          pytest -n 10 --cov-report=xml:coverage.xml --cov-report=term-missing:skip-covered --cov-config=.coveragerc --cov=api api/tests/ --junitxml=pytest.xml | tee pytest-coverage.txt
+          pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov-config=.coveragerc --cov=api api/tests/ | tee pytest-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-xml-coverage-path: ./coverage.xml
-          junitxml-path: ./pytest.xml
           pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
           title: Ecommerce Test Coverage
-          badge-title: Coverage
-          hide-badge: false
-          hide-report: false
-          create-new-comment: false
-          hide-comment: false
-          report-only-changed-files: false
-          remove-link-from-badge: false
-          unique-id-for-comment: python-coverage
