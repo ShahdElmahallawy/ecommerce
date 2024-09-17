@@ -13,14 +13,6 @@ User = get_user_model()
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
-@pytest.fixture
 def product(db):
     return Product.objects.create(name="Product", price=10, count=10)
 
@@ -49,9 +41,7 @@ def test_update_review(product, user):
     assert review.rating == 4
     assert review.text == "Updated Review"
 
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     with pytest.raises(Exception):
         update_review(review.id, user2, {"rating": 4, "text": "Updated Review"})
 

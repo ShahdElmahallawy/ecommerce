@@ -3,14 +3,6 @@ import pytest
 from api.models import Payment
 
 
-@pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
 @pytest.mark.django_db
 def test_save_method_sets_default_payment(user):
     """Test that the save method sets the default payment."""

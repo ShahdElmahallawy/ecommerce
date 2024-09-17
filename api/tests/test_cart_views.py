@@ -5,14 +5,6 @@ from rest_framework.exceptions import ValidationError
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "amr@example.com",
-        "name": "Amr Test",
-    }
-
-
-@pytest.fixture
 def product(db):
     return Product.objects.create(name="Product", price=10, count=10)
 

@@ -15,7 +15,6 @@ def user_data():
     return {
         "email": "amr@example.com",
         "name": "Amr Test",
-        "password": "testpassword123",
     }
 
 

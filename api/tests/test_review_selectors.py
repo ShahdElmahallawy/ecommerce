@@ -11,14 +11,6 @@ User = get_user_model()
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
-@pytest.fixture
 def product(db):
     return Product.objects.create(name="Product", price=10, count=10)
 
@@ -46,7 +38,5 @@ def test_get_review_for_edit(product, user):
     assert get_review_for_edit(user, review.id) == review
     assert get_review_for_edit(user, review.id + 1) == None
 
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     assert get_review_for_edit(user2, review.id) == None

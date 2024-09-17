@@ -6,14 +6,6 @@ from api.services.product import create_product, update_product, delete_product
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
-@pytest.fixture
 def product():
     return Product.objects.create(name="Product", price=10, count=10)
 

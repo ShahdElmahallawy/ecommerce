@@ -4,14 +4,6 @@ from api.selectors.product import get_product_by_id, list_products
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
-@pytest.fixture
 def product(user):
     return Product.objects.create(name="Product", price=10, count=10)
 

@@ -1,6 +1,7 @@
 name: pytest-coverage-comment
 on:
   pull_request:
+    types: ["opened", "edited", "reopened", "synchronize"]
     branches:
       - "*"
 

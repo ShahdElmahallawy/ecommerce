@@ -7,23 +7,8 @@ from django.urls import reverse
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
-@pytest.fixture
-def category():
-    return Category.objects.create(name="Test Category")
-
-
-@pytest.fixture
-def product(category):
-    return Product.objects.create(
-        name="Test Product", price=100.0, count=10, category=category
-    )
+def product():
+    return Product.objects.create(name="Test Product", price=100.0, count=10)
 
 
 @pytest.fixture

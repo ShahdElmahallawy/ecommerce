@@ -10,14 +10,6 @@ from api.services.order import create_order
 
 
 @pytest.fixture
-def user_data():
-    return {
-        "email": "amr@example.com",
-        "name": "Amr Test",
-    }
-
-
-@pytest.fixture
 def payment(user):
     return Payment.objects.create(
         user=user,

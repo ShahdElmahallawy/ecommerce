@@ -17,6 +17,15 @@ from api.services.user import get_tokens_for_user, generate_otp_for_user
 User = get_user_model()
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "amr@example.com",
+        "name": "Amr Test",
+        "password": "testpassword123",
+    }
+
+
 @pytest.mark.django_db
 def test_user_register(api_client):
     url = reverse("user-register")

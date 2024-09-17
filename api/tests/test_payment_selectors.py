@@ -5,14 +5,6 @@ from api.models.payment import Payment
 import pytest
 
 
-@pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
 @pytest.mark.django_db
 def test_list_payments(user):
     user_2 = get_user_model().objects.create_user(

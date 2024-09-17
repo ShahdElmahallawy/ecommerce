@@ -9,14 +9,6 @@ from api.models import Profile
 from api.models.address import Address
 
 
-@pytest.fixture
-def user_data():
-    return {
-        "email": "user@example.com",
-        "name": "User Test",
-    }
-
-
 @pytest.mark.django_db
 def test_retrieve_profile(api_client_auth, user):
     url = reverse("profile-detail")

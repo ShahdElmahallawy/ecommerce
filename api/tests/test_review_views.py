@@ -66,9 +66,7 @@ def test_update_review_view(product, user, api_client_auth):
     response = api_client_auth.patch(url, data)
     assert response.status_code == 200
 
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     api_client_auth.force_authenticate(user2)
     response = api_client_auth.patch(url, data)
     assert response.status_code == 400
@@ -82,9 +80,7 @@ def test_delete_review_view(product, user, api_client_auth):
     response = api_client_auth.delete(url)
     assert response.status_code == 200
 
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     api_client_auth.force_authenticate(user2)
     response = api_client_auth.delete(url)
     assert response.status_code == 400
