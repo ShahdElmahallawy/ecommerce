@@ -4,6 +4,14 @@ from api.models import Profile
 from api.models.address import Address
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
 @pytest.mark.django_db
 def test_update_profile(user):
     profile = Profile.objects.get(user=user)

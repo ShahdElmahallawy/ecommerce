@@ -6,11 +6,17 @@ from api.serializers.address import AddressSerializer
 from django_countries.fields import Country
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "amr@example.com",
+        "name": "Amr Test",
+    }
+
+
 @pytest.mark.django_db
 def test_create_address_without_default():
-    user = User.objects.create_user(
-        email="testuser@example.com", name="Test User", password="testpass"
-    )
+    user = User.objects.create_user(email="testuser@example.com", name="Test User")
 
     address = Address.objects.create(
         user=user,

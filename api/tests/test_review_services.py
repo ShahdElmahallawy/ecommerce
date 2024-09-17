@@ -13,6 +13,14 @@ User = get_user_model()
 
 
 @pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
+@pytest.fixture
 def product(db):
     return Product.objects.create(name="Product", price=10, count=10)
 
@@ -55,8 +63,6 @@ def test_delete_review(product, user):
     assert Review.objects.count() == 0
 
     review = create_review(user, product, 5, "Review")
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     with pytest.raises(Exception):
         delete_review(review.id, user2)

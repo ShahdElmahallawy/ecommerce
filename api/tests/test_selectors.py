@@ -77,9 +77,7 @@ def test_get_products_by_category():
 # order
 @pytest.mark.django_db
 def test_get_order_by_id_and_user():
-    user = User.objects.create_user(
-        password="password", email="testuser@example.com", name="Test User"
-    )
+    user = User.objects.create_user(email="testuser@example.com", name="Test User")
     payment_method = Payment.objects.create(
         user=user,
         pan="1234567812345678",
@@ -107,7 +105,6 @@ def test_get_order_by_id_and_user():
 def test_get_order_by_id_and_user_non_existent():
     user = User.objects.create_user(
         name="testuser",
-        password="password",
         email="testuser@example.com",
     )
 
@@ -120,12 +117,10 @@ def test_get_order_by_id_and_user_non_existent():
 def test_get_orders_by_user():
     user1 = User.objects.create_user(
         name="user1",
-        password="password1",
         email="user1@example.com",
     )
     user2 = User.objects.create_user(
         name="user2",
-        password="password2",
         email="user2@example.com",
     )
     payment_method1 = Payment.objects.create(
@@ -161,9 +156,7 @@ def test_get_orders_by_user():
 
 @pytest.mark.django_db
 def test_get_orders_by_user_no_orders():
-    user = User.objects.create_user(
-        name="testuser", password="password", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     orders = get_orders_by_user(user)
 

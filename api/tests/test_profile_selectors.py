@@ -6,6 +6,14 @@ from api.selectors import get_user_profile
 User = get_user_model()
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
 @pytest.mark.django_db
 def test_get_user_profile(user):
     profile = Profile.objects.get(user=user)

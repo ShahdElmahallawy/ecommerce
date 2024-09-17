@@ -11,6 +11,14 @@ User = get_user_model()
 
 
 @pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
+@pytest.fixture
 def product(db):
     return Product.objects.create(name="Product", price=10, count=10)
 

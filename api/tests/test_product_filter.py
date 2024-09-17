@@ -1,17 +1,18 @@
 import pytest
 from api.selectors.product import list_products
 from api.filters.product import ProductRatingFilter
-from api.tests.factories import ProductFactory, ReviewFactory
+from api.tests.factories import ProductFactory, ReviewFactory, UserFactory
 
 
 @pytest.fixture
 def products_with_reviews():
-    product1 = ProductFactory(image=None)
-    product2 = ProductFactory(image=None)
-    product3 = ProductFactory(image=None)
-    ReviewFactory(product=product1, rating=2)
-    ReviewFactory(product=product2, rating=4)
-    ReviewFactory(product=product3, rating=3)
+    product1 = ProductFactory(image=None, created_by=None, supplier=None)
+    product2 = ProductFactory(image=None, created_by=None, supplier=None)
+    product3 = ProductFactory(image=None, created_by=None, supplier=None)
+    user = UserFactory(password=None)
+    ReviewFactory(product=product1, rating=2, user=user)
+    ReviewFactory(product=product2, rating=4, user=user)
+    ReviewFactory(product=product3, rating=3, user=user)
     return product1, product2, product3
 
 

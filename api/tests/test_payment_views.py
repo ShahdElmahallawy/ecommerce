@@ -4,6 +4,14 @@ from django.urls import reverse
 from rest_framework import status
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
 @pytest.mark.django_db
 def test_payment_list(api_client_auth, payment):
     url = reverse("payment-list")

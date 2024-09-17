@@ -1,15 +1,17 @@
 import pytest
-from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.test import APIClient
 from api.models import Product, Wishlist, WishlistItem, Category
-from api.serializers import (
-    WishlistSerializer,
-    WishlistItemSerializer,
-    WishlistItemCreateSerializer,
-)
+
 
 from django.urls import reverse
+
+
+@pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
 
 
 @pytest.fixture

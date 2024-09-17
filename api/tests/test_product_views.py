@@ -13,6 +13,14 @@ User = get_user_model()
 
 
 @pytest.fixture
+def user_data():
+    return {
+        "email": "amr@example.com",
+        "name": "Amr Test",
+    }
+
+
+@pytest.fixture
 def product(user):
     return Product.objects.create(name="Product", price=10, count=10, created_by=user)
 
@@ -221,7 +229,6 @@ def test_product_update_view_seller_not_owner(product):
     user2 = User.objects.create_user(
         email="user2@example.com",
         name="User 2",
-        password="testpassword123",
         user_type="seller",
     )
     api_client = APIClient()
@@ -277,7 +284,6 @@ def test_product_delete_view_seller_not_owner(product):
     user2 = User.objects.create_user(
         email="user2@example.com",
         name="User 2",
-        password="testpassword123",
         user_type="seller",
     )
     api_client = APIClient()

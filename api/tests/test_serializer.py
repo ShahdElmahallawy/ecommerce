@@ -22,9 +22,7 @@ def test_category_serializer():
 
 @pytest.mark.django_db
 def test_order_serializer():
-    user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
-    )
+    user = User.objects.create(email="testuser@example.com", name="Test User")
 
     payment = Payment.objects.create(
         user=user,

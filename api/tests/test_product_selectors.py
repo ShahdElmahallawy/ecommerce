@@ -4,15 +4,16 @@ from api.selectors.product import get_product_by_id, list_products
 
 
 @pytest.fixture
-def category():
-    return Category.objects.create(name="Category")
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
 
 
 @pytest.fixture
-def product(user, category):
-    return Product.objects.create(
-        name="Product", price=10, count=10, created_by=user, category=category
-    )
+def product(user):
+    return Product.objects.create(name="Product", price=10, count=10)
 
 
 @pytest.mark.django_db

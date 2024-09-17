@@ -1,5 +1,5 @@
 import pytest
-from api.models import Cart, CartItem, Product
+from api.models import CartItem, Product
 from api.services.cart import (
     add_to_cart,
     remove_from_cart,
@@ -7,6 +7,14 @@ from api.services.cart import (
     update_cart_item,
 )
 from rest_framework.exceptions import ValidationError
+
+
+@pytest.fixture
+def user_data():
+    return {
+        "email": "amr@example.com",
+        "name": "Amr Test",
+    }
 
 
 @pytest.fixture

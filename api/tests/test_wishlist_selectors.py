@@ -8,6 +8,14 @@ from api.selectors.wishlist import (
 
 
 @pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
+@pytest.fixture
 def product():
     return Product.objects.create(name="Test Product", price=100.0, count=10)
 
