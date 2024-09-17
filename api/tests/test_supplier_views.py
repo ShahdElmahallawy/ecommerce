@@ -39,3 +39,12 @@ def test_delete_supplier_view(supplier, api_admin_auth):
     url = reverse("supplier-delete", args=[1])
     response = api_admin_auth.delete(url)
     assert Supplier.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_supplier_detail_view(supplier, api_admin_auth):
+    url = reverse("supplier-detail", args=[1])
+    response = api_admin_auth.get(url)
+    assert response.status_code == 200
+    assert response.data["name"] == "Test Supplier"
+    assert response.data["email"] == "testsupplier@email.com"

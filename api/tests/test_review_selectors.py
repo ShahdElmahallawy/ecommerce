@@ -20,6 +20,8 @@ def test_get_review_by_id(product, user):
     review = Review.objects.create(product=product, rating=5, text="Review", user=user)
     assert get_review_by_id(review.id) == review
 
+    assert get_review_by_id(review.id + 1) == None
+
 
 @pytest.mark.django_db
 def test_get_reviews_by_product(product, user):

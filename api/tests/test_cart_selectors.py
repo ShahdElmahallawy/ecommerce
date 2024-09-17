@@ -12,7 +12,7 @@ def user(db):
 @pytest.fixture
 def product(db):
     """Fixture to create a product."""
-    return ProductFactory()
+    return ProductFactory(image=None)
 
 
 @pytest.mark.django_db

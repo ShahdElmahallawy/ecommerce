@@ -29,6 +29,26 @@ def test_create_review_view(product, user, api_client_auth):
     assert response.status_code == 201
 
 
+def test_create_review_view_fail(product, user, api_client_auth):
+    # invalid rating
+    url = reverse("create-review", args=[product.id])
+    data = {"rating": -4, "text": "Review"}
+    response = api_client_auth.post(url, data)
+    assert response.status_code == 400
+
+    # invalid product id
+    data = {"rating": 4, "text": "Review"}
+    url = reverse("create-review", args=[product.id + 1])
+    response = api_client_auth.post(url, data)
+    assert response.status_code == 400
+
+    # invalid text
+    data = {"rating": 4, "text": "<script>alert('XSS')</script>"}
+    url = reverse("create-review", args=[product.id])
+    response = api_client_auth.post(url, data)
+    assert response.status_code == 400
+
+
 @pytest.mark.django_db
 def test_update_review_view(product, user, api_client_auth):
     review = Review.objects.create(product=product, rating=5, text="Review", user=user)

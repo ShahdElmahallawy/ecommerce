@@ -1,9 +1,9 @@
 import pytest
-from django.contrib.auth.models import User
-from api.models import Wishlist, WishlistItem, Product
+from api.models import WishlistItem, Product
 from api.selectors.wishlist import (
     get_wishlist_by_user,
     get_wishlist_item,
+    get_wishlist_item_by_product,
 )
 
 
@@ -35,3 +35,8 @@ def test_get_wishlist_item(user, wishlist_item):
 def test_get_wishlist_item_fail(user, wishlist_item):
     with pytest.raises(WishlistItem.DoesNotExist):
         get_wishlist_item(user, 4)
+
+
+def test_get_wishlist_item_by_product(user, wishlist_item):
+    item = get_wishlist_item_by_product(user, wishlist_item.product)
+    assert item == wishlist_item

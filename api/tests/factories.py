@@ -9,6 +9,7 @@ from api.models.payment import Payment
 from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.profile import Profile
+from api.models.review import Review
 
 User = get_user_model()
 
@@ -83,9 +84,6 @@ class CartFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
 
-from api.models.cart_item import CartItem
-
-
 class CartItemFactory(DjangoModelFactory):
     class Meta:
         model = CartItem
@@ -102,3 +100,13 @@ class ProfileFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     phone = factory.Faker("phone_number")
     preferred_currency = factory.Faker("random_element", elements=["USD", "EUR", "GBP"])
+
+
+class ReviewFactory(DjangoModelFactory):
+    class Meta:
+        model = Review
+
+    user = factory.SubFactory(UserFactory)
+    product = factory.SubFactory(ProductFactory)
+    text = factory.Faker("sentence")
+    rating = factory.Faker("random_int", min=1, max=5)
