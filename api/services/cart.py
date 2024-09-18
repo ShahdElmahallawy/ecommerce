@@ -1,4 +1,4 @@
-from api.models import CartItem
+from api.models.cart_item import CartItem
 from api.selectors.cart import get_cart_by_user, get_cart_item, get_cart_item_by_product
 from rest_framework.exceptions import ValidationError
 from logging import getLogger

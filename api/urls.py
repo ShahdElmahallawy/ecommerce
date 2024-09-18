@@ -14,6 +14,7 @@ from .views.order import (
     OrderTrackView,
     OrderCreateView,
     OrderDeliverView,
+    OrderCreateViewWithDiscount,
 )
 
 from .views.cart import (
@@ -44,6 +45,15 @@ from .views import (
     WishlistItemDeleteView,
     WishlistDeleteView,
 )
+from .views.report import ReportListView, ReportCreateView, ReportDetailView
+
+from api.views.cart import (
+    AddToCartView,
+    RemoveFromCartView,
+    ClearCartView,
+    UpdateCartItemView,
+    CartView,
+)
 
 from .views.product import (
     ProductListView,
@@ -67,6 +77,8 @@ from .views.supplier import (
     SupplierListView,
     SupplierDetailView,
 )
+from api.views.top import TopSellingProductsView, TopRatedProductsView
+from api.views.discount import DiscountCreateView, DiscountListView
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -83,8 +95,13 @@ order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
-    path("orders/create/", OrderCreateView.as_view(), name="create"),
+    path("create/", OrderCreateView.as_view(), name="create"),
     path("<int:pk>/deliver/", OrderDeliverView.as_view(), name="deliver"),
+    path(
+        "create-with-discount/",
+        OrderCreateViewWithDiscount.as_view(),
+        name="create-with-discount",
+    ),
 ]
 
 user_patterns = [
@@ -126,6 +143,17 @@ wishlist_patterns = [
         name="wishlist-item-delete",
     ),
     path("clear/", WishlistDeleteView.as_view(), name="wishlist-clear"),
+]
+cart_patterns = [
+    path("", CartView.as_view(), name="cart"),
+    path("add/", AddToCartView.as_view(), name="add-to-cart"),
+    path(
+        "remove/<int:item_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"
+    ),
+    path("clear/", ClearCartView.as_view(), name="clear-cart"),
+    path(
+        "update/<int:item_id>/", UpdateCartItemView.as_view(), name="update-cart-item"
+    ),
 ]
 
 product_patterns = [
@@ -186,6 +214,15 @@ supplier_patterns = [
         name="supplier-delete",
     ),
 ]
+report_patterns = [
+    path("reports/", ReportListView.as_view(), name="report-list"),
+    path("reports/create/", ReportCreateView.as_view(), name="report-create"),
+    path("reports/<int:pk>/", ReportDetailView.as_view(), name="report-detail"),
+]
+discount_patterns = [
+    path("create/", DiscountCreateView.as_view(), name="create"),
+    path("list/", DiscountListView.as_view(), name="list"),
+]
 
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
@@ -193,8 +230,20 @@ urlpatterns = [
     path("users/", include(user_patterns)),
     path("payments/", include(payment_patterns)),
     path("wishlists/", include(wishlist_patterns)),
-    path("products/", include(product_patterns)),
+    path("reports/", include(report_patterns)),
     path("carts/", include(cart_patterns)),
+    path("products/", include(product_patterns)),
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
+    path("discount/", include(discount_patterns)),
+    path(
+        "top-selling-products/",
+        TopSellingProductsView.as_view(),
+        name="top-selling-products",
+    ),
+    path(
+        "top-rated-products/",
+        TopRatedProductsView.as_view(),
+        name="top-rated-products",
+    ),
 ]

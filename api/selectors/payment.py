@@ -24,3 +24,10 @@ def get_payment(payment_id, user):
     except Payment.DoesNotExist:
         return None
     return payment
+
+
+def get_payment_by_id(payment_id):
+
+    payment = Payment.objects.get(id=payment_id)
+
+    return payment

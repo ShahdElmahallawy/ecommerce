@@ -3,6 +3,8 @@ import pytest
 from django.contrib.auth import get_user_model
 from rest_framework.test import APIClient
 from api.models.payment import Payment
+from api.models.product import Product
+from api.models.order import Order
 
 
 @pytest.fixture
@@ -64,4 +66,25 @@ def payment(user):
         expiry_date="2024-12-12",
         cvv="123",
         card_type="credit",
+    )
+
+
+@pytest.fixture
+def product(db, user):
+    return Product.objects.create(
+        name="Test Product",
+        price=100.00,
+        description="A test product",
+        count=10,
+        currency="USD",
+        created_by=user,
+    )
+
+
+@pytest.fixture
+def order(db, user, payment):
+    return Order.objects.create(
+        user=user,
+        payment_method=payment,
+        total_price=100.00,
     )

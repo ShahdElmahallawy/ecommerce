@@ -2,10 +2,18 @@ import logging
 from api.selectors.order import get_order_by_id_and_user
 from api.models.order import Order
 from api.models.product import Product
+from api.models.payment import Payment
+from api.models.cart import Cart
 from api.models.order_item import OrderItem
 from django.core.exceptions import ValidationError
-
+from django.db.models import F
+from api.selectors.payment import get_payment_by_id, get_payment
+from api.selectors.cart import get_cart_by_user
+from api.selectors.order import get_order_by_id_and_user
 from decimal import Decimal
+from rest_framework.response import Response
+from api.services.discount import apply_discount_to_order
+from rest_framework import status
 
 logger = logging.getLogger(__name__)
 
@@ -25,36 +33,9 @@ def cancel_order(pk, user):
     return {"error": "Order cannot be cancelled"}, False
 
 
-def create_order(user, payment_method, items):
-    order = Order.objects.create(user=user, payment_method=payment_method)
-    total_price = Decimal("0.00")
-
-    for item_data in items:
-        product = Product.objects.get(id=item_data["product_id"])
-        quantity = item_data["quantity"]
-
-        if product.count < quantity:
-            raise ValidationError(f"Insufficient stock for product {product.name}")
-
-        product.count -= quantity
-        product.save()
-
-        unit_price = Decimal(product.price)
-        total_price += quantity * unit_price
-
-        OrderItem.objects.create(
-            order=order, product=product, quantity=quantity, unit_price=unit_price
-        )
-
-    order.total_price = total_price
-    order.save()
-
-    return order
-
-
 def mark_order_as_delivered(order_id, user):
     try:
-        order = Order.objects.get(id=order_id, user=user)
+        order = get_order_by_id_and_user(id=order_id, user=user)
     except Order.DoesNotExist:
         logger.error(f"Order with id {order_id} not found for user {user}.")
         return {"error": "Order not found"}, False
@@ -70,3 +51,65 @@ def mark_order_as_delivered(order_id, user):
 
     logger.info(f"Order with id {order_id} marked as delivered for user {user}.")
     return {"status": "Order delivered"}, True
+
+
+def create_order_from_cart(user, payment_method, discount_code=None):
+
+    try:
+        cart = get_cart_by_user(user)
+    except Cart.DoesNotExist:
+        raise ValueError("No cart found for the user")
+
+    cart_items = cart.items.all()
+
+    if not cart_items.exists():
+        raise ValueError("The cart is empty")
+
+    payment_method = get_payment(user=user, payment_id=payment_method)
+    if not payment_method:
+        raise ValueError("Invalid payment method")
+
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    if discount_code:
+        discounted_price, error = apply_discount_to_order(discount_code, total_price)
+        if error:
+            raise ValueError("no discount found with this code")
+
+        total_price = discounted_price
+
+    order = Order.objects.create(
+        user=user,
+        payment_method=payment_method,
+        total_price=Decimal(total_price),
+        status="pending",
+    )
+
+    order_items = []
+    product_updates = []
+
+    for cart_item in cart_items:
+        product = cart_item.product
+
+        if product.count < cart_item.quantity:
+            raise ValueError(f"Not enough stock for product {product.name}")
+
+        product_updates.append(
+            Product(id=product.id, count=F("count") - cart_item.quantity)
+        )
+
+        order_item = OrderItem(
+            order=order,
+            product=product,
+            quantity=cart_item.quantity,
+            unit_price=product.price,
+        )
+        order_items.append(order_item)
+
+        OrderItem.objects.bulk_create(order_items)
+
+        Product.objects.bulk_update(product_updates, ["count"])
+
+        cart.items.all().delete()
+
+    return order

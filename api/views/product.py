@@ -43,6 +43,7 @@ class ProductListView(GenericAPIView):
         """
         Handle GET request to list all products.
         """
+
         logger.info("User requested to view all products")
         filtered_products = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(filtered_products, many=True)

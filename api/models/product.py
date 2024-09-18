@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+from api.models.audit import Audit
+
 from django.core.validators import MinValueValidator
 from api.models.category import Category
 from api.models.supplier import Supplier
@@ -11,9 +14,7 @@ User = get_user_model()
 
 
 class Product(Audit):
-    """
-    Model representing a product.
-
+    """Model of product
     Fields:
         name: The name of the product.
         price: The price of the product.

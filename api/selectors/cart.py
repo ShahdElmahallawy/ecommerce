@@ -1,4 +1,5 @@
-from api.models import Cart, CartItem
+from api.models.cart import Cart
+from api.models.cart_item import CartItem
 
 
 def get_cart_by_user(user):

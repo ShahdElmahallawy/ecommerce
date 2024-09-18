@@ -1,12 +1,11 @@
 import pytest
 from django.urls import reverse
-from rest_framework import status
-from api.models.product import Product
+from api.models.cart import Cart
+from api.models.cart_item import CartItem
 from api.models.order import Order
+
 from api.models.order_item import OrderItem
 from api.models.payment import Payment
-
-from api.services.order import create_order
 
 
 @pytest.fixture
@@ -22,61 +21,48 @@ def payment(user):
 
 
 @pytest.mark.django_db
-def test_create_order_success(api_client_auth, payment):
-
-    product1 = Product.objects.create(name="Product 1", price=100.00, count=5)
-    product2 = Product.objects.create(name="Product 2", price=200.00, count=3)
+def test_create_order_success(api_client_auth, user, product, payment):
 
     url = reverse("orders:create")
+    data = {"payment_method": payment.id}
 
-    data = {
-        "payment_method": payment.id,
-        "items": [
-            {"product_id": product1.id, "quantity": 2},
-            {"product_id": product2.id, "quantity": 1},
-        ],
-    }
+    cart = Cart.objects.create(user=user)
+    CartItem.objects.create(cart=cart, product=product, quantity=2)
 
     response = api_client_auth.post(url, data, format="json")
 
-    assert response.status_code == status.HTTP_201_CREATED
-    assert response.data["user"] == payment.user.id
-    assert response.data["status"] == "pending"
-    assert len(response.data["items"]) == 2
+    assert response.status_code == 201
+    response_data = response.json()
+    assert "id" in response_data
+    assert response_data["total_price"] == "200.00"
+    assert len(response_data["items"]) == 1
 
-    assert Order.objects.count() == 1
-    assert Order.objects.get().user == payment.user
-    assert Order.objects.get().status == "pending"
-    assert OrderItem.objects.count() == 2
+    assert CartItem.objects.filter(cart=cart).count() == 0
 
-    product1.refresh_from_db()
-    product2.refresh_from_db()
-
-    assert product1.count == 3
-    assert product2.count == 2
+    assert Order.objects.filter(user=user).count() == 1
 
 
 @pytest.mark.django_db
-def test_create_order_failure(api_client_auth, payment):
+def test_create_order_empty_cart(api_client_auth, user, payment):
+
+    url = reverse("orders:create")
+    data = {"payment_method": payment.id}
+    cart = Cart.objects.create(user=user)
+    response = api_client_auth.post(url, data, format="json")
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "The cart is empty"
+
+
+@pytest.mark.django_db
+def test_create_order_invalid_payment_method(api_client_auth, user, product):
+
     url = reverse("orders:create")
 
-    data = {
-        "payment_method": payment.id,
-        "items": [
-            {"product_id": 99999, "quantity": 2},
-        ],
-    }
-
+    invalid_payment_method_id = "haha"
+    data = {"payment_method": invalid_payment_method_id}
+    cart = Cart.objects.create(user=user)
+    CartItem.objects.create(cart=cart, product=product, quantity=2)
     response = api_client_auth.post(url, data, format="json")
-    assert "error" in response.data
 
-
-@pytest.mark.django_db
-def test_order_deliver_success(api_admin_auth, admin, payment):
-    product = Product.objects.create(name="Product", price=100.00, count=5)
-
-    order = create_order(admin, payment, [{"product_id": product.id, "quantity": 1}])
-
-    assert order is not None
-    assert order.items.count() == 1
-    assert order.total_price == 100.00
+    assert response.status_code == 400

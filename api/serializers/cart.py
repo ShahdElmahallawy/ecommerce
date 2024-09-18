@@ -1,6 +1,8 @@
 from rest_framework.exceptions import ValidationError
 from rest_framework import serializers
-from api.models import CartItem, Cart, Product
+from api.models.cart import Cart
+from api.models.product import Product
+from api.models.cart_item import CartItem
 from api.selectors.product import get_product_by_id
 
 

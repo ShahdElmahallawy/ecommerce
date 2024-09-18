@@ -18,7 +18,7 @@ def update_category(pk, data):
 
 def delete_category(pk):
     category = get_category_by_id(pk)
-    if category is not None:
+    if category:
         category.delete()
         logger.info(f"Category with id {pk} was deleted.")
     else:
