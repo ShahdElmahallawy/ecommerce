@@ -4,9 +4,21 @@ from rest_framework import status
 from api.models.product import Product
 from api.models.order import Order
 from api.models.order_item import OrderItem
-from api.models.user import User
+from api.models.payment import Payment
 
 from api.services.order import create_order
+
+
+@pytest.fixture
+def payment(user):
+    return Payment.objects.create(
+        user=user,
+        pan="1234567890123456",
+        bank_name="CIB",
+        expiry_date="2024-12-12",
+        cvv="123",
+        card_type="credit",
+    )
 
 
 @pytest.mark.django_db

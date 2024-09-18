@@ -1,5 +1,5 @@
 import pytest
-from api.models import Cart, CartItem, Product
+from api.models import CartItem, Product
 from api.services.cart import (
     add_to_cart,
     remove_from_cart,

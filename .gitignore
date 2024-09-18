@@ -19,3 +19,5 @@ images/
 
 media/
 celerybeat-schedule*
+
+.coverage

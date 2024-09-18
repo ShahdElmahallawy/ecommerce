@@ -4,15 +4,9 @@ from .factories import UserFactory, ProductFactory, CartFactory, CartItemFactory
 
 
 @pytest.fixture
-def user(db):
-    """Fixture to create a user."""
-    return UserFactory()
-
-
-@pytest.fixture
 def product(db):
     """Fixture to create a product."""
-    return ProductFactory()
+    return ProductFactory(image=None, created_by=None, supplier=None)
 
 
 @pytest.mark.django_db

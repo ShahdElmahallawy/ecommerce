@@ -25,9 +25,7 @@ def test_category_str():
 @pytest.mark.django_db
 def test_order_creation():
 
-    user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
-    )
+    user = User.objects.create(email="testuser@example.com", name="Test User")
 
     payment = Payment.objects.create(
         user=user,
@@ -47,9 +45,7 @@ def test_order_creation():
 
 @pytest.mark.django_db
 def test_order_str():
-    user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
-    )
+    user = User.objects.create(email="testuser@example.com", name="Test User")
 
     payment = Payment.objects.create(
         user=user,
@@ -68,7 +64,8 @@ def test_order_str():
 @pytest.mark.django_db
 def test_order_total_price_calculation():
     user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
+        email="testuser@example.com",
+        name="Test User",
     )
 
     payment = Payment.objects.create(
@@ -100,7 +97,8 @@ def test_order_total_price_calculation():
 @pytest.mark.django_db
 def test_order_item_creation():
     user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
+        email="testuser@example.com",
+        name="Test User",
     )
 
     payment = Payment.objects.create(
@@ -128,7 +126,8 @@ def test_order_item_creation():
 @pytest.mark.django_db
 def test_order_item_str():
     user = User.objects.create(
-        email="testuser@example.com", name="Test User", password="password"
+        email="testuser@example.com",
+        name="Test User",
     )
 
     payment = Payment.objects.create(

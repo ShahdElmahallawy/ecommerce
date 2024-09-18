@@ -16,6 +16,14 @@ from api.serializers.order import OrderSerializer
 from api.services.order import cancel_order
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "user@example.com",
+        "name": "User Test",
+    }
+
+
 @pytest.mark.django_db
 def test_category_list_view(api_client_auth):
     Category.objects.create(name="Category 1")
@@ -142,9 +150,7 @@ def test_category_product_list(api_client_auth):
 # order views
 @pytest.mark.django_db
 def test_order_cancel_success(api_client_auth):
-    user = User.objects.create_user(
-        name="testuser", password="testpass", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     payment = Payment.objects.create(
         user=user,
@@ -171,11 +177,9 @@ def test_order_cancel_success(api_client_auth):
 
 @pytest.mark.django_db
 def test_order_cancel_failure(api_client_auth):
-    user = User.objects.create_user(
-        name="testuser", password="testpass", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
     another_user = User.objects.create_user(
-        name="anotheruser", password="notcorrect", email="anotheruser@example.com"
+        name="anotheruser", email="anotheruser@example.com"
     )
 
     payment = Payment.objects.create(
@@ -201,9 +205,7 @@ def test_order_cancel_failure(api_client_auth):
 
 @pytest.mark.django_db
 def test_order_track(api_client_auth):
-    user = User.objects.create_user(
-        name="testuser", password="testpass", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     payment = Payment.objects.create(
         user=user,
@@ -230,11 +232,9 @@ def test_order_track(api_client_auth):
 
 @pytest.mark.django_db
 def test_order_track_unauthorized(api_client_auth):
-    user = User.objects.create_user(
-        name="testuser", password="testpass", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
     another_user = User.objects.create_user(
-        name="anotheruser", password="anotherpass", email="anotheruser@example.com"
+        name="anotheruser", email="anotheruser@example.com"
     )
 
     payment = Payment.objects.create(
@@ -259,9 +259,7 @@ def test_order_track_unauthorized(api_client_auth):
 
 @pytest.mark.django_db
 def test_order_list_no_orders(api_client_auth):
-    user = User.objects.create_user(
-        name="testuser", password="testpass", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     api_client_auth.force_authenticate(user=user)
 

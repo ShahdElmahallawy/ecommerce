@@ -8,7 +8,7 @@ import pytest
 @pytest.mark.django_db
 def test_list_payments(user):
     user_2 = get_user_model().objects.create_user(
-        email="user2@example.com", name="user2", password="password"
+        email="user2@example.com", name="user2"
     )
     Payment.objects.create(
         user=user,

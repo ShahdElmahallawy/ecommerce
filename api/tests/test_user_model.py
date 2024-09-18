@@ -20,9 +20,7 @@ def test_create_user_successful():
 @pytest.mark.django_db
 def test_create_user_without_email():
     with pytest.raises(ValueError):
-        get_user_model().objects.create_user(
-            email="", name="amr test", password="test1234"
-        )
+        get_user_model().objects.create_user(email="", name="amr test")
 
 
 @pytest.mark.django_db
@@ -34,9 +32,7 @@ def test_create_user_normalize_email():
         ["test4@example.COM", "test4@example.com"],
     ]
     for email, expected_email in emails:
-        user = get_user_model().objects.create_user(
-            email=email, name="amr test", password="test1234"
-        )
+        user = get_user_model().objects.create_user(email=email, name="amr test")
 
         assert expected_email == user.email
 

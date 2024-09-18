@@ -17,6 +17,15 @@ from api.services.user import get_tokens_for_user, generate_otp_for_user
 User = get_user_model()
 
 
+@pytest.fixture
+def user_data():
+    return {
+        "email": "amr@example.com",
+        "name": "Amr Test",
+        "password": "testpassword123",
+    }
+
+
 @pytest.mark.django_db
 def test_user_register(api_client):
     url = reverse("user-register")
@@ -73,6 +82,43 @@ def test_user_register_with_missing_field(api_client):
 
 
 @pytest.mark.django_db
+def test_user_register_with_invalid_name(api_client):
+    url = reverse("user-register")
+
+    user_data = {
+        "email": "user@example.com",
+        "password": "testpassword123",
+        "name": "Amr",
+    }
+    response = api_client.post(url, user_data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    user_data["name"] = "<script>alert('test')</script>"
+    response = api_client.post(url, user_data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
+def test_user_register_with_invalid_password(api_client):
+    url = reverse("user-register")
+
+    # weak password
+    user_data = {
+        "email": "user@example.com",
+        "password": "test",
+        "name": "TestUser",
+    }
+    response = api_client.post(url, user_data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # password doesn't match
+    user_data["password"] = "testpassword"
+    user_data["confirm_password"] = "testpassword123"
+    response = api_client.post(url, user_data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
 @patch("api.utils.mails.send_mail")
 @patch("api.services.user.randint")
 def test_user_login(mock_randint, mock_send_mail, api_client, user):
@@ -97,7 +143,7 @@ def test_user_login(mock_randint, mock_send_mail, api_client, user):
 
 
 @pytest.mark.django_db
-def test_user_login_invalid_credentials(api_client, user):
+def test_user_login_invalid(api_client, user):
     url = reverse("user-login")
 
     data = {
@@ -107,6 +153,16 @@ def test_user_login_invalid_credentials(api_client, user):
 
     response = api_client.post(url, data, format="json")
 
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # missing password
+    data = {"email": "user@example.com"}
+    response = api_client.post(url, data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # missing email
+    data = {"password": "testpassword123"}
+    response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
@@ -170,6 +226,17 @@ def test_refresh_token(api_client, user):
     assert response.status_code == status.HTTP_200_OK
     assert "access" in response.data
     assert "refresh" in response.data
+
+
+@patch("api.utils.mails.send_mail")
+def test_refresh_token_fail_no_refresh_token(mock_send_mail, api_client, user):
+    url = reverse("refresh-token")
+
+    data = {}
+    # no refresh token
+    response = api_client.post(url, data, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db
@@ -281,4 +348,17 @@ def test_update_password_view_invalid_current_password(user, api_client_auth):
     url = reverse("update-password")
     response = api_client_auth.patch(url, data)
 
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
+def test_update_password_view_mismatched_passwords(user, api_client_auth):
+    data = {
+        "current_password": "testpassword123",
+        "new_password": "newpassword123",
+        "confirm_new_password": "newpassword12",
+    }
+
+    url = reverse("update-password")
+    response = api_client_auth.patch(url, data)
     assert response.status_code == status.HTTP_400_BAD_REQUEST

@@ -1,5 +1,6 @@
 import pytest
 from api.services.supplier import create_supplier, update_supplier, delete_supplier
+from rest_framework.exceptions import ValidationError
 from api.models import Supplier
 
 
@@ -24,8 +25,21 @@ def test_update_supplier(supplier):
 
 
 @pytest.mark.django_db
+def test_update_supplier_fail():
+
+    with pytest.raises(ValidationError):
+        update_supplier(1, {"name": "Updated Supplier"})
+
+
+@pytest.mark.django_db
 def test_delete_supplier(supplier):
     delete_supplier(supplier.id)
     assert Supplier.objects.count() == 0
     with pytest.raises(Supplier.DoesNotExist):
         Supplier.objects.get(id=supplier.id)
+
+
+@pytest.mark.django_db
+def test_delete_supplier_fail():
+    with pytest.raises(ValidationError):
+        delete_supplier(1)

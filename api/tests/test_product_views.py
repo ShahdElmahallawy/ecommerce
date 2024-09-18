@@ -60,8 +60,9 @@ def test_product_create_view_not_admin_nor_seller(api_client_auth):
 
 
 @pytest.mark.django_db
-@patch("django.db.models.fields.files.ImageFieldFile.save")
-def test_product_create_view_admin(mock_save, api_admin_auth):
+@patch("django.db.models.fields.files.ImageFieldFile.save", return_value=None)
+@patch("django.db.models.fields.files.ImageFieldFile.delete", return_value=None)
+def test_product_create_view_admin(mock_save, mock_delete, api_admin_auth):
     mock_save.return_value = None
     image_path = os.path.join(os.path.dirname(__file__), "test_files", "test_image.png")
 
@@ -81,7 +82,6 @@ def test_product_create_view_admin(mock_save, api_admin_auth):
         "image": image_mock,
     }
     response = api_admin_auth.post(url, data, format="multipart")
-    print(response.data)
 
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name"] == "Product"
@@ -89,8 +89,9 @@ def test_product_create_view_admin(mock_save, api_admin_auth):
 
 
 @pytest.mark.django_db
-@patch("django.db.models.fields.files.ImageFieldFile.save")
-def test_product_create_view_seller(mock_save, user):
+@patch("django.db.models.fields.files.ImageFieldFile.save", return_value=None)
+@patch("django.db.models.fields.files.ImageFieldFile.delete", return_value=None)
+def test_product_create_view_seller(mock_save, mock_delete, user):
     mock_save.return_value = None
     image_path = os.path.join(os.path.dirname(__file__), "test_files", "test_image.png")
 
@@ -120,6 +121,46 @@ def test_product_create_view_seller(mock_save, user):
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name"] == "Product"
     assert response.data["price"] == 10
+
+
+@pytest.mark.django_db
+@patch("django.db.models.fields.files.ImageFieldFile.save", return_value=None)
+@patch("django.db.models.fields.files.ImageFieldFile.delete", return_value=None)
+def test_product_create_fail(mock_save, mock_delete, user):
+    mock_save.return_value = None
+    image_path = os.path.join(os.path.dirname(__file__), "test_files", "test_image.png")
+
+    image_mock = SimpleUploadedFile(
+        name="test_image.jpg",
+        content=open(image_path, "rb").read(),
+        content_type="image/jpeg",
+    )
+
+    user.user_type = "seller"
+    user.save()
+
+    api_client = APIClient()
+    api_client.force_authenticate(user=user)
+
+    url = reverse("product-create")
+
+    data = {
+        "name": "Product",
+        "price": -10,
+        "count": 10,
+        "currency": "USD",
+        "image": image_mock,
+    }
+
+    # invalid price
+    response = api_client.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    data["price"] = 10
+    data["count"] = -10
+    # invalid count
+    response = api_client.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db
@@ -180,7 +221,6 @@ def test_product_update_view_seller_not_owner(product):
     user2 = User.objects.create_user(
         email="user2@example.com",
         name="User 2",
-        password="testpassword123",
         user_type="seller",
     )
     api_client = APIClient()
@@ -236,7 +276,6 @@ def test_product_delete_view_seller_not_owner(product):
     user2 = User.objects.create_user(
         email="user2@example.com",
         name="User 2",
-        password="testpassword123",
         user_type="seller",
     )
     api_client = APIClient()

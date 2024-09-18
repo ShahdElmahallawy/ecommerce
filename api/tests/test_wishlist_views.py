@@ -1,27 +1,14 @@
 import pytest
-from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.test import APIClient
 from api.models import Product, Wishlist, WishlistItem, Category
-from api.serializers import (
-    WishlistSerializer,
-    WishlistItemSerializer,
-    WishlistItemCreateSerializer,
-)
+
 
 from django.urls import reverse
 
 
 @pytest.fixture
-def category():
-    return Category.objects.create(name="Test Category")
-
-
-@pytest.fixture
-def product(category):
-    return Product.objects.create(
-        name="Test Product", price=100.0, count=10, category=category
-    )
+def product():
+    return Product.objects.create(name="Test Product", price=100.0, count=10)
 
 
 @pytest.fixture

@@ -28,15 +28,20 @@ def test_create_review(product, user):
 
 
 @pytest.mark.django_db
+def test_create_review_duplicate(product, user):
+    create_review(user, product, 5, "Review")
+    with pytest.raises(Exception):
+        create_review(user, product, 5, "Review")
+
+
+@pytest.mark.django_db
 def test_update_review(product, user):
     review = create_review(user, product, 5, "Review")
     review = update_review(review.id, user, {"rating": 4, "text": "Updated Review"})
     assert review.rating == 4
     assert review.text == "Updated Review"
 
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     with pytest.raises(Exception):
         update_review(review.id, user2, {"rating": 4, "text": "Updated Review"})
 
@@ -48,8 +53,6 @@ def test_delete_review(product, user):
     assert Review.objects.count() == 0
 
     review = create_review(user, product, 5, "Review")
-    user2 = User.objects.create_user(
-        email="user2@example.com", password="password", name="User2"
-    )
+    user2 = User.objects.create_user(email="user2@example.com", name="User2")
     with pytest.raises(Exception):
         delete_review(review.id, user2)
