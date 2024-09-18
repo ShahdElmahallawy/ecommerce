@@ -65,19 +65,17 @@ def create_order_from_cart(user, payment_method, discount_code=None):
     if not cart_items.exists():
         raise ValueError("The cart is empty")
 
-    try:
-        payment_method = get_payment(user=user, payment_id=payment_method)
-    except Payment.DoesNotExist:
+    payment_method = get_payment(user=user, payment_id=payment_method)
+    if not payment_method:
         raise ValueError("Invalid payment method")
 
     total_price = sum(item.product.price * item.quantity for item in cart_items)
 
     if discount_code:
-        discounted_price, error = apply_discount_to_order(
-            user, discount_code, total_price
-        )
+        discounted_price, error = apply_discount_to_order(discount_code, total_price)
         if error:
-            return Response({"detail": error}, status=status.HTTP_400_BAD_REQUEST)
+            raise ValueError("no discount found with this code")
+            
         total_price = discounted_price
 
     order = Order.objects.create(

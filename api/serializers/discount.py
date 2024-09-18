@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from api.models.discount import Discount
+from rest_framework.exceptions import ValidationError
 
 
 class DiscountSerializer(serializers.ModelSerializer):
@@ -14,3 +15,8 @@ class DiscountSerializer(serializers.ModelSerializer):
             "end_date",
             "is_active",
         ]
+
+    def validate_code(self, value):
+        if len(str(value)) <= 4:
+            raise ValidationError("code must be more than 4 charachters")
+        return value

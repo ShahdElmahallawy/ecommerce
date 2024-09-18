@@ -57,8 +57,6 @@ def test_top_selling_products_all_sellers(
     response = api_client_auth.get(url)
 
     assert response.status_code == status.HTTP_200_OK
-    print(response.data)
-    print("5" * 100)
     print(len(response.data))
     assert len(response.data) == 2
     assert response.data[0]["name"] == "Product 1"

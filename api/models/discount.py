@@ -10,7 +10,7 @@ class Discount(Audit):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="discounts")
     code = models.CharField(max_length=12, unique=True, blank=True)
-    discount_percentage = models.DecimalField(max_digits=5, decimal_places=2)
+    discount_percentage = models.FloatField()
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)

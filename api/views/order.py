@@ -10,7 +10,11 @@ from api.services.order import (
     create_order_from_cart,
     mark_order_as_delivered,
 )
-from api.serializers.order import OrderSerializer, OrderCreateSerializer
+from api.serializers.order import (
+    OrderSerializer,
+    OrderCreateSerializer,
+    OrderCreateWithDiscountSerializer,
+)
 
 from api.models.payment import Payment
 from api.models.order import Order
@@ -37,7 +41,9 @@ class OrderTrackView(APIView):
         order = get_order_by_id_and_user(pk, request.user)
         serializer = OrderSerializer(order)
         if serializer.data["user"] == None:
-            return Response("No order Found", status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"detail": "No order Found"}, status=status.HTTP_404_NOT_FOUND
+            )
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -85,11 +91,11 @@ class OrderCreateViewWithDiscount(APIView):
 
     def post(self, request):
 
-        serializer = OrderCreateSerializer(data=request.data)
+        serializer = OrderCreateWithDiscountSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = request.user
         payment_method = serializer.validated_data["payment_method"]
-        discount_code = request.discount_price
+        discount_code = serializer.validated_data["discount_code"]
 
         try:
             order = create_order_from_cart(
@@ -97,6 +103,5 @@ class OrderCreateViewWithDiscount(APIView):
             )
         except ValueError as e:
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
         order_serializer = OrderSerializer(order)
         return Response(order_serializer.data, status=status.HTTP_201_CREATED)

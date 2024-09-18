@@ -78,6 +78,7 @@ from .views.supplier import (
     SupplierDetailView,
 )
 from api.views.top import TopSellingProductsView, TopRatedProductsView
+from api.views.discount import DiscountCreateView, DiscountListView
 
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
@@ -218,6 +219,10 @@ report_patterns = [
     path("reports/create/", ReportCreateView.as_view(), name="report-create"),
     path("reports/<int:pk>/", ReportDetailView.as_view(), name="report-detail"),
 ]
+discount_patterns = [
+    path("create/", DiscountCreateView.as_view(), name="create"),
+    path("list/", DiscountListView.as_view(), name="list"),
+]
 
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
@@ -230,13 +235,14 @@ urlpatterns = [
     path("products/", include(product_patterns)),
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
+    path("discount/", include(discount_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),
         name="top-selling-products",
     ),
     path(
-        "top-rated-products//",
+        "top-rated-products/",
         TopRatedProductsView.as_view(),
         name="top-rated-products",
     ),

@@ -2,9 +2,9 @@ from api.models.discount import Discount
 from django.utils import timezone
 
 
-def get_discount_by_code(user, code):
+def get_discount_by_code(code):
     try:
-        discount = Discount.objects.get(user=user, code=code, is_active=True)
+        discount = Discount.objects.get(code=code, is_active=True)
     except Discount.DoesNotExist:
         return None
     return discount
