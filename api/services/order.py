@@ -75,7 +75,7 @@ def create_order_from_cart(user, payment_method, discount_code=None):
         discounted_price, error = apply_discount_to_order(discount_code, total_price)
         if error:
             raise ValueError("no discount found with this code")
-            
+
         total_price = discounted_price
 
     order = Order.objects.create(
