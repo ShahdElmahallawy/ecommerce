@@ -89,9 +89,6 @@ class ReportAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "updated_at")
 
 
-
-
-
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ["user", "phone", "preferred_currency"]

@@ -25,7 +25,6 @@ from api.models.review import Review
 User = get_user_model()
 
 
-
 class UserFactory(DjangoModelFactory):
     class Meta:
         model = User
@@ -37,7 +36,6 @@ class UserFactory(DjangoModelFactory):
     is_active = True
     is_staff = False
     user_type = factory.Faker("random_element", elements=["customer", "seller"])
-
 
 
 class PaymentFactory(DjangoModelFactory):
@@ -53,7 +51,6 @@ class PaymentFactory(DjangoModelFactory):
     default = factory.Faker("boolean")
 
 
-    
 class OrderFactory(DjangoModelFactory):
     class Meta:
         model = Order
@@ -84,7 +81,6 @@ class ProductFactory(DjangoModelFactory):
     currency = factory.Faker("random_element", elements=["USD", "EUR", "EGP"])
     created_by = factory.SubFactory(UserFactory)
     supplier = factory.SubFactory(SupplierFactory)
-
 
 
 class OrderItemFactory(DjangoModelFactory):
@@ -148,6 +144,7 @@ class CategoryFactory(DjangoModelFactory):
     featured_product = factory.SubFactory(
         "api.tests.factories.ProductFactory", name="Featured Product"
     )
+
 
 class WishlistFactory(DjangoModelFactory):
     class Meta:

@@ -7,9 +7,6 @@ from api.models.order import Order
 from api.models.order_item import OrderItem
 from api.models.payment import Payment
 
-from api.services.order import create_order
-
-
 
 @pytest.fixture
 def payment(user):
