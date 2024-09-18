@@ -1,0 +1,8 @@
+[run]
+omit =
+    api/tests/*
+    api/admin.py
+    api/permissions/*
+    api/migrations/*
+    api/utils/*
+    

@@ -3,7 +3,6 @@ from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
 from api.selectors.category import (
     get_all_categories,
     get_category_by_id,
-    get_products_by_category,
 )
 from api.tests.factories import (
     ProductFactory,
@@ -64,7 +63,8 @@ def test_get_products_by_category():
 # order
 @pytest.mark.django_db
 def test_get_order_by_id_and_user():
-    user = UserFactory(email="testuser@example.com", name="Test User")
+
+    user = UserFactory(email="testuser@example.com", name="Test User", password = None)
     payment_method = PaymentFactory(
         user=user, pan="1234567812345678", bank_name="CIB", expiry_date="2024-12-12"
     )
@@ -85,7 +85,9 @@ def test_get_order_by_id_and_user():
 
 @pytest.mark.django_db
 def test_get_order_by_id_and_user_non_existent():
-    user = UserFactory(email="testuser@example.com", name="Test User")
+
+    user = UserFactory(email="testuser@example.com", name="Test User",password=None)
+
 
     result = get_order_by_id_and_user(9999, user)
 
@@ -94,11 +96,14 @@ def test_get_order_by_id_and_user_non_existent():
 
 @pytest.mark.django_db
 def test_get_orders_by_user():
-    user1 = UserFactory(email="user1@example.com", name="User 1")
-    user2 = UserFactory(email="user2@example.com", name="User 2")
+
+    user1 = UserFactory(email="user1@example.com", name="User 1", password=None)
+    user2 = UserFactory(email="user2@example.com", name="User 2", password=None)
 
     payment_method1 = PaymentFactory(
         user=user1, pan="123456789", expiry_date="2024-12-12"
+
+ 
     )
     payment_method2 = PaymentFactory(
         user=user2, pan="987654321", expiry_date="2024-12-12"
@@ -130,7 +135,8 @@ def test_get_orders_by_user():
 
 @pytest.mark.django_db
 def test_get_orders_by_user_no_orders():
-    user = UserFactory(email="testuser@example.com", name="Test User")
+
+    user = UserFactory(email="testuser@example.com", name="Test User",password=None)
 
     orders = get_orders_by_user(user)
 

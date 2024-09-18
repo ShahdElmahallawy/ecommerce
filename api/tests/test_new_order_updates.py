@@ -4,6 +4,24 @@ from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.order import Order
 
+from api.models.order_item import OrderItem
+from api.models.payment import Payment
+
+from api.services.order import create_order
+
+
+
+@pytest.fixture
+def payment(user):
+    return Payment.objects.create(
+        user=user,
+        pan="1234567890123456",
+        bank_name="CIB",
+        expiry_date="2024-12-12",
+        cvv="123",
+        card_type="credit",
+    )
+
 
 @pytest.mark.django_db
 def test_create_order_success(api_client_auth, user, product, payment):

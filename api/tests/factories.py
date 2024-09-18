@@ -1,4 +1,5 @@
 import factory
+
 from factory.django import DjangoModelFactory
 from api.models import Product, Order, OrderItem, Review, Category
 from api.models.payment import Payment
@@ -8,6 +9,21 @@ from django.utils import timezone
 from api.models.supplier import Supplier
 from api.models.report import Report
 from api.models.discount import Discount
+
+from django.contrib.auth import get_user_model
+from factory.django import DjangoModelFactory
+from api.models.supplier import Supplier
+from api.models.product import Product
+from api.models.wishlist import Wishlist
+from api.models.wishlist_item import WishlistItem
+from api.models.payment import Payment
+from api.models.cart import Cart
+from api.models.cart_item import CartItem
+from api.models.profile import Profile
+from api.models.review import Review
+
+User = get_user_model()
+
 
 
 class UserFactory(DjangoModelFactory):
@@ -23,6 +39,7 @@ class UserFactory(DjangoModelFactory):
     user_type = factory.Faker("random_element", elements=["customer", "seller"])
 
 
+
 class PaymentFactory(DjangoModelFactory):
     class Meta:
         model = Payment
@@ -36,6 +53,7 @@ class PaymentFactory(DjangoModelFactory):
     default = factory.Faker("boolean")
 
 
+    
 class OrderFactory(DjangoModelFactory):
     class Meta:
         model = Order
@@ -61,10 +79,12 @@ class ProductFactory(DjangoModelFactory):
     name = factory.Faker("word")
     price = factory.Faker("pyfloat", left_digits=2, right_digits=2, positive=True)
     description = factory.Faker("sentence")
+    image = factory.django.ImageField(filename="test_image.jpg")
     count = factory.Faker("random_int", min=1, max=100)
     currency = factory.Faker("random_element", elements=["USD", "EUR", "EGP"])
     created_by = factory.SubFactory(UserFactory)
     supplier = factory.SubFactory(SupplierFactory)
+
 
 
 class OrderItemFactory(DjangoModelFactory):
@@ -128,3 +148,52 @@ class CategoryFactory(DjangoModelFactory):
     featured_product = factory.SubFactory(
         "api.tests.factories.ProductFactory", name="Featured Product"
     )
+
+class WishlistFactory(DjangoModelFactory):
+    class Meta:
+        model = Wishlist
+
+    user = factory.SubFactory(UserFactory)
+
+
+class WishlistItemFactory(DjangoModelFactory):
+    class Meta:
+        model = WishlistItem
+
+    wishlist = factory.SubFactory(WishlistFactory)
+    product = factory.SubFactory(ProductFactory)
+
+
+class CartFactory(DjangoModelFactory):
+    class Meta:
+        model = Cart
+
+    user = factory.SubFactory(UserFactory)
+
+
+class CartItemFactory(DjangoModelFactory):
+    class Meta:
+        model = CartItem
+
+    product = factory.SubFactory(ProductFactory)
+    quantity = factory.Faker("random_int", min=1, max=10)
+    cart = factory.SubFactory(CartFactory)
+
+
+class ProfileFactory(DjangoModelFactory):
+    class Meta:
+        model = Profile
+
+    user = factory.SubFactory(UserFactory)
+    phone = factory.Faker("phone_number")
+    preferred_currency = factory.Faker("random_element", elements=["USD", "EUR", "GBP"])
+
+
+class ReviewFactory(DjangoModelFactory):
+    class Meta:
+        model = Review
+
+    user = factory.SubFactory(UserFactory)
+    product = factory.SubFactory(ProductFactory)
+    text = factory.Faker("sentence")
+    rating = factory.Faker("random_int", min=1, max=5)

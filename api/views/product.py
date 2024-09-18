@@ -35,7 +35,6 @@ class ProductListView(GenericAPIView):
 
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ["category"]
     search_fields = ["name"]
     ordering_fields = ["price", "created_at", "rating"]
     filterset_class = ProductFilter

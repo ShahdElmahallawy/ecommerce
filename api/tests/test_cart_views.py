@@ -1,13 +1,7 @@
 import pytest
-from api.models import Cart, CartItem, Product
-from api.views.cart import (
-    CartView,
-    UpdateCartItemView,
-    ClearCartView,
-    AddToCartView,
-    RemoveFromCartView,
-)
+from api.models import Product
 from django.urls import reverse
+from rest_framework.exceptions import ValidationError
 
 
 @pytest.fixture
@@ -42,6 +36,15 @@ def test_add_to_cart_view(user, api_client_auth, product):
     assert response.data["items"][0]["product"]["id"] == product.id
     assert response.data["items"][0]["quantity"] == 2
     assert response.data["total_price"] == 20
+
+
+@pytest.mark.django_db
+def test_add_to_cart_view_fail(user, api_client_auth, product):
+    url = reverse("add-to-cart")
+    data = {"product": product.id, "quantity": -1}
+
+    response = api_client_auth.post(url, data)
+    assert response.status_code == 400
 
 
 @pytest.mark.django_db
@@ -83,3 +86,24 @@ def test_clear_cart_view(user, api_client_auth, product):
     assert response.data["user"] == user.id
     assert response.data["items"] == []
     assert response.data["total_price"] == 0
+
+
+def test_update_cart_item_view(user, api_client_auth, product):
+    url = reverse("add-to-cart")
+    data = {"product": product.id, "quantity": 1}
+    response = api_client_auth.post(url, data)
+    assert response.status_code == 201
+    assert response.data["items"][0]["product"]["id"] == product.id
+    assert response.data["items"][0]["quantity"] == 1
+
+    url = reverse("update-cart-item", args=[1])
+    data = {"quantity": 5}
+    response = api_client_auth.patch(url, data)
+    assert response.status_code == 200
+    assert response.data["items"][0]["product"]["id"] == product.id
+    assert response.data["items"][0]["quantity"] == 5
+
+    url = reverse("update-cart-item", args=[1])
+    data = {"quantity": -1}
+    response = api_client_auth.patch(url, data)
+    assert response.status_code == 400

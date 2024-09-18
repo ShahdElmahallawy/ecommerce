@@ -39,9 +39,7 @@ def test_delete_category():
 
 @pytest.mark.django_db
 def test_cancel_order_success():
-    user = User.objects.create_user(
-        name="testuser", password="password123", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     payment_method = Payment.objects.create(user=user, card_type="debit")
 
@@ -63,9 +61,7 @@ def test_cancel_order_success():
 
 @pytest.mark.django_db
 def test_cancel_order_not_found():
-    user = User.objects.create_user(
-        name="testuser", password="password123", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     non_existent_order_id = 9999
 
@@ -77,9 +73,7 @@ def test_cancel_order_not_found():
 
 @pytest.mark.django_db
 def test_cancel_order_not_pending():
-    user = User.objects.create_user(
-        name="testuser", password="password123", email="testuser@example.com"
-    )
+    user = User.objects.create_user(name="testuser", email="testuser@example.com")
 
     payment_method = Payment.objects.create(user=user, card_type="debit")
 

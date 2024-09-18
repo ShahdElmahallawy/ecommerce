@@ -11,6 +11,7 @@ def test_create_payment(user):
         "expiry_date": "2024-12-12",
         "cvv": "123",
         "card_type": "credit",
+        "default": False,
     }
 
     payment = create_payment(data, user)
