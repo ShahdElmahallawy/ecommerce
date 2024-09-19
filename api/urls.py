@@ -80,6 +80,8 @@ from .views.supplier import (
 from api.views.top import TopSellingProductsView, TopRatedProductsView
 from api.views.discount import DiscountCreateView, DiscountListView
 
+from api.views.sales import WeeklySalesView, DailySalesView, MonthlySalesView
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -223,6 +225,11 @@ discount_patterns = [
     path("create/", DiscountCreateView.as_view(), name="create"),
     path("list/", DiscountListView.as_view(), name="list"),
 ]
+sales_patterns = [
+    path("daily/", DailySalesView.as_view(), name="daily-sales"),
+    path("weekly/", WeeklySalesView.as_view(), name="weekly-sales"),
+    path("monthly/", MonthlySalesView.as_view(), name="monthly-sales"),
+]
 
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
@@ -246,4 +253,5 @@ urlpatterns = [
         TopRatedProductsView.as_view(),
         name="top-rated-products",
     ),
+    path("sales/", include(sales_patterns)),
 ]
