@@ -21,6 +21,8 @@ from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.profile import Profile
 from api.models.review import Review
+from api.models.store import Store
+from api.models.inventory import Inventory
 
 User = get_user_model()
 
@@ -194,3 +196,22 @@ class ReviewFactory(DjangoModelFactory):
     product = factory.SubFactory(ProductFactory)
     text = factory.Faker("sentence")
     rating = factory.Faker("random_int", min=1, max=5)
+
+
+class StoreFactory(DjangoModelFactory):
+    class Meta:
+        model = Store
+
+    name = factory.Faker("company")
+    seller = factory.SubFactory(UserFactory)
+    location = factory.Faker("address")
+    is_default_shipping = factory.Faker("boolean")
+
+
+class InventoryFactory(DjangoModelFactory):
+    class Meta:
+        model = Inventory
+
+    product = factory.SubFactory(ProductFactory)
+    stock = factory.Faker("random_int", min=1, max=100)
+    store = factory.SubFactory(StoreFactory)
