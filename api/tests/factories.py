@@ -23,6 +23,7 @@ from api.models.profile import Profile
 from api.models.review import Review
 from api.models.store import Store
 from api.models.inventory import Inventory
+from api.models.product import Variant, VariantOption
 
 User = get_user_model()
 
@@ -215,3 +216,18 @@ class InventoryFactory(DjangoModelFactory):
     product = factory.SubFactory(ProductFactory)
     stock = factory.Faker("random_int", min=1, max=100)
     store = factory.SubFactory(StoreFactory)
+
+
+class VariantFactory(DjangoModelFactory):
+    class Meta:
+        model = Variant
+
+    name = factory.Faker("word")
+
+
+class VariantOptionFactory(DjangoModelFactory):
+    class Meta:
+        model = VariantOption
+
+    variant = factory.SubFactory(VariantFactory)
+    value = factory.Faker("word")

@@ -97,6 +97,20 @@ from api.views.inventory import (
     InventoryDeleteView,
 )
 
+from api.views.variant import (
+    VariantListView,
+    VariantDetailView,
+    VariantCreateView,
+    VariantUpdateView,
+    VariantDeleteView,
+    VariantOptionListView,
+    VariantOptionDetailView,
+    VariantOptionCreateView,
+    VariantOptionUpdateView,
+    VariantOptionDeleteView,
+)
+
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -266,6 +280,38 @@ inventory_patterns = [
     ),
 ]
 
+variant_patterns = [
+    path("", VariantListView.as_view(), name="variant-list"),
+    path("<int:variant_id>/", VariantDetailView.as_view(), name="variant-detail"),
+    path("create/", VariantCreateView.as_view(), name="variant-create"),
+    path(
+        "<int:variant_id>/update/", VariantUpdateView.as_view(), name="variant-update"
+    ),
+    path(
+        "<int:variant_id>/delete/", VariantDeleteView.as_view(), name="variant-delete"
+    ),
+]
+
+variant_option_patterns = [
+    path("", VariantOptionListView.as_view(), name="variant-option-list"),
+    path(
+        "<int:option_id>/",
+        VariantOptionDetailView.as_view(),
+        name="variant-option-detail",
+    ),
+    path("create/", VariantOptionCreateView.as_view(), name="variant-option-create"),
+    path(
+        "<int:option_id>/update/",
+        VariantOptionUpdateView.as_view(),
+        name="variant-option-update",
+    ),
+    path(
+        "<int:option_id>/delete/",
+        VariantOptionDeleteView.as_view(),
+        name="variant-option-delete",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -280,6 +326,8 @@ urlpatterns = [
     path("discount/", include(discount_patterns)),
     path("stores/", include(store_patterns)),
     path("inventories/", include(inventory_patterns)),
+    path("variants/", include(variant_patterns)),
+    path("variant-options/", include(variant_option_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),
