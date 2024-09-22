@@ -3,6 +3,7 @@ from api.models.product import Product
 from api.models.cart import Cart
 from api.models.audit import Audit
 
+
 class CartItem(Audit):
     """Model of CartItem
 
