@@ -1,26 +1,22 @@
 import factory
-
 from factory.django import DjangoModelFactory
+from decimal import Decimal
+from django.utils import timezone
+
 from api.models import Product, Order, OrderItem, Review, Category
 from api.models.payment import Payment
 from api.models.user import User
-from decimal import Decimal
-from django.utils import timezone
 from api.models.supplier import Supplier
 from api.models.report import Report
 from api.models.discount import Discount
-
-from django.contrib.auth import get_user_model
-from factory.django import DjangoModelFactory
-from api.models.supplier import Supplier
-from api.models.product import Product
 from api.models.wishlist import Wishlist
 from api.models.wishlist_item import WishlistItem
-from api.models.payment import Payment
 from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.profile import Profile
-from api.models.review import Review
+
+from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -45,7 +41,7 @@ class PaymentFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     pan = factory.Faker("credit_card_number")
     bank_name = factory.Faker("company")
-    expiry_date = factory.Faker("credit_card_expire")
+    expiry_date = factory.Faker("date_object")
     cvv = factory.Faker("random_number", digits=3)
     card_type = factory.Faker("random_element", elements=["credit", "debit"])
     default = factory.Faker("boolean")

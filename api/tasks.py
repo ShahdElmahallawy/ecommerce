@@ -7,6 +7,7 @@ from logging import getLogger
 from datetime import timedelta
 from django.utils import timezone
 from api.models.order import Order
+from decimal import Decimal
 
 
 logger = getLogger(__name__)
@@ -65,23 +66,24 @@ def process_settlements():
             logger.info("No orders found to settle.")
             return "No orders to settle"
 
-        seller_earnings = {}
+        seller_earnings = defaultdict(Decimal)
 
         for order in orders_to_settle:
             logger.info(
-                f"Settling Order #{order.id} for User {order.user.username}, Amount: {order.total_price}"
+                f"Settling Order #{order.id} for User {order.user.name}, Amount: {order.total_price}"
             )
             for item in order.items.all():
                 product = item.product
-                seller = product.created_by
+                seller = product.created_by.name
                 earnings = item.quantity * item.unit_price
                 seller_earnings[seller] += earnings
+
             order.settled = True
             order.save()
 
         for seller, total_earnings in seller_earnings.items():
             logger.info(
-                f"Mock sending message to Seller {seller.username}: 'Your total earnings are ${total_earnings:.2f}'"
+                f"Mock sending message to Seller {seller}: 'Your total earnings are ${total_earnings:.2f}'"
             )
 
         logger.info(f"Successfully settled {orders_to_settle.count()} orders.")
