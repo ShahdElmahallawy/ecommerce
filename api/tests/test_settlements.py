@@ -13,7 +13,7 @@ from api.tests.factories import (
 
 
 @pytest.mark.django_db
-def test_process_settlements(mocker):
+def test_process_settlements():
 
     user = UserFactory(user_type="seller")
 
