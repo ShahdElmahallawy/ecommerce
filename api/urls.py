@@ -111,6 +111,15 @@ from api.views.variant import (
 )
 
 
+from api.views.product_variant import (
+    ProductVariantListView,
+    ProductVariantByProductListView,
+    ProductVariantDetailView,
+    ProductVariantCreateView,
+    ProductVariantUpdateView,
+    ProductVariantDeleteView,
+)
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -196,6 +205,16 @@ product_patterns = [
     ),
     path(
         "delete/<int:product_id>/", ProductDeleteView.as_view(), name="product-delete"
+    ),
+    path(
+        "<int:product_id>/variants/",
+        ProductVariantByProductListView.as_view(),
+        name="product-variant-by-product-list",
+    ),
+    path(
+        "<int:product_id>/variants/create/",
+        ProductVariantCreateView.as_view(),
+        name="product-variant-create",
     ),
 ]
 
@@ -312,6 +331,25 @@ variant_option_patterns = [
     ),
 ]
 
+product_variant_patterns = [
+    path("", ProductVariantListView.as_view(), name="product-variant-list"),
+    path(
+        "<int:product_variant_id>/",
+        ProductVariantDetailView.as_view(),
+        name="product-variant-detail",
+    ),
+    path(
+        "<int:product_variant_id>/update/",
+        ProductVariantUpdateView.as_view(),
+        name="product-variant-update",
+    ),
+    path(
+        "<int:product_variant_id>/delete/",
+        ProductVariantDeleteView.as_view(),
+        name="product-variant-delete",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -328,6 +366,7 @@ urlpatterns = [
     path("inventories/", include(inventory_patterns)),
     path("variants/", include(variant_patterns)),
     path("variant-options/", include(variant_option_patterns)),
+    path("product-variants/", include(product_variant_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),

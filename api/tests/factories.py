@@ -24,6 +24,7 @@ from api.models.review import Review
 from api.models.store import Store
 from api.models.inventory import Inventory
 from api.models.product import Variant, VariantOption
+from api.models.product import ProductVariant
 
 User = get_user_model()
 
@@ -231,3 +232,11 @@ class VariantOptionFactory(DjangoModelFactory):
 
     variant = factory.SubFactory(VariantFactory)
     value = factory.Faker("word")
+
+
+class ProductVariantFactory(DjangoModelFactory):
+    class Meta:
+        model = ProductVariant
+
+    product = factory.SubFactory(ProductFactory)
+    price = factory.Faker("pyfloat", left_digits=2, right_digits=2, positive=True)
