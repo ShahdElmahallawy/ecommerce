@@ -18,6 +18,8 @@ class Order(Audit):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
+    settled = models.BooleanField(default=False) 
+
     def __str__(self):
         return f"Order #{self.id}"
 

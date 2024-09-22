@@ -1,9 +1,9 @@
 from django.db import models
 from api.models.product import Product
 from api.models.cart import Cart
+from api.models.audit import Audit
 
-
-class CartItem(models.Model):
+class CartItem(Audit):
     """Model of CartItem
 
     Fields:
