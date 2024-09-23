@@ -30,7 +30,6 @@ def test_address_detail(api_client_auth, address):
 def test_address_update(api_client_auth, address, user):
     url = reverse("address_update", kwargs={"pk": address.pk})
     data = {
-
         "street_address": "123 paymob St",
         "apartment_address": "Apt 20B",
         "country": "EG",
