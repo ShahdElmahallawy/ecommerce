@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from datetime import datetime
 from api.models import Payment
+from api.validators.user_input import only_alphanumeric
 
 
 class ExpiryDateField(serializers.DateField):
@@ -40,7 +41,6 @@ class PaymentSerializer(serializers.ModelSerializer):
         return value
 
     def validate_bank_name(self, value):
-        if not all(char.isalpha() or char.isspace() for char in value):
-            raise serializers.ValidationError("Name must contain only alphabetic.")
+        only_alphanumeric(value)
 
         return value

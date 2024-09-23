@@ -25,6 +25,12 @@ def test_create_supplier_view(supplier, api_admin_auth):
     assert response.status_code == 201
     assert response.data["name"] == "Test Supplier"
 
+    # invalid name
+    response = api_admin_auth.post(
+        url, {"name": "a", "email": "testsupplier@email.com"}
+    )
+    assert response.status_code == 400
+
 
 @pytest.mark.django_db
 def test_update_supplier_view(supplier, api_admin_auth):
@@ -32,6 +38,12 @@ def test_update_supplier_view(supplier, api_admin_auth):
     response = api_admin_auth.patch(url, {"name": "Updated Supplier"})
     assert response.status_code == 200
     assert response.data["name"] == "Updated Supplier"
+
+    # invalid name
+    response = api_admin_auth.patch(
+        url, {"name": "a", "email": "testsupplier@email.com"}
+    )
+    assert response.status_code == 400
 
 
 @pytest.mark.django_db

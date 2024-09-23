@@ -77,5 +77,17 @@ def test_update_profile_not_found(api_client_auth, user):
 
 
 @pytest.mark.django_db
+def test_update_profile_invalid_phone(api_client_auth, user):
+    # not 11 digits
+    url = reverse("profile-update")
+    data = {
+        "phone": "123",
+    }
+    response = api_client_auth.patch(url, data, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
 def test_create_profile_signal(user):
     assert Profile.objects.filter(user=user).exists()

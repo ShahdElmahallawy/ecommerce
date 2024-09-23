@@ -12,15 +12,11 @@ class StoreSerializer(serializers.ModelSerializer):
     is_default_shipping = serializers.BooleanField(required=False, default=False)
 
     def validate_name(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("Name is required.")
         only_alphanumeric(value)
 
         return value
 
     def validate_location(self, value):
-        if not value.strip():
-            raise serializers.ValidationError("Location is required.")
         only_alphanumeric(value)
         return value
 

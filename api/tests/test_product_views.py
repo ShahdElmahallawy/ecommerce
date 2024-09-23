@@ -87,6 +87,17 @@ def test_product_create_view_admin(mock_save, mock_delete, api_admin_auth):
     assert response.data["name"] == "Product"
     assert response.data["price"] == 10
 
+    # invalid price
+    data["price"] = -10
+    response = api_admin_auth.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # invalid count
+    data["price"] = 10
+    data["count"] = -10
+    response = api_admin_auth.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
 
 @pytest.mark.django_db
 @patch("django.db.models.fields.files.ImageFieldFile.save", return_value=None)

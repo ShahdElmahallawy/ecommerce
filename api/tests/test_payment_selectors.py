@@ -1,4 +1,4 @@
-from api.selectors import list_payments, get_payment
+from api.selectors.payment import list_payments, get_payment, get_payment_by_id
 from django.contrib.auth import get_user_model
 from api.models.payment import Payment
 
@@ -56,4 +56,17 @@ def test_get_payment_not_found(user, payment):
 
     retrieved_payment = get_payment(2, user)
 
+    assert retrieved_payment == None
+
+
+@pytest.mark.django_db
+def test_get_payment_by_id(payment):
+
+    retrieved_payment = get_payment_by_id(payment.id)
+
+    assert retrieved_payment == payment
+    assert retrieved_payment.pan == "1234567890123456"
+
+    # not found
+    retrieved_payment = get_payment_by_id(2)
     assert retrieved_payment == None

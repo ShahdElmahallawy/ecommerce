@@ -26,10 +26,3 @@ def get_inventory_by_seller(seller):
     Get all inventory items for a seller.
     """
     return Inventory.objects.filter(store__seller=seller)
-
-
-def check_inventory_exists(product, stock):
-    """
-    Check if an inventory item exists for a product with a certain stock level.
-    """
-    return Inventory.objects.filter(product=product, stock__gte=stock).exists()
