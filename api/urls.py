@@ -80,6 +80,23 @@ from .views.supplier import (
 from api.views.top import TopSellingProductsView, TopRatedProductsView
 from api.views.discount import DiscountCreateView, DiscountListView
 
+from api.views.store import (
+    StoreListView,
+    StoreDetailView,
+    StoreCreateView,
+    StoreUpdateView,
+    StoreDeleteView,
+    StoreBySellerView,
+)
+
+from api.views.inventory import (
+    InventoryListView,
+    InventoryDetailView,
+    InventoryCreateView,
+    InventoryUpdateView,
+    InventoryDeleteView,
+)
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
@@ -224,6 +241,31 @@ discount_patterns = [
     path("list/", DiscountListView.as_view(), name="list"),
 ]
 
+store_patterns = [
+    path("", StoreListView.as_view(), name="store-list"),
+    path("by-seller/", StoreBySellerView.as_view(), name="store-by-seller"),
+    path("<int:store_id>/", StoreDetailView.as_view(), name="store-detail"),
+    path("create/", StoreCreateView.as_view(), name="store-create"),
+    path("<int:store_id>/update/", StoreUpdateView.as_view(), name="store-update"),
+    path("<int:store_id>/delete/", StoreDeleteView.as_view(), name="store-delete"),
+]
+
+inventory_patterns = [
+    path("", InventoryListView.as_view(), name="inventory-list"),
+    path("<int:inventory_id>/", InventoryDetailView.as_view(), name="inventory-detail"),
+    path("create/", InventoryCreateView.as_view(), name="inventory-create"),
+    path(
+        "<int:inventory_id>/update/",
+        InventoryUpdateView.as_view(),
+        name="inventory-update",
+    ),
+    path(
+        "<int:inventory_id>/delete/",
+        InventoryDeleteView.as_view(),
+        name="inventory-delete",
+    ),
+]
+
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
     path("orders/", include((order_patterns, "orders"))),
@@ -236,6 +278,8 @@ urlpatterns = [
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
     path("discount/", include(discount_patterns)),
+    path("stores/", include(store_patterns)),
+    path("inventories/", include(inventory_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),
