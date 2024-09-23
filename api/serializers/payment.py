@@ -28,3 +28,19 @@ class PaymentSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True)
     id = serializers.IntegerField(read_only=True)
     expiry_date = ExpiryDateField()
+
+    def validate_pan(self, value):
+        if len(str(value)) != 16:
+            raise serializers.ValidationError("PAN must be 16 digits.")
+        return value
+
+    def validate_cvv(self, value):
+        if len(str(value)) != 3:
+            raise serializers.ValidationError("CVV must be 3 digits.")
+        return value
+
+    def validate_bank_name(self, value):
+        if not all(char.isalpha() or char.isspace() for char in value):
+            raise serializers.ValidationError("Name must contain only alphabetic.")
+
+        return value

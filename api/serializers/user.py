@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 
 from rest_framework import serializers
 from api.selectors import get_user_by_email
+from api.validators.user_input import only_alphanumeric
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -29,8 +30,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         if len(value.strip()) < 4:
             raise serializers.ValidationError("Name must be at least 4 characters.")
 
-        if not all(char.isalnum() or char.isspace() for char in value):
-            raise serializers.ValidationError("Name must be alphanumeric.")
+        only_alphanumeric(value)
 
         return value
 

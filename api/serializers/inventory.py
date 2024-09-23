@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from api.models import Store, Inventory, Product
-from api.selectors.product import get_product_by_id
+from api.selectors.product import get_product_by_id_for_edit
 from api.selectors.store import get_store_by_seller
 
 
@@ -32,9 +32,9 @@ class InventoryCreateSerializer(serializers.ModelSerializer):
     def validate_product(self, value):
         if not value:
             raise serializers.ValidationError("Product is required.")
-        product = get_product_by_id(value)
+        product = get_product_by_id_for_edit(value, self.context["request"].user)
         if not product:
-            raise serializers.ValidationError("Product not found.")
+            raise serializers.ValidationError("No available product found.")
         return value
 
     def validate_stock(self, value):

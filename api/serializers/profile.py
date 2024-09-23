@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from api.models import Profile
+from api.validators.user_input import only_digits
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -29,12 +30,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ["user", "address", "phone", "preferred_currency"]
 
+    def validate_phone(self, value):
+        """
+        Validate the provided phone number.
+        """
+        if len(value) != 11:
+            raise serializers.ValidationError("Phone number must be 11 digits.")
+        only_digits(value)
+        return value
+
     def update(self, instance, validated_data):
         """
         Update the profile and the associated user's information.
-
-        Returns:
-            instance: The updated profile.
         """
         user_data = validated_data.pop("user", None)
         if user_data:

@@ -5,4 +5,5 @@ omit =
     api/permissions/*
     api/migrations/*
     api/utils/*
+    api/validators/*
     

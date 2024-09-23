@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from api.models import Store, Inventory, Product
+from api.validators.user_input import only_alphanumeric
 
 
 class StoreSerializer(serializers.ModelSerializer):
@@ -13,11 +14,14 @@ class StoreSerializer(serializers.ModelSerializer):
     def validate_name(self, value):
         if not value.strip():
             raise serializers.ValidationError("Name is required.")
+        only_alphanumeric(value)
+
         return value
 
     def validate_location(self, value):
         if not value.strip():
             raise serializers.ValidationError("Location is required.")
+        only_alphanumeric(value)
         return value
 
 

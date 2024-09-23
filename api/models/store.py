@@ -20,6 +20,33 @@ class Store(Audit):
     location = models.CharField(max_length=255)
     is_default_shipping = models.BooleanField(default=False)
 
+    def save(self, *args, **kwargs):
+        """Overrides the save method to set the default store."""
+        if self.is_default_shipping:
+            Store.objects.filter(seller=self.seller).update(is_default_shipping=False)
+
+        if Store.objects.filter(seller=self.seller).count() == 0:
+            self.is_default_shipping = True
+
+        if self.is_default_shipping == False:
+            if (
+                Store.objects.filter(
+                    seller=self.seller, is_default_shipping=True
+                ).count()
+                == 0
+            ):
+                self.is_default_shipping = True
+
+        super(Store, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        """Overrides the delete method to set the default store."""
+        if self.is_default_shipping:
+            raise Exception(
+                "Cannot delete default store, set another store as default first"
+            )
+        super(Store, self).delete(*args, **kwargs)
+
     def __str__(self):
         """Returns a string representation of the store."""
         return f"{self.seller.username} - {self.location}"

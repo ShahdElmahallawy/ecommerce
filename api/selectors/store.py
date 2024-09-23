@@ -1,4 +1,5 @@
 from api.models.store import Store
+from api.models.inventory import Inventory
 
 
 def get_store_by_id(store_id):
@@ -45,3 +46,15 @@ def get_default_shipping_store(seller):
         )
     except Store.DoesNotExist:
         return None
+
+
+def get_stock_in_default_store(product):
+    """
+    Selector to get the stock of a product in the default store."""
+    try:
+        inventory = Inventory.objects.get(
+            store__is_default_shipping=True, product=product
+        )
+    except Inventory.DoesNotExist:
+        return 0
+    return inventory.stock

@@ -3,7 +3,7 @@ from rest_framework import serializers
 from api.models.cart import Cart
 from api.models.product import Product
 from api.models.cart_item import CartItem
-from api.selectors.product import get_product_by_id
+from api.selectors.store import get_stock_in_default_store
 
 
 class CartItemCreateSerializer(serializers.ModelSerializer):
@@ -16,6 +16,10 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
     def validate_quantity(self, value):
         if value <= 0:
             raise ValidationError("Enter a valid quantity greater than 0")
+
+        # if value > get_stock_in_default_store(self.validated_data.get("product")):
+        #     raise ValidationError("Not enough stock available for this product")
+
         return value
 
 
@@ -29,6 +33,10 @@ class CartItemUpdateSerializer(serializers.ModelSerializer):
     def validate_quantity(self, value):
         if value <= 0:
             raise ValidationError("Enter a valid quantity greater than 0")
+
+        # if value > get_stock_in_default_store(self.validated_data.get("product")):
+        #     raise ValidationError("Not enough stock available for this product")
+
         return value
 
 
