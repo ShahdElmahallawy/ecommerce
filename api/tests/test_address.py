@@ -30,15 +30,14 @@ def test_address_detail(api_client_auth, address):
 def test_address_update(api_client_auth, address, user):
     url = reverse("address_update", kwargs={"pk": address.pk})
     data = {
-        "user": user.id,
+
         "street_address": "123 paymob St",
         "apartment_address": "Apt 20B",
         "country": "EG",
         "zip": 30303,
         "address_type": "work",
-        "default": True,
     }
-    response = api_client_auth.put(url, data, format="json")
+    response = api_client_auth.patch(url, data, format="json")
     assert response.status_code == status.HTTP_200_OK
     assert response.data["street_address"] == "123 paymob St"
 
