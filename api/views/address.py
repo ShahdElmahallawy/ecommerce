@@ -21,9 +21,11 @@ class AddressCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = AddressSerializer(data=request.data)
+        data = request.data.copy()
+        data["user"] = request.user.id 
+        serializer = AddressSerializer(data=data)
         if serializer.is_valid():
-            address = create_address(request.user, serializer.validated_data)
+            address = create_address( serializer.validated_data)
             return Response(
                 AddressSerializer(address).data, status=status.HTTP_201_CREATED
             )

@@ -2,8 +2,8 @@ from api.models.address import Address
 from api.selectors.address import get_address_by_id
 
 
-def create_address(user, data):
-    address = Address.objects.create(user, **data)
+def create_address( data):
+    address = Address.objects.create( **data)
     return address
 
 
