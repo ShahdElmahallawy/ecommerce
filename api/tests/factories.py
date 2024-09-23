@@ -14,6 +14,8 @@ from api.models.wishlist_item import WishlistItem
 from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.profile import Profile
+from api.models.address import Address
+from django_countries import countries
 
 from django.contrib.auth import get_user_model
 
@@ -190,3 +192,18 @@ class ReviewFactory(DjangoModelFactory):
     product = factory.SubFactory(ProductFactory)
     text = factory.Faker("sentence")
     rating = factory.Faker("random_int", min=1, max=5)
+
+
+class AddressFactory(DjangoModelFactory):
+    class Meta:
+        model = Address
+
+    user = factory.SubFactory(UserFactory)
+    street_address = factory.Faker("street_address")
+    apartment_address = factory.Faker("secondary_address")
+    country = factory.Faker(
+        "random_element", elements=[code for code, name in countries]
+    )
+    zip = factory.Faker("postcode")
+    address_type = factory.Faker("random_element", elements=["home", "work"])
+    default = factory.Faker("boolean")

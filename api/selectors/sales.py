@@ -1,5 +1,6 @@
 from django.utils.timezone import now, timedelta
 from api.models import OrderItem
+from django.utils import timezone
 
 
 def get_daily_sales_for_seller(seller):
@@ -10,9 +11,12 @@ def get_daily_sales_for_seller(seller):
 
 
 def get_weekly_sales_for_seller(seller):
-    start_time = now() - timedelta(days=now().weekday())
+    end_date = timezone.now()
+    start_date = end_date - timedelta(days=7)
     return OrderItem.objects.filter(
-        product__created_by=seller, order__created_at__gte=start_time
+        product__created_by=seller,
+        order__created_at__gte=start_date,
+        order__created_at__lte=end_date,
     )
 
 

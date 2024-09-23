@@ -1,8 +1,9 @@
 from django.urls import path, include
 
 
-from .views.category import (
+from api.views.category import (
     CategoryListView,
+    CreateCategoryView,
     CategoryDetailView,
     CategoryUpdateView,
     CategoryDeleteView,
@@ -81,9 +82,24 @@ from api.views.top import TopSellingProductsView, TopRatedProductsView
 from api.views.discount import DiscountCreateView, DiscountListView
 
 from api.views.sales import WeeklySalesView, DailySalesView, MonthlySalesView
+from api.views.address import (
+    AddressListView,
+    AddressCreateView,
+    AddressDetailView,
+    AddressUpdateView,
+    AddressDeleteView,
+)
 
+Address_patterns = [
+    path("", AddressListView.as_view(), name="address_list"),
+    path("new/", AddressCreateView.as_view(), name="address_create"),
+    path("<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
+    path("<int:pk>/edit/", AddressUpdateView.as_view(), name="address_update"),
+    path("<int:pk>/delete/", AddressDeleteView.as_view(), name="address_delete"),
+]
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
+    path("create/", CreateCategoryView.as_view(), name="create-category"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
     path("<int:pk>/update/", CategoryUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", CategoryDeleteView.as_view(), name="delete"),
@@ -243,6 +259,7 @@ urlpatterns = [
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
     path("discount/", include(discount_patterns)),
+    path("address/", include(Address_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),
