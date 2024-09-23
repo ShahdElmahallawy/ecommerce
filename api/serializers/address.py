@@ -15,4 +15,3 @@ class AddressSerializer(serializers.ModelSerializer):
             "address_type",
             "default",
         ]
-

@@ -22,10 +22,10 @@ class AddressCreateView(APIView):
 
     def post(self, request):
         data = request.data.copy()
-        data["user"] = request.user.id 
+        data["user"] = request.user.id
         serializer = AddressSerializer(data=data)
         if serializer.is_valid():
-            address = create_address( serializer.validated_data)
+            address = create_address(serializer.validated_data)
             return Response(
                 AddressSerializer(address).data, status=status.HTTP_201_CREATED
             )
