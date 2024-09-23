@@ -11,6 +11,7 @@ from api.selectors.variant import (
     get_variant_by_id,
     get_options,
     get_variant_option_by_id,
+    get_variant_option_by_variant_id,
 )
 from api.serializers.variant import (
     VariantSerializer,
@@ -49,7 +50,9 @@ class VariantDetailView(APIView):
     def get(self, request, variant_id):
         variant = get_variant_by_id(variant_id)
         if variant is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Variant not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = VariantSerializer(variant)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -126,6 +129,24 @@ class VariantOptionListView(GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class VariantOptionByVariantListView(APIView):
+    """
+    List all options by variant.
+    """
+
+    permission_classes = [IsAuthenticated, IsAdminOrSeller]
+
+    def get(self, request, variant_id):
+        variant = get_variant_by_id(variant_id)
+        if variant is None:
+            return Response(
+                {"error": "Variant not found"}, status=status.HTTP_404_NOT_FOUND
+            )
+        options = get_variant_option_by_variant_id(variant_id)
+        serializer = VariantOptionSerializer(options, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class VariantOptionDetailView(APIView):
     """
     Retrieve option instance.
@@ -136,7 +157,9 @@ class VariantOptionDetailView(APIView):
     def get(self, request, option_id):
         option = get_variant_option_by_id(option_id)
         if option is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"error": "Option not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         serializer = VariantOptionSerializer(option)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

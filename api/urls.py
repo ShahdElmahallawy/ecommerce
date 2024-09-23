@@ -108,6 +108,7 @@ from api.views.variant import (
     VariantOptionCreateView,
     VariantOptionUpdateView,
     VariantOptionDeleteView,
+    VariantOptionByVariantListView,
 )
 
 
@@ -308,6 +309,11 @@ variant_patterns = [
     ),
     path(
         "<int:variant_id>/delete/", VariantDeleteView.as_view(), name="variant-delete"
+    ),
+    path(
+        "<int:variant_id>/options/",
+        VariantOptionByVariantListView.as_view(),
+        name="options",
     ),
 ]
 

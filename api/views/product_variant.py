@@ -1,3 +1,4 @@
+from api.selectors.product import get_product_by_id
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -40,6 +41,11 @@ class ProductVariantListView(GenericAPIView):
 
 class ProductVariantByProductListView(APIView):
     def get(self, request, product_id):
+        product = get_product_by_id(product_id)
+        if product is None:
+            return Response(
+                {"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND
+            )
         product_variants = list_product_variants_by_product_id(product_id)
         serializer = ProductVariantSerializer(product_variants, many=True)
         return Response(serializer.data)

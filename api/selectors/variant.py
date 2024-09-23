@@ -25,6 +25,13 @@ def get_options():
     return VariantOption.objects.all()
 
 
+def get_variant_option_by_variant_id(variant_id):
+    """
+    Get all options by variant ID.
+    """
+    return VariantOption.objects.filter(variant_id=variant_id)
+
+
 def get_variant_option_by_id(option_id):
     """
     Get an option by its ID.

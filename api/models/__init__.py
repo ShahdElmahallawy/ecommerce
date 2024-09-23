@@ -14,3 +14,6 @@ from .cart_item import CartItem
 from .review import Review
 from .store import Store
 from .inventory import Inventory
+from .product import Variant
+from .product import VariantOption
+from .product import ProductVariant
