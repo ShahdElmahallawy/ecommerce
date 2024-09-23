@@ -44,8 +44,8 @@ class AddressDetailView(APIView):
 class AddressUpdateView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def put(self, request, pk):
-        serializer = AddressSerializer(data=request.data)
+    def patch(self, request, pk):
+        serializer = AddressSerializer(data=request.data, partial=True)
         if serializer.is_valid():
             address = update_address(request.user, pk, serializer.validated_data)
             return Response(AddressSerializer(address).data)
