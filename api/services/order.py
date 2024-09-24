@@ -113,3 +113,62 @@ def create_order_from_cart(user, payment_method, discount_code=None):
         cart.items.all().delete()
 
     return order
+
+
+import stripe
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+from api.selectors.cart import get_cart_items
+
+
+def create_order_session(request, user, payment_method, discount_code=None):
+    items = get_cart_items(user)
+    if not items.exists():
+        raise ValueError("The cart is empty")
+
+    items_list = []
+    for item in items:
+        product = item.product
+
+        if product.count < item.quantity:
+            raise ValueError(f"Not enough stock for product {product.name}")
+
+        items_list.append(
+            {
+                "price_data": {
+                    "currency": "usd",
+                    "product_data": {
+                        "name": product.name,
+                    },
+                    "unit_amount": int(item.product.price * 100),
+                },
+                "quantity": item.quantity,
+            }
+        )
+
+    cart_id = items.first().cart.id
+
+    session = stripe.checkout.Session.create(
+        success_url=f"{request.scheme}://{request.get_host()}/api/orders/redirect?status=success",
+        cancel_url=f"{request.scheme}://{request.get_host()}/api/orders/redirect?status=cancel",
+        customer_email=request.user.email,
+        client_reference_id=cart_id,
+        line_items=items_list,
+        shipping_options=[
+            {
+                "shipping_rate_data": {
+                    "type": "fixed_amount",
+                    "fixed_amount": {
+                        "amount": 1000,
+                        "currency": "usd",
+                    },
+                    "display_name": "Shipping takes 5-7 days",
+                },
+            },
+        ],
+        mode="payment",
+        metadata={"payment_method": payment_method},
+    )
+
+    return session

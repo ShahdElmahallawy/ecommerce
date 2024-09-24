@@ -1,9 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
-
+from api.services.order import create_order_session
 
 from api.services.order import (
     cancel_order,
@@ -22,6 +22,11 @@ from api.models.order import Order
 import logging
 
 logger = logging.getLogger(__name__)
+
+import stripe
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class OrderCancelView(APIView):
@@ -105,3 +110,63 @@ class OrderCreateViewWithDiscount(APIView):
             return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         order_serializer = OrderSerializer(order)
         return Response(order_serializer.data, status=status.HTTP_201_CREATED)
+
+
+# using stripe session
+class OrderCreateViewAmr(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = None
+        if request.data.get("discount_code"):
+            serializer = OrderCreateWithDiscountSerializer(data=request.data)
+        else:
+            serializer = OrderCreateSerializer(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        payment_method = serializer.validated_data["payment_method"]
+        discount_code = serializer.validated_data.get("discount_code")
+
+        try:
+            session = create_order_session(request, user, payment_method, discount_code)
+            return Response(session, status=status.HTTP_200_OK)
+
+        except Exception as err:
+            return Response({"details": str(err)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+import stripe
+from rest_framework import status
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+class StripeWebhookView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        payload = request.body
+        sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
+        endpoint_secret = settings.WEBHOOK_SECRET_KEY
+
+        try:
+            event = stripe.Webhook.construct_event(
+                payload=payload, sig_header=sig_header, secret=endpoint_secret
+            )
+        except ValueError as e:
+            return Response({"error": "Invalid payload"}, status=400)
+        except stripe.error.SignatureVerificationError as e:
+            return Response({"error": "Invalid signature"}, status=400)
+
+        if event["type"] == "checkout.session.completed":
+            session = event["data"]["object"]
+            handle_checkout_session_completed(session)
+
+        return Response({"status": "success"}, status=status.HTTP_200_OK)
+
+
+def handle_checkout_session_completed(session):
+    print("success")

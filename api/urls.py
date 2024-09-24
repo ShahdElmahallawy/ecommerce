@@ -108,11 +108,14 @@ category_patterns = [
         name="products",
     ),
 ]
+from api.views.order import OrderCreateViewAmr
+
 order_patterns = [
     path("", OrderListView.as_view(), name="list"),
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
     path("create/", OrderCreateView.as_view(), name="create"),
+    path("create-amr/", OrderCreateViewAmr.as_view(), name="create"),
     path("<int:pk>/deliver/", OrderDeliverView.as_view(), name="deliver"),
     path(
         "create-with-discount/",
