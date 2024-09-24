@@ -3,7 +3,9 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from api.models import Profile
+
 from api.validators.user_input import only_digits
+from api.serializers.address import AddressSerializer
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -13,7 +15,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "name", "user_type"]
+        fields = ["email", "name", "user_type", "address"]
+
+    address = AddressSerializer(read_only=True, many=True, source="address_set")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -28,7 +32,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["user", "address", "phone", "preferred_currency"]
+        fields = ["user", "phone", "preferred_currency"]
 
     def validate_phone(self, value):
         """

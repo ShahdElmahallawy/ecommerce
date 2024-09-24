@@ -221,4 +221,8 @@ CELERY_BEAT_SCHEDULE = {
         "task": "api.tasks.send_restock_mails",
         "schedule": crontab(minute=0, hour=0),
     },
+    "process_settlements_twice_a_month": {
+        "task": "api.tasks.process_settlements",
+        "schedule": crontab(hour=0, minute=0),
+    },
 }
