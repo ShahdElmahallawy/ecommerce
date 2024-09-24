@@ -56,5 +56,5 @@ class AddressDeleteView(APIView):
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, pk):
-        delete_address(request.user, pk)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        response = delete_address(request.user, pk)
+        return Response(response, status=status.HTTP_204_NO_CONTENT)

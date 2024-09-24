@@ -215,6 +215,6 @@ CELERY_BEAT_SCHEDULE = {
     },
     "process_settlements_twice_a_month": {
         "task": "api.tasks.process_settlements",
-        "schedule": crontab(day_of_month="14,28", hour=0, minute=0),
+        "schedule": crontab(hour=0, minute=0),
     },
 }

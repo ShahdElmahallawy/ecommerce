@@ -79,6 +79,7 @@ def process_settlements():
                 seller_earnings[seller] += earnings
 
             order.settled = True
+            order.settled_status = "settled"
             order.save()
 
         for seller, total_earnings in seller_earnings.items():

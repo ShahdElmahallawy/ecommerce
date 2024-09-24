@@ -89,6 +89,7 @@ from api.views.address import (
     AddressUpdateView,
     AddressDeleteView,
 )
+from .views.settled import SellerOrderListView
 
 Address_patterns = [
     path("", AddressListView.as_view(), name="address_list"),
@@ -271,4 +272,5 @@ urlpatterns = [
         name="top-rated-products",
     ),
     path("sales/", include(sales_patterns)),
+    path("settlments/", SellerOrderListView.as_view(), name="seller-orders"),
 ]

@@ -11,6 +11,10 @@ class Order(Audit):
         ("delivered", "Delivered"),
         ("cancelled", "Cancelled"),
     ]
+    SETTLED_STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("settled", "Settled"),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
     payment_method = models.ForeignKey(
         Payment, on_delete=models.CASCADE, related_name="payment_method"
@@ -19,6 +23,10 @@ class Order(Audit):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     settled = models.BooleanField(default=False)
+
+    settled_status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, default="pending"
+    )
 
     def __str__(self):
         return f"Order #{self.id}"

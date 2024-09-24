@@ -40,3 +40,4 @@ def test_process_settlements():
 
     order.refresh_from_db()
     assert order.settled is True
+    assert order.settled_status == "settled"

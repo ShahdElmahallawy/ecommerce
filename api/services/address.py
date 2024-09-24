@@ -17,5 +17,8 @@ def update_address(user, pk, data):
 
 def delete_address(user, pk):
     address = get_address_by_id(user, pk)
-    address.delete()
-    return
+    if address.default != True:
+        address.delete()
+        return "Deleted successfully"
+    else:
+        return "Can't delete Default address"
