@@ -307,7 +307,6 @@ urlpatterns = [
     path("stores/", include(store_patterns)),
     path("inventories/", include(inventory_patterns)),
     path("address/", include(Address_patterns)),
-
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),

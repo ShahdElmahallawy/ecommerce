@@ -197,7 +197,6 @@ class ReviewFactory(DjangoModelFactory):
     rating = factory.Faker("random_int", min=1, max=5)
 
 
-
 class StoreFactory(DjangoModelFactory):
     class Meta:
         model = Store
@@ -215,6 +214,7 @@ class InventoryFactory(DjangoModelFactory):
     product = factory.SubFactory(ProductFactory)
     stock = factory.Faker("random_int", min=1, max=100)
     store = factory.SubFactory(StoreFactory)
+
 
 class AddressFactory(DjangoModelFactory):
     class Meta:
