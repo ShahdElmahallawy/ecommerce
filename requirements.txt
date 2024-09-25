@@ -5,6 +5,8 @@ attrs==24.2.0
 billiard==4.2.0
 black==24.8.0
 celery==5.4.0
+certifi==2024.8.30
+charset-normalizer==3.3.2
 click==8.1.7
 click-didyoumean==0.3.1
 click-plugins==1.1.1
@@ -22,6 +24,7 @@ exceptiongroup==1.2.2
 execnet==2.1.1
 factory_boy==3.3.1
 Faker==28.4.1
+idna==3.10
 inflection==0.5.1
 iniconfig==2.0.0
 jsonschema==4.23.0
@@ -45,13 +48,15 @@ python-dotenv==1.0.1
 PyYAML==6.0.2
 redis==5.0.8
 referencing==0.35.1
+requests==2.32.3
 rpds-py==0.20.0
 six==1.16.0
 sqlparse==0.5.1
+stripe==10.12.0
 tomli==2.0.1
 typing_extensions==4.12.2
 tzdata==2024.1
 uritemplate==4.1.1
+urllib3==2.2.3
 vine==5.1.0
 wcwidth==0.2.13
-factory_boy==3.3.1

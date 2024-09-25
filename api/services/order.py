@@ -1,3 +1,4 @@
+from api.models.inventory import Inventory
 import logging
 from api.selectors.order import get_order_by_id_and_user
 from api.models.order import Order
@@ -13,7 +14,8 @@ from api.selectors.order import get_order_by_id_and_user
 from decimal import Decimal
 from rest_framework.response import Response
 from api.services.discount import apply_discount_to_order
-from rest_framework import status
+from api.selectors.store import get_stock_in_default_store
+
 
 logger = logging.getLogger(__name__)
 
@@ -172,3 +174,68 @@ def create_order_session(request, user, payment_method, discount_code=None):
     )
 
     return session
+
+
+def create_order_from_cart_multiple_stores(user, payment_method, discount_code=None):
+    try:
+        cart = get_cart_by_user(user)
+    except Cart.DoesNotExist:
+        raise ValueError("No cart found for the user")
+
+    cart_items = cart.items.all()
+
+    if not cart_items.exists():
+        raise ValueError("The cart is empty")
+
+    payment_method = get_payment(user=user, payment_id=payment_method)
+    if not payment_method:
+        raise ValueError("Invalid payment method")
+
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    if discount_code:
+        discounted_price, error = apply_discount_to_order(discount_code, total_price)
+        if error:
+            raise ValueError("no discount found with this code")
+
+        total_price = discounted_price
+
+    order = Order.objects.create(
+        user=user,
+        payment_method=payment_method,
+        total_price=Decimal(total_price),
+        status="pending",
+    )
+
+    order_items = []
+    inventory_updates = []
+
+    for cart_item in cart_items:
+        product = cart_item.product
+
+        if get_stock_in_default_store(product) < cart_item.quantity:
+            raise ValueError(f"Not enough stock for product {product.name}")
+
+        inventory_updates.append(
+            Inventory(
+                product=product,
+                store=product.store,
+                stock=F("stock") - cart_item.quantity,
+            )
+        )
+
+        order_item = OrderItem(
+            order=order,
+            product=product,
+            quantity=cart_item.quantity,
+            unit_price=product.price,
+        )
+        order_items.append(order_item)
+
+        OrderItem.objects.bulk_create(order_items)
+
+        Inventory.objects.bulk_update(inventory_updates, ["stock"])
+
+        cart.items.all().delete()
+
+    return order

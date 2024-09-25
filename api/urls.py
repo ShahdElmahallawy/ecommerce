@@ -115,7 +115,7 @@ order_patterns = [
     path("<int:pk>/cancel/", OrderCancelView.as_view(), name="cancel"),
     path("<int:pk>/track/", OrderTrackView.as_view(), name="track"),
     path("create/", OrderCreateView.as_view(), name="create"),
-    path("create-amr/", OrderCreateViewAmr.as_view(), name="create"),
+    path("create-session/", OrderCreateViewAmr.as_view(), name="create-session"),
     path("<int:pk>/deliver/", OrderDeliverView.as_view(), name="deliver"),
     path(
         "create-with-discount/",

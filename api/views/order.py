@@ -4,11 +4,12 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from api.selectors.order import get_order_by_id_and_user, get_orders_by_user
 from api.services.order import create_order_session
-
+from api.selectors.user import get_user_by_email
 from api.services.order import (
     cancel_order,
     create_order_from_cart,
     mark_order_as_delivered,
+    create_order_from_cart_multiple_stores,
 )
 from api.serializers.order import (
     OrderSerializer,
@@ -16,17 +17,15 @@ from api.serializers.order import (
     OrderCreateWithDiscountSerializer,
 )
 
-from api.models.payment import Payment
-from api.models.order import Order
-
-import logging
-
-logger = logging.getLogger(__name__)
-
 import stripe
 from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class OrderCancelView(APIView):
@@ -136,13 +135,6 @@ class OrderCreateViewAmr(APIView):
             return Response({"details": str(err)}, status=status.HTTP_400_BAD_REQUEST)
 
 
-import stripe
-from rest_framework import status
-from django.conf import settings
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 class StripeWebhookView(APIView):
     authentication_classes = []
     permission_classes = [AllowAny]
@@ -169,4 +161,13 @@ class StripeWebhookView(APIView):
 
 
 def handle_checkout_session_completed(session):
-    print("success")
+    payment_method = session.metadata.get("payment_method")
+    user_email = session.customer_email
+    user = get_user_by_email(user_email)
+
+    try:
+        order = create_order_from_cart_multiple_stores(user, payment_method)
+    except ValueError as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    return Response({"order_id": order.id}, status=status.HTTP_200_OK)
