@@ -15,8 +15,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["id","email", "name", "user_type", "address"]
+        fields = ["id", "email", "name", "user_type", "address"]
         read_only_feilds = ["id"]
+
     address = AddressSerializer(read_only=True, many=True, source="address_set")
 
 

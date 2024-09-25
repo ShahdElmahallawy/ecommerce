@@ -18,7 +18,7 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
             raise ValidationError("Enter a valid quantity greater than 0")
 
         # if value > get_stock_in_default_store(self.instance("product")):
-            # raise ValidationError("Not enough stock available for this product")
+        # raise ValidationError("Not enough stock available for this product")
 
         return value
 
