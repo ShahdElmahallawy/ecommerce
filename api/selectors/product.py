@@ -1,5 +1,5 @@
 from api.models import Product
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 
 def get_product_by_id(product_id):
@@ -34,6 +34,7 @@ def list_products():
         .prefetch_related("reviews")
         .exclude(is_deleted=True)
         .annotate(rating=Avg("reviews__rating"))
+        .annotate(num_reviews=Count("reviews"))
     )
     return products
 

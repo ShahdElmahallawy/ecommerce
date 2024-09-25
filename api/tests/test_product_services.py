@@ -7,7 +7,7 @@ from api.services.product import create_product, update_product, delete_product
 
 @pytest.fixture
 def product():
-    return Product.objects.create(name="Product", price=10, count=10)
+    return Product.objects.create(name="Product", price=10)
 
 
 @pytest.mark.django_db
@@ -16,13 +16,11 @@ def test_create_product():
         {
             "name": "Product",
             "price": 10,
-            "count": 10,
         }
     )
 
     assert product.name == "Product"
     assert product.price == 10
-    assert product.count == 10
 
 
 @pytest.mark.django_db

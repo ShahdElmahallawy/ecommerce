@@ -47,6 +47,28 @@ def test_create_payment(api_client_auth, user):
 
 
 @pytest.mark.django_db
+def test_create_payment_invalid(api_client_auth, user):
+    url = reverse("payment-create")
+    # invalid pan
+    data = {
+        "pan": "111122223333444",
+        "bank_name": "HSBC",
+        "expiry_date": "12/25",
+        "cvv": "999",
+        "card_type": "credit",
+    }
+    response = api_client_auth.post(url, data, format="json")
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # invalid cvv
+    data["pan"] = "1111222233334444"
+    data["cvv"] = "99"
+    response = api_client_auth.post(url, data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+@pytest.mark.django_db
 def test_create_payment_invalid_expiry_date(api_client_auth, user):
     url = reverse("payment-create")
     data = {

@@ -3,6 +3,7 @@ from api.models import Review
 from api.selectors.product import get_product_by_id
 
 from django.contrib.auth import get_user_model
+from api.validators.user_input import only_alphanumeric
 
 User = get_user_model()
 
@@ -37,6 +38,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         return data
 
     def validate_text(self, value):
-        if not all(char.isalnum() or char.isspace() for char in value):
-            raise serializers.ValidationError("Text must be alphanumeric.")
+        if value and value.strip():
+            only_alphanumeric(value)
         return value

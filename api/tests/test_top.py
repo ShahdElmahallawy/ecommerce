@@ -12,7 +12,6 @@ def create_product(db, admin):
         return Product.objects.create(
             name=name,
             price=price,
-            count=100,
             created_by=seller or admin,
             description="Test product",
             currency="USD",

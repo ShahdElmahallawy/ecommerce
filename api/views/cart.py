@@ -28,6 +28,7 @@ class AddToCartView(APIView):
         logger.info(f"Adding product to cart for {request.user.email}")
         serializer = CartItemCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        # TODO: add try-except block to handle ValidationError
         cart = add_to_cart(
             request.user,
             serializer.validated_data.get("product"),

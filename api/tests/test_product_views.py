@@ -14,7 +14,7 @@ User = get_user_model()
 
 @pytest.fixture
 def product(user):
-    return Product.objects.create(name="Product", price=10, count=10, created_by=user)
+    return Product.objects.create(name="Product", price=10, created_by=user)
 
 
 @pytest.mark.django_db
@@ -51,7 +51,6 @@ def test_product_create_view_not_admin_nor_seller(api_client_auth):
     data = {
         "name": "Product",
         "price": 10,
-        "count": 10,
     }
 
     response = api_client_auth.post(url, data)
@@ -77,7 +76,6 @@ def test_product_create_view_admin(mock_save, mock_delete, api_admin_auth):
     data = {
         "name": "Product",
         "price": 10,
-        "count": 10,
         "currency": "USD",
         "image": image_mock,
     }
@@ -86,6 +84,16 @@ def test_product_create_view_admin(mock_save, mock_delete, api_admin_auth):
     assert response.status_code == status.HTTP_201_CREATED
     assert response.data["name"] == "Product"
     assert response.data["price"] == 10
+
+    # invalid price
+    data["price"] = -10
+    response = api_admin_auth.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # invalid count
+    data["price"] = 10
+    response = api_admin_auth.post(url, data, format="multipart")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db
@@ -112,7 +120,6 @@ def test_product_create_view_seller(mock_save, mock_delete, user):
     data = {
         "name": "Product",
         "price": 10,
-        "count": 10,
         "currency": "USD",
         "image": image_mock,
     }
@@ -147,7 +154,6 @@ def test_product_create_fail(mock_save, mock_delete, user):
     data = {
         "name": "Product",
         "price": -10,
-        "count": 10,
         "currency": "USD",
         "image": image_mock,
     }
@@ -157,7 +163,6 @@ def test_product_create_fail(mock_save, mock_delete, user):
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     data["price"] = 10
-    data["count"] = -10
     # invalid count
     response = api_client.post(url, data, format="multipart")
     assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -169,7 +174,6 @@ def test_product_update_view_not_admin_nor_seller(api_client_auth, product):
     data = {
         "name": "Product Updated",
         "price": 20,
-        "count": 20,
     }
 
     response = api_client_auth.patch(url, data)
@@ -183,7 +187,6 @@ def test_product_update_view_admin(api_admin_auth, product):
     data = {
         "name": "Product Updated",
         "price": 20,
-        "count": 20,
     }
 
     response = api_admin_auth.patch(url, data)
@@ -205,7 +208,6 @@ def test_product_update_view_seller_and_owner(user, product):
     data = {
         "name": "Product Updated",
         "price": 20,
-        "count": 20,
     }
 
     response = api_client.patch(url, data)
@@ -213,7 +215,6 @@ def test_product_update_view_seller_and_owner(user, product):
     assert response.status_code == status.HTTP_200_OK
     assert response.data["name"] == "Product Updated"
     assert response.data["price"] == 20
-    assert response.data["count"] == 20
 
 
 @pytest.mark.django_db
@@ -230,7 +231,6 @@ def test_product_update_view_seller_not_owner(product):
     data = {
         "name": "Product Updated",
         "price": 20,
-        "count": 20,
     }
 
     response = api_client.patch(url, data)

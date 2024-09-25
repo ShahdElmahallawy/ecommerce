@@ -27,7 +27,7 @@ pytest --pdb
 ## Run tests and generate html report
 
 ```sh
-pytest -n 10 --cov-report html --cov-config=.coveragerc --cov=api api/tests/
+pytest -n auto --cov-report html --cov-config=.coveragerc --cov=api api/tests/
 ```
 
 ## Run tests and generate xml and txt report

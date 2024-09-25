@@ -4,6 +4,9 @@ from rest_framework import serializers
 
 from api.models import Profile
 
+from api.validators.user_input import only_digits
+from api.serializers.address import AddressSerializer
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """
@@ -12,7 +15,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ["email", "name", "user_type"]
+        fields = ["id", "email", "name", "user_type", "address"]
+        read_only_feilds = ["id"]
+
+    address = AddressSerializer(read_only=True, many=True, source="address_set")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -27,14 +33,20 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["user", "address", "phone", "preferred_currency"]
+        fields = ["user", "phone", "preferred_currency"]
+
+    def validate_phone(self, value):
+        """
+        Validate the provided phone number.
+        """
+        if len(value) != 11:
+            raise serializers.ValidationError("Phone number must be 11 digits.")
+        only_digits(value)
+        return value
 
     def update(self, instance, validated_data):
         """
         Update the profile and the associated user's information.
-
-        Returns:
-            instance: The updated profile.
         """
         user_data = validated_data.pop("user", None)
         if user_data:

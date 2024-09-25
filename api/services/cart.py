@@ -1,6 +1,7 @@
 from api.models.cart_item import CartItem
 from api.selectors.cart import get_cart_by_user, get_cart_item, get_cart_item_by_product
 from rest_framework.exceptions import ValidationError
+from api.selectors.store import get_stock_in_default_store
 from logging import getLogger
 
 logger = getLogger(__name__)
@@ -11,6 +12,9 @@ def add_to_cart(user, product, quantity):
     try:
         cart_item = get_cart_item_by_product(user, product)
         cart_item.quantity += quantity
+        # if cart_item.quantity > get_stock_in_default_store(product):
+        #     logger.error(f"Not enough stock available for {product.name}")
+        #     raise ValidationError({"detail": "Not enough stock available for this product"})
         cart_item.save()
     except CartItem.DoesNotExist:
         cart = get_cart_by_user(user)

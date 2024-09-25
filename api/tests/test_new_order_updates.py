@@ -20,6 +20,9 @@ def payment(user):
     )
 
 
+from api.tests.factories import StoreFactory, InventoryFactory
+
+
 @pytest.mark.django_db
 def test_create_order_success(api_client_auth, user, product, payment):
 
@@ -28,6 +31,8 @@ def test_create_order_success(api_client_auth, user, product, payment):
 
     cart = Cart.objects.create(user=user)
     CartItem.objects.create(cart=cart, product=product, quantity=2)
+    store = StoreFactory(seller=user, is_default_shipping=True)
+    inventory = InventoryFactory(product=product, store=store)
 
     response = api_client_auth.post(url, data, format="json")
 

@@ -27,7 +27,9 @@ def get_payment(payment_id, user):
 
 
 def get_payment_by_id(payment_id):
-
-    payment = Payment.objects.get(id=payment_id)
+    try:
+        payment = Payment.objects.get(id=payment_id)
+    except Payment.DoesNotExist:
+        return None
 
     return payment

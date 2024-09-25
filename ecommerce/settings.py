@@ -32,10 +32,13 @@ SECRET_KEY = "django-insecure-uctg3&w272pke5%_#glxsv8ix&7&=2t6yz0h=hl-h_a3w7wf2w
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".ngrok-free.app",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -57,6 +60,11 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"anon": "100/min", "user": "100/min"},
 }
 
 SPECTACULAR_SETTINGS = {
@@ -212,5 +220,9 @@ CELERY_BEAT_SCHEDULE = {
     "task-name": {
         "task": "api.tasks.send_restock_mails",
         "schedule": crontab(minute=0, hour=0),
+    },
+    "process_settlements_twice_a_month": {
+        "task": "api.tasks.process_settlements",
+        "schedule": crontab(hour=0, minute=0),
     },
 }

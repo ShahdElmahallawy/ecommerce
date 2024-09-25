@@ -1,8 +1,9 @@
 from django.urls import path, include
 
 
-from .views.category import (
+from api.views.category import (
     CategoryListView,
+    CreateCategoryView,
     CategoryDetailView,
     CategoryUpdateView,
     CategoryDeleteView,
@@ -80,8 +81,45 @@ from .views.supplier import (
 from api.views.top import TopSellingProductsView, TopRatedProductsView
 from api.views.discount import DiscountCreateView, DiscountListView
 
+
+from api.views.store import (
+    StoreListView,
+    StoreDetailView,
+    StoreCreateView,
+    StoreUpdateView,
+    StoreDeleteView,
+    StoreBySellerView,
+)
+
+from api.views.inventory import (
+    InventoryListView,
+    InventoryDetailView,
+    InventoryCreateView,
+    InventoryUpdateView,
+    InventoryDeleteView,
+)
+
+from api.views.sales import WeeklySalesView, DailySalesView, MonthlySalesView
+from api.views.address import (
+    AddressListView,
+    AddressCreateView,
+    AddressDetailView,
+    AddressUpdateView,
+    AddressDeleteView,
+)
+from .views.settled import SellerOrderListView
+
+Address_patterns = [
+    path("", AddressListView.as_view(), name="address_list"),
+    path("new/", AddressCreateView.as_view(), name="address_create"),
+    path("<int:pk>/", AddressDetailView.as_view(), name="address_detail"),
+    path("<int:pk>/edit/", AddressUpdateView.as_view(), name="address_update"),
+    path("<int:pk>/delete/", AddressDeleteView.as_view(), name="address_delete"),
+]
+
 category_patterns = [
     path("", CategoryListView.as_view(), name="list"),
+    path("create/", CreateCategoryView.as_view(), name="create-category"),
     path("<int:pk>/", CategoryDetailView.as_view(), name="detail"),
     path("<int:pk>/update/", CategoryUpdateView.as_view(), name="update"),
     path("<int:pk>/delete/", CategoryDeleteView.as_view(), name="delete"),
@@ -223,6 +261,36 @@ discount_patterns = [
     path("create/", DiscountCreateView.as_view(), name="create"),
     path("list/", DiscountListView.as_view(), name="list"),
 ]
+sales_patterns = [
+    path("daily/", DailySalesView.as_view(), name="daily-sales"),
+    path("weekly/", WeeklySalesView.as_view(), name="weekly-sales"),
+    path("monthly/", MonthlySalesView.as_view(), name="monthly-sales"),
+]
+
+store_patterns = [
+    path("", StoreListView.as_view(), name="store-list"),
+    path("by-seller/", StoreBySellerView.as_view(), name="store-by-seller"),
+    path("<int:store_id>/", StoreDetailView.as_view(), name="store-detail"),
+    path("create/", StoreCreateView.as_view(), name="store-create"),
+    path("<int:store_id>/update/", StoreUpdateView.as_view(), name="store-update"),
+    path("<int:store_id>/delete/", StoreDeleteView.as_view(), name="store-delete"),
+]
+
+inventory_patterns = [
+    path("", InventoryListView.as_view(), name="inventory-list"),
+    path("<int:inventory_id>/", InventoryDetailView.as_view(), name="inventory-detail"),
+    path("create/", InventoryCreateView.as_view(), name="inventory-create"),
+    path(
+        "<int:inventory_id>/update/",
+        InventoryUpdateView.as_view(),
+        name="inventory-update",
+    ),
+    path(
+        "<int:inventory_id>/delete/",
+        InventoryDeleteView.as_view(),
+        name="inventory-delete",
+    ),
+]
 
 urlpatterns = [
     path("categories/", include((category_patterns, "categories"))),
@@ -236,6 +304,9 @@ urlpatterns = [
     path("reviews/", include(review_patterns)),
     path("suppliers/", include(supplier_patterns)),
     path("discount/", include(discount_patterns)),
+    path("stores/", include(store_patterns)),
+    path("inventories/", include(inventory_patterns)),
+    path("address/", include(Address_patterns)),
     path(
         "top-selling-products/",
         TopSellingProductsView.as_view(),
@@ -246,4 +317,6 @@ urlpatterns = [
         TopRatedProductsView.as_view(),
         name="top-rated-products",
     ),
+    path("sales/", include(sales_patterns)),
+    path("settlments/", SellerOrderListView.as_view(), name="seller-orders"),
 ]

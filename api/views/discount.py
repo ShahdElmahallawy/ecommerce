@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class DiscountCreateView(APIView):
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
 
@@ -39,7 +39,7 @@ class DiscountCreateView(APIView):
 
 class DiscountListView(APIView):
 
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         from api.models.user import User

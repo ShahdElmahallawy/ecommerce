@@ -19,9 +19,9 @@ class Profile(Audit):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    address = models.ForeignKey(
-        Address, related_name="shipping_address", on_delete=models.SET_NULL, null=True
-    )
+    # address = models.ForeignKey(
+    #     Address, related_name="shipping_address", on_delete=models.SET_NULL, null=True
+    # )
 
     phone = models.CharField(max_length=11, null=True)
 

@@ -155,15 +155,18 @@ def test_user_login_invalid(api_client, user):
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    # missing password
+    # no password
     data = {"email": "user@example.com"}
     response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    # missing email
+    # no email
     data = {"password": "testpassword123"}
     response = api_client.post(url, data, format="json")
     assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    # no data
+    response = api_client.post(url, format="json")
 
 
 @pytest.mark.django_db
@@ -227,13 +230,18 @@ def test_refresh_token(api_client, user):
     assert "access" in response.data
     assert "refresh" in response.data
 
+    # no refresh
+    data = {}
+    response = api_client.post(url, data, format="json")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
 
 @patch("api.utils.mails.send_mail")
 def test_refresh_token_fail_no_refresh_token(mock_send_mail, api_client, user):
     url = reverse("refresh-token")
 
+    # no refresh
     data = {}
-    # no refresh token
     response = api_client.post(url, data, format="json")
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST

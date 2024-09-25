@@ -8,7 +8,7 @@ from api.models.supplier import Supplier
 from django.contrib.auth import get_user_model
 from api.models.audit import Audit
 from api.constants import CURRENCY_CHOICES
-
+from api.validators.product import validate_file_size
 
 User = get_user_model()
 
@@ -29,8 +29,8 @@ class Product(Audit):
     name = models.CharField(max_length=255)
     price = models.FloatField(validators=[MinValueValidator(0)])
     description = models.TextField(null=True)
-    image = models.ImageField(upload_to="api/images/")
-    count = models.PositiveIntegerField()
+    image = models.ImageField(upload_to="api/images/", validators=[validate_file_size])
+    # count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default="USD")
     created_by = models.ForeignKey(

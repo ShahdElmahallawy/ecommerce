@@ -39,7 +39,7 @@ services:
 
   celery:
     build: .
-    command: celery -A ecommerce worker --loglevel=info
+    command: celery -A ecommerce worker --loglevel=info --pool=solo
     volumes:
       - .:/app
     environment:
