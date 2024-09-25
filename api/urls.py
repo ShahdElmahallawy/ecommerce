@@ -16,6 +16,7 @@ from .views.order import (
     OrderCreateView,
     OrderDeliverView,
     OrderCreateViewWithDiscount,
+    OrderPaymentResponseView,
 )
 
 from .views.cart import (
@@ -142,6 +143,11 @@ order_patterns = [
         "create-with-discount/",
         OrderCreateViewWithDiscount.as_view(),
         name="create-with-discount",
+    ),
+    path(
+        "redirect/",
+        OrderPaymentResponseView.as_view(),
+        name="payment-response",
     ),
 ]
 

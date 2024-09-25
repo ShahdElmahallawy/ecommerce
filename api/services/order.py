@@ -139,13 +139,14 @@ def create_order_session(request, user, payment_method, discount_code=None):
     if not items.exists():
         raise ValueError("The cart is empty")
 
+    if not get_payment(user=user, payment_id=payment_method):
+        raise ValueError("Invalid payment method")
+
     items_list = []
     for item in items:
         product = item.product
-
-        if product.count < item.quantity:
+        if get_stock_in_default_store(product) < item.quantity:
             raise ValueError(f"Not enough stock for product {product.name}")
-
         items_list.append(
             {
                 "price_data": {

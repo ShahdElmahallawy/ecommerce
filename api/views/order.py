@@ -125,10 +125,9 @@ class OrderCreateViewAmr(APIView):
         serializer.is_valid(raise_exception=True)
         user = request.user
         payment_method = serializer.validated_data["payment_method"]
-        discount_code = serializer.validated_data.get("discount_code")
 
         try:
-            session = create_order_session(request, user, payment_method, discount_code)
+            session = create_order_session(request, user, payment_method)
             return Response(session, status=status.HTTP_200_OK)
 
         except Exception as err:
@@ -160,14 +159,31 @@ class StripeWebhookView(APIView):
         return Response({"status": "success"}, status=status.HTTP_200_OK)
 
 
+class OrderPaymentResponseView(APIView):
+    def get(self, request):
+        payment_status = request.query_params.get("status")
+        if payment_status == "success":
+            return Response(
+                {"message": "Payment successful"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"message": "Payment failed"}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+
 def handle_checkout_session_completed(session):
+    logger.info(f"Handling checkout session completed for session {session.id}")
     payment_method = session.metadata.get("payment_method")
+    discount_code = session.metadata.get("discount_code")
     user_email = session.customer_email
     user = get_user_by_email(user_email)
 
     try:
-        order = create_order_from_cart_multiple_stores(user, payment_method)
+        order = create_order_from_cart(user, payment_method, discount_code)
+        logger.info(f"Order created for user {user_email}")
     except ValueError as e:
+        logger.error(f"Error creating order for user {user_email}: {str(e)}")
         return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
+    logger.info(f"Order created for user final {user_email}")
     return Response({"order_id": order.id}, status=status.HTTP_200_OK)
