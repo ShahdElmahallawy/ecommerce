@@ -30,7 +30,7 @@ class Product(Audit):
     price = models.FloatField(validators=[MinValueValidator(0)])
     description = models.TextField(null=True)
     image = models.ImageField(upload_to="api/images/", validators=[validate_file_size])
-    count = models.PositiveIntegerField()
+    # count = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default="USD")
     created_by = models.ForeignKey(

@@ -1,28 +1,27 @@
 import factory
-
 from factory.django import DjangoModelFactory
+from decimal import Decimal
+from django.utils import timezone
+
 from api.models import Product, Order, OrderItem, Review, Category
 from api.models.payment import Payment
 from api.models.user import User
-from decimal import Decimal
-from django.utils import timezone
 from api.models.supplier import Supplier
 from api.models.report import Report
 from api.models.discount import Discount
-
-from django.contrib.auth import get_user_model
-from factory.django import DjangoModelFactory
-from api.models.supplier import Supplier
-from api.models.product import Product
 from api.models.wishlist import Wishlist
 from api.models.wishlist_item import WishlistItem
-from api.models.payment import Payment
 from api.models.cart import Cart
 from api.models.cart_item import CartItem
 from api.models.profile import Profile
 from api.models.review import Review
 from api.models.store import Store
 from api.models.inventory import Inventory
+from api.models.address import Address
+from django_countries import countries
+
+from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 
@@ -47,7 +46,7 @@ class PaymentFactory(DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     pan = factory.Faker("credit_card_number")
     bank_name = factory.Faker("company")
-    expiry_date = factory.Faker("credit_card_expire")
+    expiry_date = factory.Faker("date_object")
     cvv = factory.Faker("random_number", digits=3)
     card_type = factory.Faker("random_element", elements=["credit", "debit"])
     default = factory.Faker("boolean")
@@ -79,7 +78,6 @@ class ProductFactory(DjangoModelFactory):
     price = factory.Faker("pyfloat", left_digits=2, right_digits=2, positive=True)
     description = factory.Faker("sentence")
     image = factory.django.ImageField(filename="test_image.jpg")
-    count = factory.Faker("random_int", min=1, max=100)
     currency = factory.Faker("random_element", elements=["USD", "EUR", "EGP"])
     created_by = factory.SubFactory(UserFactory)
     supplier = factory.SubFactory(SupplierFactory)
@@ -215,3 +213,18 @@ class InventoryFactory(DjangoModelFactory):
     product = factory.SubFactory(ProductFactory)
     stock = factory.Faker("random_int", min=1, max=100)
     store = factory.SubFactory(StoreFactory)
+
+
+class AddressFactory(DjangoModelFactory):
+    class Meta:
+        model = Address
+
+    user = factory.SubFactory(UserFactory)
+    street_address = factory.Faker("street_address")
+    apartment_address = factory.Faker("secondary_address")
+    country = factory.Faker(
+        "random_element", elements=[code for code, name in countries]
+    )
+    zip = factory.Faker("postcode")
+    address_type = factory.Faker("random_element", elements=["home", "work"])
+    default = factory.Faker("boolean")

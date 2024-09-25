@@ -149,7 +149,7 @@ class ProductAdmin(admin.ModelAdmin):
         "name",
         "price",
         "description",
-        "count",
+        # "count",
         "category_name",
         "currency",
         "created_by",
@@ -170,7 +170,7 @@ class ProductAdmin(admin.ModelAdmin):
                     "price",
                     "description",
                     "image",
-                    "count",
+                    # "count",
                     "category",
                     "currency",
                     "created_by",
@@ -190,7 +190,7 @@ class ProductAdmin(admin.ModelAdmin):
                     "price",
                     "description",
                     "image",
-                    "count",
+                    # "count",
                     "category",
                     "currency",
                     "created_by",
@@ -203,7 +203,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ["category", "supplier", "created_by", InventoryFilter]
     search_fields = ["name", "description"]
     autocomplete_fields = ["supplier"]
-    list_editable = ["price", "count"]
+    list_editable = ["price"]
     list_select_related = ["category", "created_by", "supplier"]
     list_per_page = 10
 

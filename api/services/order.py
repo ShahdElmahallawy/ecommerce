@@ -16,6 +16,9 @@ from rest_framework.response import Response
 from api.services.discount import apply_discount_to_order
 from api.selectors.store import get_stock_in_default_store
 
+from rest_framework import status
+from api.selectors.store import get_stock_in_default_store
+from api.models.inventory import Inventory
 
 logger = logging.getLogger(__name__)
 
@@ -93,13 +96,20 @@ def create_order_from_cart(user, payment_method, discount_code=None):
     for cart_item in cart_items:
         product = cart_item.product
 
-        if product.count < cart_item.quantity:
+        try:
+            inventory = Inventory.objects.get(product=product)
+        except Inventory.DoesNotExist:
+            raise ValueError(
+                f"No inventory found for product {product.name} in the default store"
+            )
+
+        if get_stock_in_default_store(product) < cart_item.quantity:
             raise ValueError(f"Not enough stock for product {product.name}")
-
+        #
         product_updates.append(
-            Product(id=product.id, count=F("count") - cart_item.quantity)
+            Inventory(id=inventory.id, stock=F("stock") - cart_item.quantity)
         )
-
+        #
         order_item = OrderItem(
             order=order,
             product=product,
@@ -110,7 +120,7 @@ def create_order_from_cart(user, payment_method, discount_code=None):
 
         OrderItem.objects.bulk_create(order_items)
 
-        Product.objects.bulk_update(product_updates, ["count"])
+        Inventory.objects.bulk_update(product_updates, ["stock"])
 
         cart.items.all().delete()
 

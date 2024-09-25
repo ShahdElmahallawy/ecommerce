@@ -11,7 +11,7 @@ from api.models.payment import Payment
 
 @pytest.mark.django_db
 def test_category_serializer():
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
+    product = Product.objects.create(name="Test Product", price=10.00)
     category = Category.objects.create(name="Test Category", featured_product=product)
     serializer = CategorySerializer(category)
     data = serializer.data
@@ -35,7 +35,7 @@ def test_order_serializer():
 
     order = Order.objects.create(user=user, payment_method=payment)
 
-    product = Product.objects.create(name="Test Product", price=10.00, count=10)
+    product = Product.objects.create(name="Test Product", price=10.00)
     order_item = OrderItem.objects.create(
         order=order, product=product, quantity=2, unit_price=10.00
     )

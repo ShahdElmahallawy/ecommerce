@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 
 @pytest.fixture
 def product(db):
-    return Product.objects.create(name="Product", price=10, count=10)
+    return Product.objects.create(name="Product", price=10)
 
 
 @pytest.mark.django_db
