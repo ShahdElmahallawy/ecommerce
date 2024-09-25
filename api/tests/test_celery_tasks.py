@@ -14,7 +14,7 @@ def test_send_restock_mails(mock_product, mock_send_mail, caplog):
         name="Supplier X", email="supplier@example.com"
     )
     mock_product_instance.name = "Product X"
-    mock_product_instance.count = 3
+    # mock_product_instance.count = 3
 
     mock_product.objects.select_related.return_value.filter.return_value = [
         mock_product_instance

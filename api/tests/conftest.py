@@ -75,7 +75,6 @@ def product(db, user):
         name="Test Product",
         price=100.00,
         description="A test product",
-        count=10,
         currency="USD",
         created_by=user,
     )

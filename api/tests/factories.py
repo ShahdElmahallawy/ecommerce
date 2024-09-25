@@ -78,7 +78,6 @@ class ProductFactory(DjangoModelFactory):
     price = factory.Faker("pyfloat", left_digits=2, right_digits=2, positive=True)
     description = factory.Faker("sentence")
     image = factory.django.ImageField(filename="test_image.jpg")
-    count = factory.Faker("random_int", min=1, max=100)
     currency = factory.Faker("random_element", elements=["USD", "EUR", "EGP"])
     created_by = factory.SubFactory(UserFactory)
     supplier = factory.SubFactory(SupplierFactory)

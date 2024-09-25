@@ -8,7 +8,7 @@ from django.urls import reverse
 
 @pytest.fixture
 def product():
-    return Product.objects.create(name="Test Product", price=100.0, count=10)
+    return Product.objects.create(name="Test Product", price=100.0)
 
 
 @pytest.fixture

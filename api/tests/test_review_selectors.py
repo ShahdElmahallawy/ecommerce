@@ -12,7 +12,7 @@ User = get_user_model()
 
 @pytest.fixture
 def product(db):
-    return Product.objects.create(name="Product", price=10, count=10)
+    return Product.objects.create(name="Product", price=10)
 
 
 @pytest.mark.django_db
@@ -28,7 +28,7 @@ def test_get_reviews_by_product(product, user):
     Review.objects.create(product=product, rating=5, text="Review", user=user)
     assert get_reviews_by_product(product).count() == 1
 
-    product2 = Product.objects.create(name="Product2", price=10, count=10)
+    product2 = Product.objects.create(name="Product2", price=10)
     assert get_reviews_by_product(product2).count() == 0
 
 

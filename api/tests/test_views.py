@@ -93,7 +93,6 @@ def test_category_product_list_view(api_client_auth):
         name="Laptop",
         price=999.99,
         description="A high-performance laptop.",
-        count=10,
         currency="USD",
     )
     category.featured_product = featured_product
@@ -110,7 +109,6 @@ def test_category_product_list_view(api_client_auth):
         "name": "Laptop",
         "price": 999.99,
         "description": "A high-performance laptop.",
-        "count": 10,
         "currency": "USD",
     }
 
@@ -118,7 +116,6 @@ def test_category_product_list_view(api_client_auth):
     assert response.data[0]["name"] == expected_data["name"]
     assert response.data[0]["price"] == expected_data["price"]
     assert response.data[0]["description"] == expected_data["description"]
-    assert response.data[0]["count"] == expected_data["count"]
     assert response.data[0]["currency"] == expected_data["currency"]
 
 
@@ -129,7 +126,6 @@ def test_category_product_list(api_client_auth):
         name="Smartphone",
         price=699.99,
         description="A high-end smartphone",
-        count=50,
         currency="USD",
     )
 

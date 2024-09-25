@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "price",
-            "count",
+            # "count",
             "created_by",
             "category",
             "currency",
@@ -39,8 +39,8 @@ class ProductSerializer(serializers.ModelSerializer):
         if "price" in data and data["price"] < 0:
             raise serializers.ValidationError("Price cannot be negative.")
 
-        if "count" in data and data["count"] < 0:
-            raise serializers.ValidationError("Count cannot be negative.")
+        # if "count" in data and data["count"] < 0:
+        # raise serializers.ValidationError("Count cannot be negative.")
 
         if self.context.get("user"):
             data["created_by"] = self.context["user"]

@@ -15,8 +15,9 @@ logger = getLogger(__name__)
 
 @shared_task
 def send_restock_mails():
+    # to be tested
     products = Product.objects.select_related("created_by", "supplier").filter(
-        count__lte=5, created_by__isnull=False
+        inventory__stock__lte=5, created_by__isnull=False
     )
 
     seller_products = defaultdict(list)
@@ -26,7 +27,7 @@ def send_restock_mails():
     for seller, products in seller_products.items():
         product_list = "\n".join(
             [
-                f"{product.name} (Supplier: {product.supplier.name} - contact:{product.supplier.email}) - {product.count} left"
+                f"{product.name} (Supplier: {product.supplier.name} - contact:{product.supplier.email}) "
                 for product in products
             ]
         )
