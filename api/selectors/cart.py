@@ -17,3 +17,7 @@ def get_cart_item(user, id):
 def get_cart_item_by_product(user, product):
     """Get a cart item by product"""
     return CartItem.objects.get(cart__user=user, product=product)
+
+
+def get_cart_items(user):
+    return CartItem.objects.select_related("product").filter(cart__user=user).all()

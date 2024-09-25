@@ -117,7 +117,7 @@ def reset_user_password(user, new_password):
 
 def update_user_password(user, new_password):
     user.set_password(new_password)
-    user.password_changed_at = timezone.now() + timedelta(seconds=1)
+    user.password_changed_at = timezone.now() - timedelta(seconds=2)
 
     user.save(
         update_fields=[

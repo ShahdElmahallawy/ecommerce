@@ -24,8 +24,10 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+from api.views.order import StripeWebhookView
 
 urlpatterns = [
+    path("api/orders/webhook", StripeWebhookView.as_view(), name="webhook"),
     path("admin/", admin.site.urls),
     path("api/", include("api.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),

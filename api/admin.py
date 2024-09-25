@@ -137,7 +137,6 @@ class InventoryFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset: QuerySet):
         if self.value() == "<5":
-            print("filtering")
             return queryset.filter(count__lt=5)
 
 

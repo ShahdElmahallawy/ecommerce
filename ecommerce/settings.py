@@ -131,7 +131,8 @@ if os.getenv("MYSQL_ACTIVE") == "True":
         }
     }
 
-
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+WEBHOOK_SECRET_KEY = os.getenv("WEBHOOK_SECRET_KEY")
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
