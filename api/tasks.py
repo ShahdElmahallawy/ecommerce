@@ -1,7 +1,7 @@
 import os
 from django.core.mail import send_mail
 from collections import defaultdict
-from api.models import Product
+from api.models import Inventory
 from celery import shared_task
 from logging import getLogger
 from datetime import timedelta
@@ -15,27 +15,33 @@ logger = getLogger(__name__)
 
 @shared_task
 def send_restock_mails():
-    # to be tested
-    products = Product.objects.select_related("created_by", "supplier").filter(
-        inventory__stock__lte=5, created_by__isnull=False
-    )
+    low_stock_inventories = Inventory.objects.select_related(
+        "store__seller", "product__supplier"
+    ).filter(stock__lte=5, store__seller__isnull=False)
 
-    seller_products = defaultdict(list)
-    for product in products:
-        seller_products[product.created_by].append(product)
-    logger.info(seller_products)
-    for seller, products in seller_products.items():
+    seller_stores_products = defaultdict(list)
+
+    for inventory in low_stock_inventories:
+        seller_stores_products[inventory.store.seller].append(inventory)
+
+    logger.info(seller_stores_products)
+
+    for seller, inventories in seller_stores_products.items():
+        print(1)
         product_list = "\n".join(
             [
-                f"{product.name} (Supplier: {product.supplier.name} - contact:{product.supplier.email}) "
-                for product in products
+                f"{inventory.product.name} (Supplier: {inventory.product.supplier}"
+                f" - {inventory.stock} left in store {inventory.store.name} (Location: {inventory.store.location})"
+                for inventory in inventories
             ]
         )
+
         email_body = (
             f"The following products are low on stock:\n\n{product_list}\n\n"
             "Please restock them by contacting the respective suppliers.\n\n"
             "Ecommerce Team.\nCEO: Amr"
         )
+
         try:
             send_mail(
                 "Restock products",
@@ -48,7 +54,9 @@ def send_restock_mails():
             logger.error(
                 f"Periodic task failed: failed to send email to {seller.email}, {e}"
             )
+
         logger.info(f"Email sent to {seller.email}, products: {product_list}")
+
     logger.info("Periodic task completed, restock emails sent")
 
 

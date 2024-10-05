@@ -6,7 +6,7 @@ from api.tasks import send_restock_mails
 
 @pytest.mark.django_db
 @patch("api.tasks.send_mail")
-@patch("api.tasks.Product")
+@patch("api.tasks.Inventory")
 def test_send_restock_mails(mock_product, mock_send_mail, caplog):
     mock_product_instance = MagicMock()
     mock_product_instance.created_by = MagicMock(email="seller@example.com")
